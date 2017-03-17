@@ -1,0 +1,7 @@
+Flask
+flask_bcrypt
+flask_migrate
+Flask-Script
+Flask-SQLAlchemy
+overpy
+psycopg2

@@ -1,0 +1,13 @@
+version: '2'
+services:
+  db:
+    image: postgres
+  web:
+    build: .
+    command: -d
+    volumes:
+      - .:/app
+    ports:
+      - "80:5000"
+    depends_on:
+      - db

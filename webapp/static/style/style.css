@@ -1,0 +1,42 @@
+#map {
+    top: 30px;
+    height: 180px;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+#menu {
+    position: absolute;
+    top: 0px left: 0px;
+    height: 30px;
+    width: 100%;
+    background-color: #555555;
+    color: #ffffff;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
+img, .resource{
+    height: 15px;
+}
+
+.resource, .resource_hidden {
+    float: left;
+    padding-left: 15px;
+}
+
+#resourcebar #resourcebar_hidden{
+  float: left;
+  display: none;
+}
+
+#resourcebar:hover #resourcebar_hidden{
+  float: left;
+  display: block;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, serif;
+}
