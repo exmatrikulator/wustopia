@@ -10,6 +10,12 @@
 <div id="menu">
     <div id="user" class="menu"></div>
     <div id="resources" class="menu"></div>
+    <div id="logout" class="menu">
+      {% if current_user.is_authenticated %}
+        ({{ current_user.username }})
+      {% endif %}
+      <a href="/user/logout">Logout</a>
+    </div>
 </div>
 <div id="map"></div>
 <script src="{{ url_for('static',filename='javascript/jquery-3.1.1.min.js') }}"></script>

@@ -8,10 +8,14 @@ from webapp.models import *
 from webapp.places import getPlaces
 from webapp.forms import *
 
-
 @app.route("/")
 def index():
     return render_template('index.html', UserLoginForm=UserLoginForm(), UserCreateForm=UserCreateForm())
+
+@app.route("/map")
+@login_required
+def map():
+    return render_template('map.html')
 
 @app.route("/resources")
 def resources():

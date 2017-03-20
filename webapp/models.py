@@ -40,7 +40,7 @@ class Resource(db.Model):
 
 
 class User(db.Model):
-    __tablename__ = 'user'
+    __tablename__ = 'users'
     id = Column(Integer(), primary_key=True)
     username = Column(String(32), unique=True)
     _password = Column(Binary(60), nullable=False)
@@ -57,5 +57,11 @@ class User(db.Model):
     def is_correct_password(self, plaintext):
         return bcrypt.check_password_hash(self._password, plaintext)
 
+    def get_id(self):
+        return str(self.id)
+
     def is_active():
+        return True
+
+    def is_authenticated(self):
         return True
