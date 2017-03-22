@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 from flask_bcrypt import Bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy import Column, Integer, Float, BigInteger, String, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, Float, BigInteger, String, Boolean, Binary, ForeignKey
 from sqlalchemy.orm import relationship
 
 from webapp import db
+
+bcrypt = Bcrypt()
 
 class Place(db.Model):
     __tablename__ = 'place'
@@ -38,10 +40,10 @@ class Resource(db.Model):
 
 
 class User(db.Model):
-    __tablename__ = 'user'
+    __tablename__ = 'users'
     id = Column(Integer(), primary_key=True)
-    login = Column(String(32), unique=True)
-    _password = Column(String(64))
+    username = Column(String(32), unique=True)
+    _password = Column(Binary(60), nullable=False)
     email = Column(String(255))
 
     @hybrid_property
@@ -54,3 +56,12 @@ class User(db.Model):
 
     def is_correct_password(self, plaintext):
         return bcrypt.check_password_hash(self._password, plaintext)
+
+    def get_id(self):
+        return str(self.id)
+
+    def is_active():
+        return True
+
+    def is_authenticated(self):
+        return True

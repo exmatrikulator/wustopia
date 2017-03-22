@@ -1,22 +1,23 @@
 {% extends "base.html" %} {% block title %}Index{% endblock %} {% block head %} {{ super() }}
-<style type="text/css">
-    .important {
-        color: #336699;
-    }
-</style>
-<link rel="stylesheet" href="{{ url_for('static',filename='style/leaflet.css') }}" />
-<script src="{{ url_for('static',filename='javascript/leaflet.js') }}"></script>
+
 {% endblock %} {% block content %}
-<div id="menu">
-    <div id="user" class="menu"></div>
-    <div id="resources" class="menu"></div>
-</div>
-<div id="map"></div>
-<script src="{{ url_for('static',filename='javascript/jquery-3.1.1.min.js') }}"></script>
-<script>
-    var user = '';
-</script>
-<script src="{{ url_for('static',filename='javascript/application.js') }}"></script>
-<script src="/places">
-</script>
+
+<h1>Wustopia</h1>
+
+Login
+		<form method="POST" action="/user/login">
+			{{ UserLoginForm.hidden_tag() }}
+			{{ UserLoginForm.username.label }} {{ UserLoginForm.username() }}<br/>
+			{{ UserLoginForm.password.label }} {{ UserLoginForm.password() }}<br/>
+			<input type="submit" value="login">
+		</form>
+		Create
+		<form method="POST" action="/user/create">
+			{{ UserCreateForm.hidden_tag() }}
+			{{ UserCreateForm.username.label }} {{ UserCreateForm.username() }}<br/>
+			{{ UserCreateForm.email.label }} {{ UserCreateForm.email() }}<br/>
+			{{ UserCreateForm.password.label }} {{ UserCreateForm.password() }}<br/>
+			<input type="submit" value="create">
+		</form>
+    
 {% endblock %}

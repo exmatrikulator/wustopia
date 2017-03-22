@@ -16,6 +16,13 @@
     padding-top: 5px;
 }
 
+#logout, #logout a {
+  margin-right: 10px;
+    text-align: right;
+    color: #ffffff;
+    text-decoration: none;
+}
+
 img, .resource{
     height: 15px;
 }
