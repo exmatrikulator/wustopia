@@ -34,7 +34,18 @@ def resources():
 
 @app.route("/build")
 def build():
-    return ""
+    #TODO:Do some checks!
+    building = db.session.query(Built).filter_by(place = request.args.get('place'), user = current_user.id).first()
+    if building:
+        building.level = building.level+1
+    else:
+        db.session.add(Built(place = request.args.get('place'), user = current_user.id))
+    try:
+        db.session.commit()
+        return "success"
+    except:
+        db.session.rollback()
+        return "unkown Error"
 
 
 @app.route("/places")

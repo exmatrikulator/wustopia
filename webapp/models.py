@@ -9,6 +9,15 @@ from webapp import db
 
 bcrypt = Bcrypt()
 
+##Stores the buildings of the user
+class Built(db.Model):
+    __tablename__ = 'built'
+    id = Column(Integer(), primary_key=True)
+    place = Column(Integer, ForeignKey('place.id'))
+    user = Column(Integer, ForeignKey('users.id'))
+    level = Column(Integer(), default=1 )
+
+##Stores the places (nodes) from OSM
 class Place(db.Model):
     __tablename__ = 'place'
     id = Column(Integer(), primary_key=True)
@@ -18,6 +27,7 @@ class Place(db.Model):
     name = Column(String(255))
     placecategory = Column(Integer, ForeignKey('placecategory.id'))
 
+##Stores the category of a place. E.g. Bus Stop, Restaurant
 class PlaceCategory(db.Model):
     __tablename__ = 'placecategory'
     id = Column(Integer(), primary_key=True)
@@ -31,6 +41,7 @@ class PlaceCategoryBenefit(db.Model):
     id = Column(Integer(), primary_key=True)
     placecategory = Column(Integer, ForeignKey('placecategory.id'))
 
+##Stores the possible Resourceses witch User can earn/trade
 class Resource(db.Model):
     __tablename__ = 'resource'
     id = Column(Integer(), primary_key=True)
@@ -38,7 +49,7 @@ class Resource(db.Model):
     image = Column(String(255))
     major = Column(Boolean())  #is a major resource to show in status bar?
 
-
+##Stores the User information
 class User(db.Model):
     __tablename__ = 'users'
     id = Column(Integer(), primary_key=True)

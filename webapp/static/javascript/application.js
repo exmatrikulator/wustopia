@@ -20,6 +20,7 @@ var init = function (position)
 	L.marker([lat, lon], {icon:  L.icon({ iconUrl: ('http://upload.wikimedia.org/wikipedia/commons/c/cb/Icon_person_abstract_blue.jpg'), iconSize: [40, 40] }) }).addTo(map)
 	.bindPopup('You, ' + user )
 	.openPopup();
+	ckeckItem();
 }
 
 var init2 = function (position)
@@ -34,29 +35,32 @@ var init2 = function (position)
 	ckeckItem();
 }
 
-if (navigator.geolocation)
-{
-	navigator.geolocation.getCurrentPosition(init, init2);
-	$("#user").text( user );
-	$.get("/resources",{}, function(data) {
-		$("#resources").html(data);
-	})
-}
+$( document ).ready(function() {
+
+	if (navigator.geolocation)
+	{
+		navigator.geolocation.getCurrentPosition(init, init2);
+		$("#user").text( user );
+		$.get("/resources",{}, function(data) {
+			$("#resources").html(data);
+		})
+	}
+});
 
 var build = function(id)
 {
-	$.get("/build",{'id': id, 'user' : user}, function(data) {
+	$.get("/build",{'place': id}, function(data) {
 		if(data == "success") marker[id].setPopupContent("gebaut");
 		else marker[id].setPopupContent("Error " + data);
 	})
 }
 
-var addItem = function(ilat, ilon, name, user, id, category)
+var addItem = function(ilat, ilon, name, level, id, category)
 {
 	var text = "";
 	var latlng = new L.LatLng( ilat, ilon );
 	var latlng2 = new L.LatLng( lat , lon );
-	if( latlng.distanceTo( latlng2 ) < 20)
+	if( latlng.distanceTo( latlng2 ) < 500)
 	{
 		text = name + '<br><input type=\"button\" value=\"bauen\" onclick=\"build(' + id + ')\">';
 	}
@@ -64,7 +68,7 @@ var addItem = function(ilat, ilon, name, user, id, category)
 	{
 		text = name;
 	}
-	text = text + ' (' + Math.round(latlng.distanceTo( latlng2 ) ) + 'm)<br>owned by ' + user;
+	text = text + ' (' + Math.round(latlng.distanceTo( latlng2 ) ) + 'm)<br>Level ' + level;
 	text = text + '<br>' + category;
 
 	marker[id] = L.marker([ilat, ilon],

@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 import overpy
 from webapp import db
-from webapp.models import Place, PlaceCategory
+from webapp.models import Built, Place, PlaceCategory
+from flask_login import current_user
 
 api = overpy.Overpass()
 
@@ -29,8 +30,12 @@ def importPlaces(lon1,lat1,lon2,lat2):
                 db.session.rollback()
 
 def getPlaces(lon1,lat1,lon2,lat2,filter):
-    js = ""
+    js = "var ckeckItem = function () {"
     nodes = db.session.query(Place)
     for node in nodes:
-        js += "addItem("+str(node.lat)+", "+str(node.lon)+", \""+str(node.name)+"\", \"unset\", \""+str(node.id)+"\", \""+str(node.category.name)+"\");"
-    return js
+        building = db.session.query(Built).filter_by(place=node.id, user=current_user.id).first()
+        if building:
+            js += "addItem("+str(node.lat)+", "+str(node.lon)+", \""+str(node.name)+"\", \""+str(building.level)+"\", \""+str(node.id)+"\", \""+str(node.category.name)+"\");"
+        else:
+            js += "addItem("+str(node.lat)+", "+str(node.lon)+", \""+str(node.name)+"\", \"0\", \""+str(node.id)+"\", \""+str(node.category.name)+"\");"
+    return js + "}"
