@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from flask_bcrypt import Bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy import Column, Time, Integer, Float, BigInteger, String, Boolean, Binary, ForeignKey
+from sqlalchemy import Column, Time, Integer, Float, BigInteger, String, Boolean, Binary, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from webapp import db
@@ -34,7 +34,7 @@ class BuildCost(db.Model):
     level = Column(Integer())
     resource = Column(Integer, ForeignKey('resource.id'))
     amount = Column(Integer())
-
+    UniqueConstraint('placecategory', 'level', 'resource')
 
 ##Stores the places (nodes) from OSM
 class Place(db.Model):
@@ -54,6 +54,17 @@ class PlaceCategory(db.Model):
     filter = Column(String(255))
     places = relationship('Place', backref='category')
 
+    def get_id(self, name):
+        try:
+            query = db.session.query(PlaceCategory).filter_by(name=name)
+            instance = query.first()
+
+            if instance:
+                return instance.id
+            return None
+        except Exception as e:
+            raise e
+
 ##Stores the information how much you earn per level per hour
 class PlaceCategoryBenefit(db.Model):
     __tablename__ = 'placecategorybenefit'
@@ -71,6 +82,17 @@ class Resource(db.Model):
     name = Column(String(255), unique=True)
     image = Column(String(255))
     major = Column(Boolean())  #is a major resource to show in status bar?
+
+    def get_id(self, name):
+        try:
+            query = db.session.query(Resource).filter_by(name=name)
+            instance = query.first()
+
+            if instance:
+                return instance.id
+            return None
+        except Exception as e:
+            raise e
 
 ##Stores the User information
 class User(db.Model):
