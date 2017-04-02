@@ -2,12 +2,21 @@
 # -*- coding: utf-8 -*-
 from flask_bcrypt import Bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy import Column, Integer, Float, BigInteger, String, Boolean, Binary, ForeignKey
+from sqlalchemy import Column, Time, Integer, Float, BigInteger, String, Boolean, Binary, ForeignKey
 from sqlalchemy.orm import relationship
 
 from webapp import db
 
 bcrypt = Bcrypt()
+
+##Stores the current balance of an user
+class Balance(db.Model):
+    __tablename__ = 'balance'
+    id = Column(Integer(), primary_key=True)
+    user = Column(Integer, ForeignKey('users.id'))
+    resource = Column(Integer, ForeignKey('resource.id'))
+    amount = Column(Integer())
+    lastupdate = Column(Time())
 
 ##Stores the buildings of the user
 class Built(db.Model):
@@ -16,6 +25,16 @@ class Built(db.Model):
     place = Column(Integer, ForeignKey('place.id'))
     user = Column(Integer, ForeignKey('users.id'))
     level = Column(Integer(), default=1 )
+
+##Stores the prices of resources to build a place (level)
+class BuildCost(db.Model):
+    __tablename__ = 'buildcost'
+    id = Column(Integer(), primary_key=True)
+    placecategory = Column(Integer, ForeignKey('placecategory.id'))
+    level = Column(Integer())
+    resource = Column(Integer, ForeignKey('resource.id'))
+    amount = Column(Integer())
+
 
 ##Stores the places (nodes) from OSM
 class Place(db.Model):
@@ -35,11 +54,15 @@ class PlaceCategory(db.Model):
     filter = Column(String(255))
     places = relationship('Place', backref='category')
 
-
+##Stores the information how much you earn per level per hour
 class PlaceCategoryBenefit(db.Model):
     __tablename__ = 'placecategorybenefit'
     id = Column(Integer(), primary_key=True)
     placecategory = Column(Integer, ForeignKey('placecategory.id'))
+    level = Column(Integer())
+    resource = Column(Integer, ForeignKey('resource.id'))
+    amount = Column(Integer())
+
 
 ##Stores the possible Resourceses witch User can earn/trade
 class Resource(db.Model):

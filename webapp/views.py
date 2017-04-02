@@ -7,10 +7,20 @@ from webapp import app
 from webapp.models import *
 from webapp.places import getPlaces
 from webapp.forms import *
+from webapp.finance import getBalance
 
 @app.route("/")
 def index():
     return render_template('index.html', UserLoginForm=UserLoginForm(), UserCreateForm=UserCreateForm())
+
+
+@app.route("/balance")
+@login_required
+def balance():
+    output = ""
+    for amount in getBalance(current_user.id):
+        output += amount.amount
+    return output
 
 @app.route("/map")
 @login_required
