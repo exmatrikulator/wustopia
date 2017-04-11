@@ -3,7 +3,8 @@
 
 from webapp import db
 from webapp.models import Balance
+from sqlalchemy.orm import joinedload
 
 def getBalance(userid):
-    amounts = db.session.query(Balance).filter_by(user=userid).all()
+    amounts = db.session.query(Balance).options(joinedload(Balance.resource)).filter_by(user=userid).all()
     return amounts

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from flask_bcrypt import Bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy import Column, Time, Integer, Float, BigInteger, String, Boolean, Binary, ForeignKey, UniqueConstraint
+from sqlalchemy import Column, DateTime, Integer, Float, BigInteger, String, Boolean, Binary, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from webapp import db
@@ -14,9 +14,10 @@ class Balance(db.Model):
     __tablename__ = 'balance'
     id = Column(Integer(), primary_key=True)
     user = Column(Integer, ForeignKey('users.id'))
-    resource = Column(Integer, ForeignKey('resource.id'))
+    resource_id = Column(Integer, ForeignKey('resource.id'))
+    resource = db.relationship("Resource", foreign_keys=[resource_id])
     amount = Column(Integer())
-    lastupdate = Column(Time())
+    lastupdate = Column(DateTime())
 
 ##Stores the buildings of the user
 class Built(db.Model):

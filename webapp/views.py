@@ -19,7 +19,7 @@ def index():
 def balance():
     output = ""
     for amount in getBalance(current_user.id):
-        output += amount.amount
+        output += str(amount.amount)
     return output
 
 @app.route("/map")
@@ -32,12 +32,12 @@ def resources():
     html = ""
     html_visible = ""
     html_hidden = ""
-    resources = db.session.query(Resource).order_by(Resource.major)
+    resources = getBalance(current_user.id)
     for resource in resources:
-        if resource.major:
-            html_visible += '<div class="resource" title="' + str(resource.name) + '"> <img src="' + str(resource.image) + '" class="resource"> 100 </div>';
+        if resource.resource and resource.resource.major:
+            html_visible += '<div class="resource" title="' + str(resource.resource.name) + '"> <img src="' + str(resource.resource.image) + '" class="resource"> ' + str(resource.amount) + ' </div>';
         else:
-            html_hidden += '<div class="resource_hidden" title="' + str(resource.name) + '"> <img src="' + str(resource.image) + '" class="resource"> 100 </div>';
+            html_hidden += '<div class="resource_hidden" title="' + str(resource.resource.name) + '"> <img src="' + str(resource.resource.image) + '" class="resource"> ' + str(resource.amount) + ' </div>';
     html = "<div id=\"resourcebar\">" + html_visible
     html += "<div id=\"resourcebar_hidden\">" + html_hidden + "</div></div>"
     return html
@@ -77,6 +77,12 @@ def user_create():
             )
             db.session.add(user)
             db.session.commit()
+
+            db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Gold"), amount=100))
+            db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Nahrung"), amount=100))
+            db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Baumaterial"), amount=100))
+            db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Kultur"), amount=100))
+            db.session.commit()
             #subject = "Confirm your email"
             #token = ts.dumps(form.email.data, salt='email-confirm-key')
             #confirm_url = url_for(
@@ -91,8 +97,8 @@ def user_create():
             login_user(user)
             return redirect('/map')
         return render_template("error.html", error = form.errors)
-    except:
-        return render_template("error.html")
+    except Exception as e:
+        return render_template("error.html", error=e)
 
 @app.route('/user/login', methods=['POST','GET'])
 def user_login():
