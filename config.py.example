@@ -1,0 +1,2 @@
+SECRET_KEY='some_secret'
+BCRYPT_LOG_ROUNDS=13
