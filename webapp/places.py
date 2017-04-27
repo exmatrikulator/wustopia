@@ -10,14 +10,12 @@ api = overpy.Overpass()
 def importPlaces(lon1,lat1,lon2,lat2):
     categories = db.session.query(PlaceCategory)
     for category in categories:
-        print(category.name)
+        #print(category.name)
         while True:     #try as long you got an answer
             try:
-                result = api.query("node("+str(lon1)+","+str(lat1)+","+str(lon2)+","+str(lat2)+")"+str(category.filter)+";out;")
+                result = api.query("[timeout:5];node("+str(lon1)+","+str(lat1)+","+str(lon2)+","+str(lat2)+")"+str(category.filter)+";out;")
             except overpy.exception.OverpassTooManyRequests:
-                print("Too many requests")
-                import time
-                sleep(60)
+                #Too many requests
                 continue
             break
         for node in result.nodes:

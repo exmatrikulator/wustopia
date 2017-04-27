@@ -7,7 +7,6 @@ from flask_migrate import Migrate, MigrateCommand
 
 from webapp import app, db
 from webapp.models import *
-from webapp.places import importPlaces
 
 manager = Manager(app)
 migrate = Migrate(app, db)
@@ -26,6 +25,7 @@ def imoprtInitData():
     #transport
     session_add( PlaceCategory( filter="[highway=bus_stop]", name="Bushaltestelle" ) )
     session_add( PlaceCategory( filter="[railway=station]", name="Bahnhof" ) )
+    session_add( PlaceCategory( filter="[highway=steps]", name="Treppe" ) )
     #shops
     session_add( PlaceCategory( filter="[shop=bakery]", name="Bäcker" ) )
     session_add( PlaceCategory( filter="[shop=butcher]", name="Metzger" ) )
@@ -54,7 +54,6 @@ def imoprtInitData():
     session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource=Resource().get_id("Gold"), level=3, amount=19))
     session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource=Resource().get_id("Baumaterial"), level=3, amount=10))
 
-    #importPlaces(51.2555, 7.1294, 51.2677, 7.1540 )
     print("done")
 
 @manager.command

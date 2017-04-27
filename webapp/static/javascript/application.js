@@ -6,6 +6,22 @@ var lon = null;
 var acc = null;
 var marker = new Array();
 
+var is_update_places=false;
+var update_places = function()
+{
+	if(is_update_places)
+		return;
+	is_update_places=true;
+	var bounds = map.getBounds();
+	var lng1 = bounds._southWest.lng;
+	var lat1 = bounds._southWest.lat;
+	var lng2 = bounds._northEast.lng;
+	var lat2 = bounds._northEast.lat;
+	$.get( "update_places/"+lat1+","+lng1+","+lat2+","+lng2, function( data ) {
+		is_update_places=false;
+	});
+}
+
 var init = function (position)
 {
 	lat = position.coords.latitude;
@@ -21,25 +37,16 @@ var init = function (position)
 	.bindPopup('You, ' + user )
 	.openPopup();
 	ckeckItem();
+
+	map.on("move",update_places);
 }
 
-var init2 = function (position)
-{
-	lat = 51.245;
-	lon = 7.134;
-	//map = L.map('map').setView([lat, lon], 13);
-	map.setView([lat, lon], 13);
-	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-	    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-	}).addTo(map);
-	ckeckItem();
-}
 
 $( document ).ready(function() {
 
 	if (navigator.geolocation)
 	{
-		navigator.geolocation.getCurrentPosition(init, init2);
+		navigator.geolocation.getCurrentPosition(init);
 		$("#user").text( user );
 		$.get("/resources",{}, function(data) {
 			$("#resources").html(data);
@@ -60,7 +67,7 @@ var addItem = function(ilat, ilon, name, level, id, category)
 	var text = "";
 	var latlng = new L.LatLng( ilat, ilon );
 	var latlng2 = new L.LatLng( lat , lon );
-	if( latlng.distanceTo( latlng2 ) < 500)
+	if( latlng.distanceTo( latlng2 ) < 50000)
 	{
 		text = name + '<br><input type=\"button\" value=\"bauen\" onclick=\"build(' + id + ')\">';
 	}

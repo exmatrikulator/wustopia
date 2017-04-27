@@ -5,7 +5,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 
 from webapp import app
 from webapp.models import *
-from webapp.places import getPlaces
+from webapp.places import getPlaces, importPlaces
 from webapp.forms import *
 from webapp.finance import getBalance
 
@@ -63,6 +63,27 @@ def places():
     response = Response( getPlaces(51.2579, 7.1537, 51.2618, 7.1420, "") )
     response.headers.add('Content-Type', "application/javascript")
     return response
+
+is_update_places = False
+@app.route("/update_places/<float:lon1>,<float:lat1>,<float:lon2>,<float:lat2>")
+def update_places(lon1,lat1,lon2,lat2):
+    global is_update_places
+    if is_update_places:
+        return "already running"
+    is_update_places = True
+
+    if(lon2-lon1 > 0.01 or lat2-lat1 > 0.01):
+        is_update_places = False
+        return "range to big"
+
+    importPlaces(lon1,lat1,lon2,lat2)
+    is_update_places = False
+    return "OK"
+
+@app.route("/is_update_places")
+def is_update_places2():
+    global is_update_places
+    return str(is_update_places)
 
 
 @app.route('/user/create', methods=['POST'])
