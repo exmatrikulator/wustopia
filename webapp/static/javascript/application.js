@@ -5,6 +5,7 @@ var lat = null;
 var lon = null;
 var acc = null;
 var marker = new Array();
+var user = '';
 
 var is_update_places=false;
 var update_places = function()
@@ -13,10 +14,10 @@ var update_places = function()
 		return;
 	is_update_places=true;
 	var bounds = map.getBounds();
-	var lng1 = bounds._southWest.lng;
-	var lat1 = bounds._southWest.lat;
-	var lng2 = bounds._northEast.lng;
-	var lat2 = bounds._northEast.lat;
+	var lng1 = bounds.getSouthWest().lng;
+	var lat1 = bounds.getSouthWest().lat;
+	var lng2 = bounds.getNorthEast().lng;
+	var lat2 = bounds.getNorthEast().lat;
 	$.get( "update_places/"+lat1+","+lng1+","+lat2+","+lng2, function( data ) {
 		is_update_places=false;
 	});
@@ -62,7 +63,7 @@ var build = function(id)
 	})
 }
 
-var addItem = function(ilat, ilon, name, level, id, category)
+var addItem = function(ilat, ilon, name, level, id, category, categoryid)
 {
 	var text = "";
 	var latlng = new L.LatLng( ilat, ilon );
@@ -79,11 +80,10 @@ var addItem = function(ilat, ilon, name, level, id, category)
 	text = text + '<br>' + category;
 
 	marker[id] = L.marker([ilat, ilon],
-		{icon: L.icon({
-			iconUrl: ('http://upload.wikimedia.org/wikipedia/commons/f/ff/Crystal_Clear_app_ksokoban_blue.png'),
-			iconSize: [25, 25]}) })
+		{icon: markerIcon[categoryid] })
 		.bindPopup( text )
 		.addTo(map);
+
 }
 
 var scaleMap = function()

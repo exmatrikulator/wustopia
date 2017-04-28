@@ -33,7 +33,7 @@ def getPlaces(lon1,lat1,lon2,lat2,filter):
     for node in nodes:
         building = db.session.query(Built).filter_by(place=node.id, user=current_user.id).first()
         if building:
-            js += "addItem("+str(node.lat)+", "+str(node.lon)+", \""+str(node.name)+"\", \""+str(building.level)+"\", \""+str(node.id)+"\", \""+str(node.category.name)+"\");"
+            js += "addItem("+str(node.lat)+", "+str(node.lon)+", \""+str(node.name)+"\", \""+str(building.level)+"\", \""+str(node.id)+"\", \""+str(node.category.name)+"\", \""+str(node.category.id)+"\");"
         else:
-            js += "addItem("+str(node.lat)+", "+str(node.lon)+", \""+str(node.name)+"\", \"0\", \""+str(node.id)+"\", \""+str(node.category.name)+"\");"
+            js += "addItem("+str(node.lat)+", "+str(node.lon)+", \""+str(node.name)+"\", \"0\", \""+str(node.id)+"\", \""+str(node.category.name)+"\", \""+str(node.category.id)+"\");"
     return js + "}"

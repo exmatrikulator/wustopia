@@ -16,8 +16,5 @@ and change BCRYPT_LOG_ROUNDS in the config.py
 docker-compose exec web python3 manage.py db init
 docker-compose exec web python3 manage.py db migrate
 docker-compose exec web python3 manage.py db upgrade
-```
-have a look at manage,py and adjust the importPlaces function to your location
-```
 docker-compose exec web python3 manage.py imoprtInitData
 ```

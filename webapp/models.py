@@ -54,6 +54,8 @@ class PlaceCategory(db.Model):
     name = Column(String(255), unique=True)
     filter = Column(String(255))
     places = relationship('Place', backref='category')
+    icon = Column(String(255), default="home")
+    markerColor = Column(String(255), default="blue")
 
     def get_id(self, name):
         try:

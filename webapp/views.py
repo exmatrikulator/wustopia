@@ -58,6 +58,11 @@ def build():
         return "unkown Error"
 
 
+@app.route("/marker")
+def marker():
+    categories = db.session.query(PlaceCategory)
+    return render_template("marker.js", markers = categories)
+
 @app.route("/places")
 def places():
     response = Response( getPlaces(51.2579, 7.1537, 51.2618, 7.1420, "") )

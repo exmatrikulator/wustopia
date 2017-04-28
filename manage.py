@@ -23,24 +23,24 @@ def session_add(model):
 def imoprtInitData():
     "Inititalise the database"
     #transport
-    session_add( PlaceCategory( filter="[highway=bus_stop]", name="Bushaltestelle" ) )
-    session_add( PlaceCategory( filter="[railway=station]", name="Bahnhof" ) )
-    session_add( PlaceCategory( filter="[highway=steps]", name="Treppe" ) )
+    session_add( PlaceCategory( filter="[highway=bus_stop]", name="Bushaltestelle", icon="bus", markerColor="darkgreen" ) )
+    session_add( PlaceCategory( filter="[railway=station]", name="Bahnhof", icon="train", markerColor="darkgreen" ) )
+    session_add( PlaceCategory( filter="[highway=steps]", name="Treppe", icon="signal", markerColor="gray") )
     #shops
-    session_add( PlaceCategory( filter="[shop=bakery]", name="Bäcker" ) )
-    session_add( PlaceCategory( filter="[shop=butcher]", name="Metzger" ) )
-    session_add( PlaceCategory( filter="[shop=kiosk]", name="Kiosk" ) )
-    session_add( PlaceCategory( filter="[shop=doityourself]", name="Baumarkt" ) )
+    session_add( PlaceCategory( filter="[shop=bakery]", name="Bäcker", markerColor="orange" ) )
+    session_add( PlaceCategory( filter="[shop=butcher]", name="Metzger", markerColor="orange" ) )
+    session_add( PlaceCategory( filter="[shop=kiosk]", name="Kiosk", markerColor="orange" ) )
+    session_add( PlaceCategory( filter="[shop=doityourself]", name="Baumarkt", markerColor="purple" ) )
     #amenity
-    session_add( PlaceCategory( filter="[amenity=restaurant]", name="Restaurant" ) )
-    session_add( PlaceCategory( filter="[amenity=pub]", name="Kneipe" ) )
-    session_add( PlaceCategory( filter="[amenity=post_office]", name="Post" ) )
-    session_add( PlaceCategory( filter="[amenity=fast_food]", name="Fast Food" ) )
-    session_add( PlaceCategory( filter="[amenity=ice_cream]", name="Eisdiele" ) )
-    session_add( PlaceCategory( filter="[amenity=theatre]", name="Theater" ) )
-    session_add( PlaceCategory( filter="[amenity=place_of_worship]", name="Religion" ) )
+    session_add( PlaceCategory( filter="[amenity=restaurant]", name="Restaurant", icon="cutlery", markerColor="orange" ) )
+    session_add( PlaceCategory( filter="[amenity=pub]", name="Kneipe", icon="coffee", markerColor="orange" ) )
+    session_add( PlaceCategory( filter="[amenity=post_office]", name="Post", icon="envelope", markerColor="purple" ) )
+    session_add( PlaceCategory( filter="[amenity=fast_food]", name="Fast Food", icon="cutlery", markerColor="beige" ) )
+    session_add( PlaceCategory( filter="[amenity=ice_cream]", name="Eisdiele", markerColor="orange" ) )
+    session_add( PlaceCategory( filter="[amenity=theatre]", name="Theater", markerColor="red" ) )
+    session_add( PlaceCategory( filter="[amenity=place_of_worship]", name="Religion", markerColor="cadetblue" ) )
     #leisure
-    session_add( PlaceCategory( filter="[leisure=hackerspace]", name="Hackerspace" ) )
+    session_add( PlaceCategory( filter="[leisure=hackerspace]", name="Hackerspace", icon="gamepad", markerColor="white" ) )
 
 
     session_add( Resource( name="Gold", major=True, image="http://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Gold_coin_icon.png/32px-Gold_coin_icon.png" ) )
