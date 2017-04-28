@@ -82,6 +82,7 @@ var addItem = function(ilat, ilon, name, level, id, category, categoryid)
 	marker[id] = L.marker([ilat, ilon],
 		{icon: markerIcon[categoryid] })
 		.bindPopup( text )
+		.bindTooltip( level, {permanent:true})
 		.addTo(map);
 
 }
