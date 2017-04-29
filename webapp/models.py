@@ -4,6 +4,7 @@ from flask_bcrypt import Bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy import Column, DateTime, Integer, Float, BigInteger, String, Boolean, Binary, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
+from datetime import datetime
 
 from webapp import db
 
@@ -46,6 +47,7 @@ class Place(db.Model):
     lon = Column(Float())
     name = Column(String(255))
     placecategory = Column(Integer, ForeignKey('placecategory.id'))
+    lastupdate = Column(DateTime, default=datetime.utcnow)
 
 ##Stores the category of a place. E.g. Bus Stop, Restaurant
 class PlaceCategory(db.Model):

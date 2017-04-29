@@ -4,20 +4,25 @@ import overpy
 from webapp import db
 from webapp.models import Built, Place, PlaceCategory
 from flask_login import current_user
+from sqlalchemy import desc
+from datetime import datetime, timedelta
 
 api = overpy.Overpass()
 
-def importPlaces(lon1,lat1,lon2,lat2):
+def importPlaces(lat1,lon1,lat2,lon2):
+    #only if last update is longer than a week ago
+    lastupdate = db.session.query(Place.lastupdate).filter(Place.lat.between(lat1,lat2)).filter(Place.lon.between(lon1,lon2)).order_by(desc(Place.lastupdate)).first()
+    if lastupdate is not None and lastupdate[0] is not None and (datetime.now() - lastupdate[0]) < timedelta(days = 7):
+        return "not necessary"
+
     categories = db.session.query(PlaceCategory)
     for category in categories:
         #print(category.name)
-        while True:     #try as long you got an answer
-            try:
-                result = api.query("[timeout:5];node("+str(lon1)+","+str(lat1)+","+str(lon2)+","+str(lat2)+")"+str(category.filter)+";out;")
-            except overpy.exception.OverpassTooManyRequests:
-                #Too many requests
-                continue
-            break
+        try:
+            result = api.query("[timeout:5];node("+str(lat1)+","+str(lon1)+","+str(lat2)+","+str(lon2)+")"+str(category.filter)+";out;")
+        except overpy.exception.OverpassTooManyRequests:
+            #Too many requests
+            return
         for node in result.nodes:
             if node.tags.get("name") is None:   #nodes without name can't be shown
                 continue
@@ -26,8 +31,9 @@ def importPlaces(lon1,lat1,lon2,lat2):
                 db.session.commit()
             except:
                 db.session.rollback()
+    return "import"
 
-def getPlaces(lon1,lat1,lon2,lat2,filter):
+def getPlaces(lat1,lon1,lat2,lon2,filter):
     js = "var ckeckItem = function () {"
     nodes = db.session.query(Place)
     for node in nodes:

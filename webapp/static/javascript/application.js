@@ -12,6 +12,8 @@ var update_places = function()
 {
 	if(is_update_places)
 		return;
+	if(map.getZoom()<17)
+		return;
 	is_update_places=true;
 	var bounds = map.getBounds();
 	var lng1 = bounds.getSouthWest().lng;

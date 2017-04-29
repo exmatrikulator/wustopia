@@ -70,8 +70,10 @@ def places():
     return response
 
 is_update_places = False
-@app.route("/update_places/<float:lon1>,<float:lat1>,<float:lon2>,<float:lat2>")
-def update_places(lon1,lat1,lon2,lat2):
+@app.route("/update_places/<float:lat1>,<float:lon1>,<float:lat2>,<float:lon2>")
+def update_places(lat1,lon1,lat2,lon2):
+    return importPlaces(lat1,lon1,lat2,lon2)
+
     global is_update_places
     if is_update_places:
         return "already running"
