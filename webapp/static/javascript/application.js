@@ -27,10 +27,20 @@ var update_places = function()
 
 var init = function (position)
 {
-	lat = position.coords.latitude;
-	lon = position.coords.longitude;
-	acc = position.coords.accuracy;
-	zoom = Math.round( 18 - Math.log( position.coords.accuracy ) / 10 );
+	if(position.coords)
+	{
+		lat = position.coords.latitude;
+		lon = position.coords.longitude;
+		acc = position.coords.accuracy;
+		zoom = Math.round( 18 - Math.log( acc ) / 10 );
+	}
+	else
+	{
+		lat="";
+		lon="";
+		zoom=2;
+	}
+
 	map.setView([lat, lon], zoom) ;
 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 	    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -49,7 +59,7 @@ $( document ).ready(function() {
 
 	if (navigator.geolocation)
 	{
-		navigator.geolocation.getCurrentPosition(init);
+		navigator.geolocation.getCurrentPosition(init,init);
 		$("#user").text( user );
 		$.get("/resources",{}, function(data) {
 			$("#resources").html(data);
