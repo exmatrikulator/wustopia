@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 import overpy
 from webapp import db
-from webapp.models import Built, Place, PlaceCategory
+from webapp.models import Built, BuildCost, Place, PlaceCategory
 from flask_login import current_user
 from sqlalchemy import desc
+from sqlalchemy.orm import joinedload
 from datetime import datetime, timedelta
 
 api = overpy.Overpass()
@@ -38,8 +39,10 @@ def getPlaces(lat1,lon1,lat2,lon2,filter):
     nodes = db.session.query(Place)
     for node in nodes:
         building = db.session.query(Built).filter_by(place=node.id, user=current_user.id).first()
-        if building:
-            js += "addItem("+str(node.lat)+", "+str(node.lon)+", \""+str(node.name)+"\", \""+str(building.level)+"\", \""+str(node.id)+"\", \""+str(node.category.name)+"\", \""+str(node.category.id)+"\");"
-        else:
-            js += "addItem("+str(node.lat)+", "+str(node.lon)+", \""+str(node.name)+"\", \"0\", \""+str(node.id)+"\", \""+str(node.category.name)+"\", \""+str(node.category.id)+"\");"
+        buildinglevel = int(building.level) if building else 0
+        buildingcosts = db.session.query(BuildCost).options(joinedload(BuildCost.resource)).filter_by(placecategory=node.category.id, level=buildinglevel+1).all()
+        buildingcost=""
+        for cost in buildingcosts:
+            buildingcost += str(cost.amount) + " " + str(cost.resource.name) + " "
+        js += "addItem("+str(node.lat)+", "+str(node.lon)+", \""+str(node.name)+"\", \""+str(buildinglevel)+"\", \""+str(node.id)+"\", \""+str(node.category.name)+"\", \""+str(node.category.id)+"\",\""+buildingcost+"\");"
     return js + "}"

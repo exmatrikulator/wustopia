@@ -49,10 +49,10 @@ def imoprtInitData():
     session_add( Resource( name="Kultur", image="http://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Crystal_Clear_app_krita.png/64px-Crystal_Clear_app_krita.png" ) )
     session_add( Resource( name="Gebäude", image="http://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Go-home.svg/50px-Go-home.svg.png" ) )
 
-    session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource=Resource().get_id("Gold"), level=1, amount=10))
-    session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource=Resource().get_id("Gold"), level=2, amount=14))
-    session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource=Resource().get_id("Gold"), level=3, amount=19))
-    session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource=Resource().get_id("Baumaterial"), level=3, amount=10))
+    session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Gold"), level=1, amount=10))
+    session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Gold"), level=2, amount=14))
+    session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Gold"), level=3, amount=19))
+    session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Baumaterial"), level=3, amount=10))
 
     print("done")
 

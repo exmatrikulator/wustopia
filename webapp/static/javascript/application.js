@@ -75,7 +75,7 @@ var build = function(id)
 	})
 }
 
-var addItem = function(ilat, ilon, name, level, id, category, categoryid)
+var addItem = function(ilat, ilon, name, level, id, category, categoryid, costs)
 {
 	var text = "";
 	var latlng = new L.LatLng( ilat, ilon );
@@ -90,6 +90,7 @@ var addItem = function(ilat, ilon, name, level, id, category, categoryid)
 	}
 	text = text + ' (' + Math.round(latlng.distanceTo( latlng2 ) ) + 'm)<br>Level ' + level;
 	text = text + '<br>' + category;
+	text = text + '<br>' + costs;
 
 	marker[id] = L.marker([ilat, ilon],
 		{icon: markerIcon[categoryid] })

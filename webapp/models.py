@@ -34,7 +34,8 @@ class BuildCost(db.Model):
     id = Column(Integer(), primary_key=True)
     placecategory = Column(Integer, ForeignKey('placecategory.id'))
     level = Column(Integer())
-    resource = Column(Integer, ForeignKey('resource.id'))
+    resource_id = Column(Integer, ForeignKey('resource.id'))
+    resource = db.relationship("Resource", foreign_keys=[resource_id])
     amount = Column(Integer())
     UniqueConstraint('placecategory', 'level', 'resource')
 
