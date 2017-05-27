@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 from flask import render_template, request, Response, redirect
 from flask_login import login_user, logout_user, login_required, current_user
+from sqlalchemy.orm import joinedload
 
 from webapp import app
 from webapp.models import *
 from webapp.places import getPlaces, importPlaces
 from webapp.forms import *
-from webapp.finance import getBalance
+from webapp.finance import *
 
 @app.route("/")
 def index():
@@ -45,7 +46,19 @@ def resources():
 @app.route("/build")
 def build():
     #TODO:Do some checks!
+    place = db.session.query(Place).options(joinedload(Place.placecategory)).filter_by(id = request.args.get('place')).first()
     building = db.session.query(Built).filter_by(place = request.args.get('place'), user = current_user.id).first()
+    buildinglevel = building.level+1 if building else 1
+    buildcost = db.session.query(BuildCost).filter_by(placecategory = place.placecategory.id, level=buildinglevel).all()
+
+    for costs in buildcost:
+        current_balance = getBalanceofResource(current_user.id, costs.resource.id)
+        if current_balance.amount >= costs.amount:
+            current_balance.amount -= costs.amount
+            db.session.add(current_balance)
+        else:
+            return str(getBalanceofResource(current_user.id, costs.resource.id).amount) + " >= " + str(costs.amount)
+
     if building:
         building.level = building.level+1
     else:
