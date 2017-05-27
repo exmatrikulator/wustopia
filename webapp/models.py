@@ -13,48 +13,49 @@ bcrypt = Bcrypt()
 ##Stores the current balance of an user
 class Balance(db.Model):
     __tablename__ = 'balance'
-    id = Column(Integer(), primary_key=True)
-    user = Column(Integer, ForeignKey('users.id'))
-    resource_id = Column(Integer, ForeignKey('resource.id'))
+    id = Column(Integer(), primary_key=True, nullable=False)
+    user = Column(Integer, ForeignKey('users.id'), nullable=False)
+    resource_id = Column(Integer, ForeignKey('resource.id'), nullable=False)
     resource = db.relationship("Resource", foreign_keys=[resource_id])
-    amount = Column(Integer())
-    lastupdate = Column(DateTime())
+    amount = Column(Integer(), nullable=False)
+    lastupdate = Column(DateTime(), default=datetime.utcnow, nullable=False)
 
 ##Stores the buildings of the user
 class Built(db.Model):
     __tablename__ = 'built'
-    id = Column(Integer(), primary_key=True)
-    place = Column(Integer, ForeignKey('place.id'))
-    user = Column(Integer, ForeignKey('users.id'))
-    level = Column(Integer(), default=1 )
+    id = Column(Integer(), primary_key=True, nullable=False)
+    place = Column(Integer, ForeignKey('place.id'), nullable=False)
+    user = Column(Integer, ForeignKey('users.id'), nullable=False)
+    level = Column(Integer(), default=1, nullable=False )
 
 ##Stores the prices of resources to build a place (level)
 class BuildCost(db.Model):
     __tablename__ = 'buildcost'
-    id = Column(Integer(), primary_key=True)
-    placecategory = Column(Integer, ForeignKey('placecategory.id'))
-    level = Column(Integer())
-    resource_id = Column(Integer, ForeignKey('resource.id'))
+    id = Column(Integer(), primary_key=True, nullable=False)
+    placecategory = Column(Integer, ForeignKey('placecategory.id'), nullable=False)
+    level = Column(Integer(), nullable=False)
+    resource_id = Column(Integer, ForeignKey('resource.id'), nullable=False)
     resource = db.relationship("Resource", foreign_keys=[resource_id])
-    amount = Column(Integer())
+    amount = Column(Integer(), nullable=False)
     UniqueConstraint('placecategory', 'level', 'resource')
 
 ##Stores the places (nodes) from OSM
 class Place(db.Model):
     __tablename__ = 'place'
-    id = Column(Integer(), primary_key=True)
-    osmNodeId = Column(BigInteger(), unique=True)
-    lat = Column(Float())
-    lon = Column(Float())
+    id = Column(Integer(), primary_key=True, nullable=False)
+    osmNodeId = Column(BigInteger(), unique=True, nullable=False)
+    lat = Column(Float(), nullable=False)
+    lon = Column(Float(), nullable=False)
     name = Column(String(255))
-    placecategory = Column(Integer, ForeignKey('placecategory.id'))
-    lastupdate = Column(DateTime, default=datetime.utcnow)
+    placecategory_id = Column(Integer, ForeignKey('placecategory.id'), nullable=False)
+    placecategory = db.relationship("PlaceCategory", foreign_keys=[placecategory_id])
+    lastupdate = Column(DateTime, default=datetime.utcnow, nullable=False)
 
 ##Stores the category of a place. E.g. Bus Stop, Restaurant
 class PlaceCategory(db.Model):
     __tablename__ = 'placecategory'
-    id = Column(Integer(), primary_key=True)
-    name = Column(String(255), unique=True)
+    id = Column(Integer(), primary_key=True, nullable=False)
+    name = Column(String(255), unique=True, nullable=False)
     filter = Column(String(255))
     places = relationship('Place', backref='category')
     icon = Column(String(255), default="home")
@@ -74,18 +75,18 @@ class PlaceCategory(db.Model):
 ##Stores the information how much you earn per level per hour
 class PlaceCategoryBenefit(db.Model):
     __tablename__ = 'placecategorybenefit'
-    id = Column(Integer(), primary_key=True)
-    placecategory = Column(Integer, ForeignKey('placecategory.id'))
-    level = Column(Integer())
-    resource = Column(Integer, ForeignKey('resource.id'))
-    amount = Column(Integer())
+    id = Column(Integer(), primary_key=True, nullable=False)
+    placecategory = Column(Integer, ForeignKey('placecategory.id'), nullable=False)
+    level = Column(Integer(), nullable=False)
+    resource = Column(Integer, ForeignKey('resource.id'), nullable=False)
+    amount = Column(Integer(), nullable=False)
 
 
 ##Stores the possible Resourceses witch User can earn/trade
 class Resource(db.Model):
     __tablename__ = 'resource'
-    id = Column(Integer(), primary_key=True)
-    name = Column(String(255), unique=True)
+    id = Column(Integer(), primary_key=True, nullable=False)
+    name = Column(String(255), unique=True, nullable=False)
     image = Column(String(255))
     major = Column(Boolean())  #is a major resource to show in status bar?
 
@@ -103,8 +104,8 @@ class Resource(db.Model):
 ##Stores the User information
 class User(db.Model):
     __tablename__ = 'users'
-    id = Column(Integer(), primary_key=True)
-    username = Column(String(32), unique=True)
+    id = Column(Integer(), primary_key=True, nullable=False)
+    username = Column(String(32), unique=True, nullable=False)
     _password = Column(Binary(60), nullable=False)
     email = Column(String(255))
 

@@ -28,7 +28,7 @@ def importPlaces(lat1,lon1,lat2,lon2):
             if node.tags.get("name") is None:   #nodes without name can't be shown
                 continue
             try:
-                db.session.add( Place( osmNodeId=node.id, lon=node.lon, lat = node.lat, placecategory=category.id, name=node.tags.get("name") ) )
+                db.session.add( Place( osmNodeId=node.id, lon=node.lon, lat = node.lat, placecategory_id=category.id, name=node.tags.get("name") ) )
                 db.session.commit()
             except:
                 db.session.rollback()
