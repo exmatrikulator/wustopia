@@ -44,7 +44,7 @@ def resources():
 def build():
     #TODO:Do some checks!
     place = db.session.query(Place).options(joinedload(Place.placecategory)).filter_by(id = request.args.get('place')).first()
-    building = db.session.query(Built).filter_by(place = request.args.get('place'), user = current_user.id).first()
+    building = db.session.query(Built).filter_by(place_id = request.args.get('place'), user_id = current_user.id).first()
     buildinglevel = building.level+1 if building else 1
     buildcost = db.session.query(BuildCost).filter_by(placecategory = place.placecategory.id, level=buildinglevel).all()
 
@@ -59,7 +59,7 @@ def build():
     if building:
         building.level = building.level+1
     else:
-        db.session.add(Built(place = request.args.get('place'), user = current_user.id))
+        db.session.add(Built(place_id = request.args.get('place'), user_id = current_user.id))
     try:
         db.session.commit()
         return "success"

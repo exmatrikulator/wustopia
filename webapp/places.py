@@ -38,7 +38,7 @@ def getPlaces(lat1,lon1,lat2,lon2,filter):
     js = "var ckeckItem = function () {"
     nodes = db.session.query(Place)
     for node in nodes:
-        building = db.session.query(Built).filter_by(place=node.id, user=current_user.id).first()
+        building = db.session.query(Built).filter_by(place_id=node.id, user_id=current_user.id).first()
         buildinglevel = int(building.level) if building else 0
         buildingcosts = db.session.query(BuildCost).options(joinedload(BuildCost.resource)).filter_by(placecategory=node.category.id, level=buildinglevel+1).all()
         buildingcost=""

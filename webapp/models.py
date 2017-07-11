@@ -39,7 +39,7 @@ class BuildCost(db.Model):
     resource_id = Column(Integer, ForeignKey('resource.id'), nullable=False)
     resource = db.relationship("Resource", foreign_keys=[resource_id])
     amount = Column(Integer(), nullable=False)
-    UniqueConstraint('placecategory', 'level', 'resource')
+    __table_args__ = (UniqueConstraint('placecategory', 'level', 'resource_id'),)
 
 ##Stores the places (nodes) from OSM
 class Place(db.Model):
@@ -86,7 +86,7 @@ class PlaceCategoryBenefit(db.Model):
     resource_id = Column(Integer, ForeignKey('resource.id'), nullable=False)
     resource = db.relationship("Resource", foreign_keys=[resource_id])
     amount = Column(Integer(), nullable=False)
-    UniqueConstraint('placecategory', 'level', 'resource')
+    __table_args__ = (UniqueConstraint('placecategory_id', 'level', 'resource_id'),)
 
 
 ##Stores the possible Resourceses witch User can earn/trade
