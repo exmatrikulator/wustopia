@@ -18,10 +18,7 @@ def index():
 @app.route("/balance")
 @login_required
 def balance():
-    output = ""
-    for amount in getBalance(current_user.id):
-        output += str(amount.amount)
-    return output
+    return newBalance(current_user.id)
 
 @app.route("/map")
 @login_required

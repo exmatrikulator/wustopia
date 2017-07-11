@@ -54,6 +54,11 @@ def imoprtInitData():
     session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Gold"), level=3, amount=19))
     session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Baumaterial"), level=3, amount=10))
 
+
+    session_add(PlaceCategoryBenefit(placecategory_id=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Gold"), level=1, amount=3))
+    session_add(PlaceCategoryBenefit(placecategory_id=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Gold"), level=2, amount=5))
+    session_add(PlaceCategoryBenefit(placecategory_id=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Gold"), level=3, amount=8))
+
     print("done")
 
 @manager.command

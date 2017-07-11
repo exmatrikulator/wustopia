@@ -24,8 +24,10 @@ class Balance(db.Model):
 class Built(db.Model):
     __tablename__ = 'built'
     id = Column(Integer(), primary_key=True, nullable=False)
-    place = Column(Integer, ForeignKey('place.id'), nullable=False)
-    user = Column(Integer, ForeignKey('users.id'), nullable=False)
+    place_id = Column(Integer, ForeignKey('place.id'), nullable=False)
+    place = db.relationship("Place", foreign_keys=[place_id])
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user = db.relationship("User", foreign_keys=[user_id])
     level = Column(Integer(), default=1, nullable=False )
 
 ##Stores the prices of resources to build a place (level)
@@ -60,6 +62,8 @@ class PlaceCategory(db.Model):
     places = relationship('Place', backref='category')
     icon = Column(String(255), default="home")
     markerColor = Column(String(255), default="blue")
+    benefit = db.relationship("PlaceCategoryBenefit", back_populates="placecategory")
+
 
     def get_id(self, name):
         try:
@@ -72,14 +76,17 @@ class PlaceCategory(db.Model):
         except Exception as e:
             raise e
 
-##Stores the information how much you earn per level per hour
+##Stores the information how much you earn per level per day
 class PlaceCategoryBenefit(db.Model):
     __tablename__ = 'placecategorybenefit'
     id = Column(Integer(), primary_key=True, nullable=False)
-    placecategory = Column(Integer, ForeignKey('placecategory.id'), nullable=False)
+    placecategory_id = Column(Integer, ForeignKey('placecategory.id'), nullable=False)
+    placecategory = db.relationship("PlaceCategory", foreign_keys=[placecategory_id], back_populates="benefit")
     level = Column(Integer(), nullable=False)
-    resource = Column(Integer, ForeignKey('resource.id'), nullable=False)
+    resource_id = Column(Integer, ForeignKey('resource.id'), nullable=False)
+    resource = db.relationship("Resource", foreign_keys=[resource_id])
     amount = Column(Integer(), nullable=False)
+    UniqueConstraint('placecategory', 'level', 'resource')
 
 
 ##Stores the possible Resourceses witch User can earn/trade
