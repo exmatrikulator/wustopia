@@ -22,42 +22,30 @@ def session_add(model):
 @manager.command
 def imoprtInitData():
     "Inititalise the database"
-    #transport
-    session_add( PlaceCategory( filter="[highway=bus_stop]", name="Bushaltestelle", icon="bus", markerColor="darkgreen" ) )
-    session_add( PlaceCategory( filter="[railway=station]", name="Bahnhof", icon="train", markerColor="darkgreen" ) )
-    session_add( PlaceCategory( filter="[highway=steps]", name="Treppe", icon="signal", markerColor="gray") )
-    #shops
-    session_add( PlaceCategory( filter="[shop=bakery]", name="Bäcker", markerColor="orange" ) )
-    session_add( PlaceCategory( filter="[shop=butcher]", name="Metzger", markerColor="orange" ) )
-    session_add( PlaceCategory( filter="[shop=kiosk]", name="Kiosk", markerColor="orange" ) )
-    session_add( PlaceCategory( filter="[shop=doityourself]", name="Baumarkt", markerColor="purple" ) )
-    #amenity
-    session_add( PlaceCategory( filter="[amenity=restaurant]", name="Restaurant", icon="cutlery", markerColor="orange" ) )
-    session_add( PlaceCategory( filter="[amenity=pub]", name="Kneipe", icon="coffee", markerColor="orange" ) )
-    session_add( PlaceCategory( filter="[amenity=post_office]", name="Post", icon="envelope", markerColor="purple" ) )
-    session_add( PlaceCategory( filter="[amenity=fast_food]", name="Fast Food", icon="cutlery", markerColor="beige" ) )
-    session_add( PlaceCategory( filter="[amenity=ice_cream]", name="Eisdiele", markerColor="orange" ) )
-    session_add( PlaceCategory( filter="[amenity=theatre]", name="Theater", markerColor="red" ) )
-    session_add( PlaceCategory( filter="[amenity=place_of_worship]", name="Religion", markerColor="cadetblue" ) )
-    #leisure
-    session_add( PlaceCategory( filter="[leisure=hackerspace]", name="Hackerspace", icon="gamepad", markerColor="white" ) )
+    import csv
 
+    with open('webapp/import/PlaceCategory.csv', 'r') as csvfile:
+        content = csv.reader(csvfile, delimiter=',')
+        for row in content:
+            if len(row) == 4:
+                session_add( PlaceCategory( name=row[0], filter=row[1], markerColor=row[2], icon=row[3] ) )
+            else:
+                session_add( PlaceCategory( name=row[0], filter=row[1], markerColor=row[2] ) )
 
-    session_add( Resource( name="Gold", major=True, image="http://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Gold_coin_icon.png/32px-Gold_coin_icon.png" ) )
-    session_add( Resource( name="Nahrung", major=True, image="http://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Food-Jelly.svg/48px-Food-Jelly.svg.png" ) )
-    session_add( Resource( name="Baumaterial",major=True, image="http://upload.wikimedia.org/wikipedia/commons/6/68/Nuvola_apps_package_development.png" ) )
-    session_add( Resource( name="Kultur", image="http://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Crystal_Clear_app_krita.png/64px-Crystal_Clear_app_krita.png" ) )
-    session_add( Resource( name="Gebäude", image="http://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Go-home.svg/50px-Go-home.svg.png" ) )
+    with open('webapp/import/BuildCost.csv', 'r') as csvfile:
+        content = csv.reader(csvfile, delimiter=',')
+        for row in content:
+            session_add( Resource( name=row[0], image=row[1], major=row[2] ) )
 
-    session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Gold"), level=1, amount=10))
-    session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Gold"), level=2, amount=14))
-    session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Gold"), level=3, amount=19))
-    session_add(BuildCost(placecategory=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Baumaterial"), level=3, amount=10))
+    with open('webapp/import/BuildCost.csv', 'r') as csvfile:
+        content = csv.reader(csvfile, delimiter=',')
+        for row in content:
+            session_add(BuildCost(placecategory=PlaceCategory().get_id(row[0]), resource_id=Resource().get_id(row[1]), level=row[2], amount=row[3]))
 
-
-    session_add(PlaceCategoryBenefit(placecategory_id=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Gold"), level=1, amount=3))
-    session_add(PlaceCategoryBenefit(placecategory_id=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Gold"), level=2, amount=5))
-    session_add(PlaceCategoryBenefit(placecategory_id=PlaceCategory().get_id("Bushaltestelle"), resource_id=Resource().get_id("Gold"), level=3, amount=8))
+    with open('webapp/import/PlaceCategoryBenefit.csv', 'r') as csvfile:
+        content = csv.reader(csvfile, delimiter=',')
+        for row in content:
+            session_add(PlaceCategoryBenefit(placecategory_id=PlaceCategory().get_id(row[0]), resource_id=Resource().get_id(row[1]), level=row[2], amount=row[3], interval=row[4]))
 
     print("done")
 

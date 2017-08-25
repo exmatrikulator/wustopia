@@ -76,7 +76,7 @@ class PlaceCategory(db.Model):
         except Exception as e:
             raise e
 
-##Stores the information how much you earn per level per day
+##Stores the information how much you earn
 class PlaceCategoryBenefit(db.Model):
     __tablename__ = 'placecategorybenefit'
     id = Column(Integer(), primary_key=True, nullable=False)
@@ -86,6 +86,7 @@ class PlaceCategoryBenefit(db.Model):
     resource_id = Column(Integer, ForeignKey('resource.id'), nullable=False)
     resource = db.relationship("Resource", foreign_keys=[resource_id])
     amount = Column(Integer(), nullable=False)
+    interval = Column(Integer(), nullable=False) # in minutes
     __table_args__ = (UniqueConstraint('placecategory_id', 'level', 'resource_id'),)
 
 
