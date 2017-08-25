@@ -32,10 +32,13 @@ def imoprtInitData():
             else:
                 session_add( PlaceCategory( name=row[0], filter=row[1], markerColor=row[2] ) )
 
-    with open('webapp/import/BuildCost.csv', 'r') as csvfile:
+    with open('webapp/import/Resource.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
         for row in content:
-            session_add( Resource( name=row[0], image=row[1], major=row[2] ) )
+            if len(row) == 3:
+                session_add( Resource( name=row[0], image=row[1], major=row[2] ) )
+            else:
+                session_add( Resource( name=row[0], image=row[1] ) )
 
     with open('webapp/import/BuildCost.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
