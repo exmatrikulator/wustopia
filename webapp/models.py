@@ -29,6 +29,7 @@ class Built(db.Model):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     user = db.relationship("User", foreign_keys=[user_id])
     level = Column(Integer(), default=1, nullable=False )
+    lastcollect = Column(DateTime, default=datetime.utcnow, nullable=False)
 
 ##Stores the prices of resources to build a place (level)
 class BuildCost(db.Model):

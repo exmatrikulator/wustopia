@@ -67,6 +67,14 @@ $( document ).ready(function() {
 	}
 });
 
+var earn = function(id)
+{
+	$.get("/earn",{'place': id}, function(data) {
+		if(data == "success") marker[id].setPopupContent("eingesammelt");
+		else marker[id].setPopupContent("Error " + data);
+	})
+}
+
 var build = function(id)
 {
 	$.get("/build",{'place': id}, function(data) {
@@ -88,6 +96,7 @@ var addItem = function(ilat, ilon, name, level, id, category, categoryid, costs)
 	{
 		text = name;
 	}
+	text = text + '<br><input type=\"button\" value=\"einsammeln\" onclick=\"earn(' + id + ')\">';
 	text = text + ' (' + Math.round(latlng.distanceTo( latlng2 ) ) + 'm)<br>Level ' + level;
 	text = text + '<br>' + category;
 	text = text + '<br>' + costs;

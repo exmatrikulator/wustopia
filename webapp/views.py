@@ -58,8 +58,27 @@ def build():
 
     if building:
         building.level = building.level+1
+        building.lastcollect = datetime.datetime.now()
     else:
-        db.session.add(Built(place_id = request.args.get('place'), user_id = current_user.id))
+        db.session.add(Built(place_id = request.args.get('place'), user_id = current_user.id, lastcollect = datetime.datetime.now()))
+    try:
+        db.session.commit()
+        return "success"
+    except:
+        db.session.rollback()
+        return "unkown Error"
+
+@app.route("/earn")
+def earn():
+    building = db.session.query(Built).options(joinedload(Built.place)).filter_by(place_id = request.args.get('place'), user_id = current_user.id).first()
+    buildingbenefit = db.session.query(PlaceCategoryBenefit).filter_by(placecategory_id = building.place.placecategory.id, level=building.level).all()
+    for benefit in buildingbenefit:
+        if datetime.timedelta(minutes=benefit.interval) <= datetime.datetime.now() - building.lastcollect:
+            current_balance = getBalanceofResource(current_user.id, benefit.resource.id)
+            current_balance.amount += benefit.amount
+            building.lastcollect = datetime.datetime.now()
+            db.session.add(current_balance)
+            db.session.add(building)
     try:
         db.session.commit()
         return "success"
