@@ -18,7 +18,6 @@ class Balance(db.Model):
     resource_id = Column(Integer, ForeignKey('resource.id'), nullable=False)
     resource = db.relationship("Resource", foreign_keys=[resource_id])
     amount = Column(Integer(), nullable=False)
-    lastupdate = Column(DateTime(), default=datetime.utcnow, nullable=False)
 
 ##Stores the buildings of the user
 class Built(db.Model):

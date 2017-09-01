@@ -15,11 +15,6 @@ def index():
     return render_template('index.html', UserLoginForm=UserLoginForm(), UserCreateForm=UserCreateForm())
 
 
-@app.route("/balance")
-@login_required
-def balance():
-    return newBalance(current_user.id)
-
 @app.route("/map")
 @login_required
 def map():
@@ -133,7 +128,7 @@ def user_create():
                 password = form.password.data
             )
             db.session.add(user)
-            db.session.commit()
+            db.session.flush()
 
             db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Gold"), amount=100))
             db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Nahrung"), amount=100))
