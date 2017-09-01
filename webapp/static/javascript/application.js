@@ -54,6 +54,12 @@ var init = function (position)
 	map.on("move",update_places);
 }
 
+function show_resources()
+{
+	$.get("/resources",{}, function(data) {
+		$("#resources").html(data);
+	});
+}
 
 $( document ).ready(function() {
 
@@ -61,9 +67,7 @@ $( document ).ready(function() {
 	{
 		navigator.geolocation.getCurrentPosition(init,init);
 		$("#user").text( user );
-		$.get("/resources",{}, function(data) {
-			$("#resources").html(data);
-		})
+		show_resources();
 	}
 });
 
@@ -72,6 +76,7 @@ var earn = function(id)
 	$.get("/earn",{'place': id}, function(data) {
 		if(data == "success") marker[id].setPopupContent("eingesammelt");
 		else marker[id].setPopupContent("Error " + data);
+		show_resources();
 	})
 }
 
@@ -80,6 +85,7 @@ var build = function(id)
 	$.get("/build",{'place': id}, function(data) {
 		if(data == "success") marker[id].setPopupContent("gebaut");
 		else marker[id].setPopupContent("Error " + data);
+		show_resources();
 	})
 }
 
