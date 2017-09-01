@@ -65,6 +65,7 @@ def build():
 
 @app.route("/earn")
 def earn():
+    something_changed=False
     building = db.session.query(Built).options(joinedload(Built.place)).filter_by(place_id = request.args.get('place'), user_id = current_user.id).first()
     buildingbenefit = db.session.query(PlaceCategoryBenefit).filter_by(placecategory_id = building.place.placecategory.id, level=building.level).all()
     for benefit in buildingbenefit:
@@ -74,13 +75,15 @@ def earn():
             building.lastcollect = datetime.datetime.now()
             db.session.add(current_balance)
             db.session.add(building)
-    try:
-        db.session.commit()
-        return "success"
-    except:
-        db.session.rollback()
-        return "unkown Error"
-
+            something_changed=True
+    if something_changed:
+        try:
+            db.session.commit()
+            return "success"
+        except:
+            db.session.rollback()
+            return "unkown Error"
+    return ""
 
 @app.route("/marker")
 def marker():

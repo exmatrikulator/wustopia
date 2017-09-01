@@ -71,12 +71,18 @@ $( document ).ready(function() {
 	}
 });
 
-var earn = function(id)
+var earn = function(el)
 {
+	//do not collect non buildings
+	if(el.target.place.level == 0)
+	{
+		return;
+	}
+
+	id = el.target.place.id;
 	$.get("/earn",{'place': id}, function(data) {
-		if(data == "success") marker[id].setPopupContent("eingesammelt");
-		else marker[id].setPopupContent("Error " + data);
-		show_resources();
+		if(data == "success") show_resources();
+		else if(data != "") marker[id].setPopupContent("Error " + data);
 	})
 }
 
@@ -102,7 +108,6 @@ var addItem = function(ilat, ilon, name, level, id, category, categoryid, costs)
 	{
 		text = name;
 	}
-	text = text + '<br><input type=\"button\" value=\"einsammeln\" onclick=\"earn(' + id + ')\">';
 	text = text + ' (' + Math.round(latlng.distanceTo( latlng2 ) ) + 'm)<br>Level ' + level;
 	text = text + '<br>' + category;
 	text = text + '<br>' + costs;
@@ -111,8 +116,12 @@ var addItem = function(ilat, ilon, name, level, id, category, categoryid, costs)
 		{icon: markerIcon[categoryid] })
 		.bindPopup( text )
 		.bindTooltip( level, {permanent:true})
-		.addTo(map);
-
+		.addTo(map)
+		.on('click',earn);
+	marker[id].place = []
+	marker[id].place.id = id;
+	marker[id].place.category = category;
+	marker[id].place.level = level;
 }
 
 var scaleMap = function()
