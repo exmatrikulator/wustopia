@@ -34,9 +34,13 @@ def importPlaces(lat1,lon1,lat2,lon2):
                 db.session.rollback()
     return "import"
 
-def getPlaces(lat1,lon1,lat2,lon2,filter):
+def getPlaces(lat = None ,lon = None):
     js = "var ckeckItem = function () {"
-    nodes = db.session.query(Place)
+    if lat and lon:
+        diff=0.005
+        nodes = db.session.query(Place).filter( Place.lat.between(lat-diff, lat+diff)).filter( Place.lon.between(lon-diff, lon+diff))
+    else:
+        nodes = db.session.query(Place)
     for node in nodes:
         building = db.session.query(Built).filter_by(place_id=node.id, user_id=current_user.id).first()
         buildinglevel = int(building.level) if building else 0
