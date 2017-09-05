@@ -41,6 +41,9 @@ var init = function (position)
 		zoom=2;
 	}
 
+	$.getScript( "/js/places/" +  lat + "," +  lon);
+
+
 	map.setView([lat, lon], zoom) ;
 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 	    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -49,7 +52,6 @@ var init = function (position)
 	L.marker([lat, lon], {icon:  L.icon({ iconUrl: ('http://upload.wikimedia.org/wikipedia/commons/c/cb/Icon_person_abstract_blue.jpg'), iconSize: [40, 40] }) }).addTo(map)
 	.bindPopup('You, ' + user )
 	.openPopup();
-	ckeckItem();
 
 	map.on("move",update_places);
 }

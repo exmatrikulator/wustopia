@@ -90,19 +90,12 @@ def marker():
     categories = db.session.query(PlaceCategory)
     return render_template("marker.js", markers = categories)
 
-@app.route("/mobile_places/<float:lat>,<float:lon>")
+@app.route("/js/places/<float:lat>,<float:lon>")
 def mobile_places(lat,lon):
     response = Response( getPlaces(lat, lon ) )
     response.headers.add('Content-Type', "application/javascript")
     return response
 
-
-
-@app.route("/places")
-def places():
-    response = Response( getPlaces() )
-    response.headers.add('Content-Type', "application/javascript")
-    return response
 
 is_update_places = False
 @app.route("/update_places/<float:lat1>,<float:lon1>,<float:lat2>,<float:lon2>")
