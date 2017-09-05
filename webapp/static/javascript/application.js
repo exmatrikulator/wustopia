@@ -6,6 +6,7 @@ var lon = null;
 var acc = null;
 var marker = new Array();
 var user = '';
+var wustopia = {user:{built:[]}};
 
 var is_update_places=false;
 var update_places = function()
@@ -27,6 +28,8 @@ var update_places = function()
 
 var init = function (position)
 {
+
+
 	if(position.coords)
 	{
 		lat = position.coords.latitude;
@@ -41,7 +44,11 @@ var init = function (position)
 		zoom=2;
 	}
 
-	$.getScript( "/js/places/" +  lat + "," +  lon);
+	$.getScript( "/js/places/" +  lat + "," +  lon, function(){
+		wustopia.user.built.forEach(function(item) {
+			addItem(item);
+		})
+	});
 
 
 	map.setView([lat, lon], zoom) ;
@@ -97,33 +104,26 @@ var build = function(id)
 	})
 }
 
-var addItem = function(ilat, ilon, name, level, id, category, categoryid, costs)
+//var addItem = function(ilat, ilon, name, level, id, category, categoryid, costs)
+var addItem = function(item)
 {
 	var text = "";
-	var latlng = new L.LatLng( ilat, ilon );
-	var latlng2 = new L.LatLng( lat , lon );
-	if( latlng.distanceTo( latlng2 ) < 50000)
-	{
-		text = name + '<br><input type=\"button\" value=\"bauen\" onclick=\"build(' + id + ')\">';
-	}
-	else
-	{
-		text = name;
-	}
-	text = text + ' (' + Math.round(latlng.distanceTo( latlng2 ) ) + 'm)<br>Level ' + level;
-	text = text + '<br>' + category;
-	text = text + '<br>' + costs;
+	var latlng = new L.LatLng( item.lat, item.lat );
+	text = item.name + '<br><input type=\"button\" value=\"bauen\" onclick=\"build(' + item.id + ')\">';
+	text = text + '<br>Level ' + item.level;
+	text = text + '<br>' + item.category;
+	text = text + '<br>' + item.costs;
 
-	marker[id] = L.marker([ilat, ilon],
-		{icon: markerIcon[categoryid] })
+	marker[item.id] = L.marker([item.lat, item.lon],
+		{icon: markerIcon[item.categoryid] })
 		.bindPopup( text )
-		.bindTooltip( level, {permanent:true})
+		.bindTooltip( item.level, {permanent:true})
 		.addTo(map)
 		.on('click',earn);
-	marker[id].place = []
-	marker[id].place.id = id;
-	marker[id].place.category = category;
-	marker[id].place.level = level;
+	marker[item.id].place = []
+	marker[item.id].place.id = item.id;
+	marker[item.id].place.category = item.category;
+	marker[item.id].place.level = item.level;
 }
 
 var scaleMap = function()

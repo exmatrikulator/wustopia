@@ -35,8 +35,9 @@ def importPlaces(lat1,lon1,lat2,lon2):
     return "import"
 
 def getPlaces(lat = None ,lon = None):
-    js = ""
-    diff=0.005
+    js = "wustopia.user.built=["
+    ## Defines the allowed distance
+    diff=0.001
     nodes = db.session.query(Place).filter( Place.lat.between(lat-diff, lat+diff)).filter( Place.lon.between(lon-diff, lon+diff)).all()
     nodes += db.session.query(Place).join(Built.place).filter(Built.user_id==current_user.id).all()
     for node in nodes:
@@ -46,5 +47,7 @@ def getPlaces(lat = None ,lon = None):
         buildingcost=""
         for cost in buildingcosts:
             buildingcost += str(cost.amount) + " " + str(cost.resource.name) + " "
-        js += "addItem("+str(node.lat)+", "+str(node.lon)+", \""+str(node.name)+"\", \""+str(buildinglevel)+"\", \""+str(node.id)+"\", \""+str(node.category.name)+"\", \""+str(node.category.id)+"\",\""+buildingcost+"\");"
-    return js
+        js += "{"
+        js += "id:" + str(node.id) + ",lat:" + str(node.lat) + ",lon:" + str(node.lon) + ",name:\"" + str(node.name) + "\",level:\"" + str(buildinglevel) + "\",category:\"" + str(node.category.name) + "\",categoryid:" + str(node.category.id) + ",costs:\"" + buildingcost + "\""
+        js += "},"
+    return js + "];"
