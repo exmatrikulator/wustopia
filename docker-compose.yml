@@ -2,12 +2,21 @@ version: '2'
 services:
   db:
     image: postgres
+    volumes:
+      - data:/var/lib/postgresql/data
   web:
     build: .
-    command: -d
     volumes:
-      - .:/app
-    ports:
-      - "80:5000"
+      - config:/app/config
+      - migrations:/app/migrations
+      #- .:/app
     depends_on:
       - db
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+volumes:
+  config:
+  data:
+  migrations:

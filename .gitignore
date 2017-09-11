@@ -1,4 +1,4 @@
 *.pyc
 venv/
 migrations
-config.py
+config/config.py

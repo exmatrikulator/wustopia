@@ -11,7 +11,7 @@ from flask_login import LoginManager
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@db/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config.from_pyfile('../config.py')
+app.config.from_pyfile('../config/config.py')
 
 db = SQLAlchemy(app)
 

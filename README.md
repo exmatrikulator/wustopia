@@ -1,20 +1,15 @@
 
-Ein Open Source Spiel auf Basis von OpenStreetMap.
+An Open Source Game based on OpenStreetMap.
 
 # Install & Run
 ```
-docker-compose build
-docker-compose down
-docker-compose up -d
+docker-compose up -d --build
 ```
-copy config.py.example to config.py and wait unitl http://localhost is availible
+and visit http://localhost/
+
+# Develop & Run
+Comment out the app volume in the docker-compose.yml and run
 ```
-docker-compose exec web python3 manage.py bcryptbenchmark
+docker-compose up -d --build
 ```
-and change BCRYPT_LOG_ROUNDS in the config.py
-```
-docker-compose exec web python3 manage.py db init
-docker-compose exec web python3 manage.py db migrate
-docker-compose exec web python3 manage.py db upgrade
-docker-compose exec web python3 manage.py imoprtInitData
-```
+and visit http://localhost/
