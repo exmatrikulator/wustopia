@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import overpy
 from webapp import db
-from webapp.models import Built, BuildCost, Place, PlaceCategory
+from webapp.models import Built, BuildCost, Place, PlaceCategory, PlaceCategoryBenefit
 from flask_login import current_user
 from sqlalchemy import desc
 from sqlalchemy.orm import joinedload
@@ -47,7 +47,14 @@ def getPlaces(lat = None ,lon = None):
         buildingcost=""
         for cost in buildingcosts:
             buildingcost += str(cost.amount) + " " + str(cost.resource.name) + " "
+
+        benefit = db.session.query(PlaceCategoryBenefit).filter_by(placecategory_id = node.category.id, level=buildinglevel).first()
+        collectable = "-1"
+        if benefit:
+            collectable = timedelta(minutes=benefit.interval) + building.lastcollect - datetime.now()
+            collectable = round(collectable.total_seconds() ) if collectable.total_seconds() > 0 else 0
+
         js += "{"
-        js += "id:" + str(node.id) + ",lat:" + str(node.lat) + ",lon:" + str(node.lon) + ",name:\"" + str(node.name) + "\",level:\"" + str(buildinglevel) + "\",category:\"" + str(node.category.name) + "\",categoryid:" + str(node.category.id) + ",costs:\"" + buildingcost + "\""
+        js += "id:" + str(node.id) + ",lat:" + str(node.lat) + ",lon:" + str(node.lon) + ",name:\"" + str(node.name) + "\",level:\"" + str(buildinglevel) + "\",category:\"" + str(node.category.name) + "\",categoryid:" + str(node.category.id) + ",costs:\"" + buildingcost + "\",collectable:" + str(collectable) + ""
         js += "},"
     return js + "];"

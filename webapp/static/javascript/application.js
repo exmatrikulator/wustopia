@@ -1,6 +1,6 @@
 
 
-var map =  L.map('map');
+var map = null;
 var lat = null;
 var lon = null;
 var acc = null;
@@ -71,7 +71,8 @@ function show_resources()
 }
 
 $( document ).ready(function() {
-
+	map =  L.map('map');
+	scaleMap();
 	if (navigator.geolocation)
 	{
 		navigator.geolocation.getCurrentPosition(init,init);
@@ -93,6 +94,7 @@ var earn = function(el)
 		if(data == "success") show_resources();
 		else if(data != "") marker[id].setPopupContent("Error " + data);
 	})
+	marker[id].disablePermanentHighlight();
 }
 
 var build = function(id)
@@ -124,6 +126,8 @@ var addItem = function(item)
 	marker[item.id].place.id = item.id;
 	marker[item.id].place.category = item.category;
 	marker[item.id].place.level = item.level;
+	if(item.collectable >= 0)
+		setTimeout(function(){ marker[item.id].enablePermanentHighlight(); }, item.collectable * 1000);
 }
 
 var scaleMap = function()
@@ -132,4 +136,3 @@ var scaleMap = function()
 };
 
 $(window).resize(scaleMap);
-scaleMap();
