@@ -6,9 +6,9 @@
 </style>
 <link rel="stylesheet" href="{{ url_for('static',filename='style/leaflet.css') }}" />
 <script src="{{ url_for('static',filename='javascript/leaflet.js') }}"></script>
-<link rel="stylesheet" href="{{ url_for('static', filename='style/font-awesome.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style/font-awesome.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='style/leaflet.awesome-markers.css') }}">
-<script src="{{ url_for('static', filename='javascript/leaflet.awesome-markers.min.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/leaflet.awesome-markers.js') }}"></script>
 <script src="/marker"></script>
 {% endblock %} {% block content %}
 <div id="menu">
@@ -22,6 +22,6 @@
     </div>
 </div>
 <div id="map"></div>
-<script src="{{ url_for('static',filename='javascript/jquery-3.1.1.min.js') }}"></script>
+<script src="{{ url_for('static',filename='javascript/jquery-3.2.1.js') }}"></script>
 <script src="{{ url_for('static',filename='javascript/application.js') }}"></script>
 {% endblock %}
