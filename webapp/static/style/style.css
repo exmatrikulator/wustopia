@@ -32,12 +32,12 @@ img, .resource{
     padding-left: 15px;
 }
 
-#resourcebar #resourcebar_hidden{
+#resources .resource_hidden{
   float: left;
   display: none;
 }
 
-#resourcebar:hover #resourcebar_hidden{
+#resources:hover .resource_hidden{
   float: left;
   display: block;
 }

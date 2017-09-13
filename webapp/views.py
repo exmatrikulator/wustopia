@@ -4,6 +4,8 @@ from flask import render_template, request, Response, redirect
 from flask_login import login_user, logout_user, login_required, current_user
 from sqlalchemy.orm import joinedload
 
+import json
+
 from webapp import app
 from webapp.models import *
 from webapp.places import getPlaces, importPlaces
@@ -22,20 +24,23 @@ def index():
 def map():
     return render_template('map.html')
 
-@app.route("/resources")
-def resources():
-    html = ""
-    html_visible = ""
-    html_hidden = ""
+@app.route("/api/resources")
+@login_required
+def api_resources():
+    output = []
     resources = getBalance(current_user.id)
     for resource in resources:
-        if resource.resource and resource.resource.major:
-            html_visible += '<div class="resource" title="' + str(resource.resource.name) + '"> <img src="' + str(resource.resource.image) + '" class="resource"> ' + str(resource.amount) + ' </div>';
-        else:
-            html_hidden += '<div class="resource_hidden" title="' + str(resource.resource.name) + '"> <img src="' + str(resource.resource.image) + '" class="resource"> ' + str(resource.amount) + ' </div>';
-    html = "<div id=\"resourcebar\">" + html_visible
-    html += "<div id=\"resourcebar_hidden\">" + html_hidden + "</div></div>"
-    return html
+        item = {}
+        item['id'] = resource.resource.id
+        item['name'] = resource.resource.name
+        item['image'] = resource.resource.image
+        item['major'] = resource.resource.major
+        item['amount'] = resource.amount
+        output.append(item)
+
+    response = Response( json.dumps(output) )
+    response.headers.add('Content-Type', "application/json")
+    return response
 
 @app.route("/build")
 def build():

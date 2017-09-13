@@ -6,7 +6,7 @@ var lon = null;
 var acc = null;
 var marker = new Array();
 var user = '';
-var wustopia = {user:{built:[]}};
+var wustopia = {user:{built:[], resources:[]}};
 
 var is_update_places=false;
 var update_places = function()
@@ -64,10 +64,32 @@ var init = function (position)
 	map.on("move",update_places);
 }
 
-function show_resources()
+
+function update_resources()
 {
-	$.get("/resources",{}, function(data) {
-		$("#resources").html(data);
+
+	$.getJSON( "/api/resources" ).done( function(data) {
+		wustopia.user.resources = data;
+		$("#resources").html("");
+		data.forEach(function(item) {
+			if(item.major)
+			{
+				resclass = "resource";
+			}
+			else
+			{
+				resclass = "resource_hidden";
+			}
+			jQuery("<div/>", {
+				id: "res_" + item.id,
+				class: resclass,
+				title: item.name
+			}).appendTo("#resources");
+			jQuery("<img/>", {
+				src: item.image
+			}).appendTo("#res_" + item.id);
+			$("#res_" + item.id).append( "  " + item.amount );
+		})
 	});
 }
 
@@ -78,7 +100,7 @@ $( document ).ready(function() {
 	{
 		navigator.geolocation.getCurrentPosition(init,init);
 		$("#user").text( user );
-		show_resources();
+		update_resources();
 	}
 });
 
@@ -92,7 +114,7 @@ var earn = function(el)
 
 	id = el.target.place.id;
 	$.get("/earn",{'place': id}, function(data) {
-		if(data == "success") show_resources();
+		if(data == "success") update_resources();
 		else if(data != "") marker[id].setPopupContent("Error " + data);
 	})
 	marker[id].disablePermanentHighlight();
@@ -103,7 +125,7 @@ var build = function(id)
 	$.get("/build",{'place': id}, function(data) {
 		if(data == "success") marker[id].setPopupContent("gebaut");
 		else marker[id].setPopupContent("Error " + data);
-		show_resources();
+		update_resources();
 	})
 }
 
