@@ -12,6 +12,8 @@ from webapp.finance import *
 
 @app.route("/")
 def index():
+    if current_user.is_authenticated:
+        return redirect('/map')
     return render_template('index.html', UserLoginForm=UserLoginForm(), UserCreateForm=UserCreateForm())
 
 
