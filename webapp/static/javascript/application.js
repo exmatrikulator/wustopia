@@ -6,7 +6,7 @@ var lon = null;
 var acc = null;
 var marker = new Array();
 var user = '';
-var wustopia = {user:{built:[], resources:[]}};
+var wustopia = {user:{built:[], places:[]}};
 
 var is_update_places=false;
 var update_places = function()
@@ -23,6 +23,15 @@ var update_places = function()
 	var lat2 = bounds.getNorthEast().lat;
 	$.get( "update_places/"+lat1+","+lng1+","+lat2+","+lng2, function( data ) {
 		is_update_places=false;
+	});
+}
+function get_places()
+{
+	$.getJSON( "/api/places", { lat:lat,  lon:lon }).done( function(data) {
+		wustopia.user.places = data;
+		data.forEach(function(item) {
+			addItem(item);
+		})
 	});
 }
 
@@ -44,12 +53,7 @@ var init = function (position)
 		zoom=2;
 	}
 
-	$.getJSON( "/api/places", { lat:lat,  lon:lon }).done( function(data) {
-		wustopia.user.built = data;
-		data.forEach(function(item) {
-			addItem(item);
-		})
-	});
+	get_places();
 
 
 	map.setView([lat, lon], zoom) ;
@@ -126,6 +130,7 @@ var build = function(id)
 		if(data == "success") marker[id].setPopupContent("gebaut");
 		else marker[id].setPopupContent("Error " + data);
 		update_resources();
+		get_places();
 	})
 }
 
@@ -134,9 +139,10 @@ var addItem = function(item)
 {
 	var text = "";
 	text = item.name + '<br><input type=\"button\" value=\"bauen\" onclick=\"build(' + item.id + ')\">';
-	text = text + '<br>Level ' + item.level;
 	text = text + '<br>' + item.category;
-	text = text + '<br>' + item.costs;
+	item.costs.forEach(function(item) {
+		text = text + '<br>' + item.amount + " " + item.name;
+	});
 
 	marker[item.id] = L.marker([item.lat, item.lon],
 		{icon: markerIcon[item.categoryid] })

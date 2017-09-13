@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import overpy
-import json
 from webapp import db
 from webapp.models import Built, BuildCost, Place, PlaceCategory, PlaceCategoryBenefit
 from flask_login import current_user
@@ -45,9 +44,12 @@ def getPlaces(lat = None ,lon = None):
         building = db.session.query(Built).filter_by(place_id=node.id, user_id=current_user.id).first()
         buildinglevel = int(building.level) if building else 0
         buildingcosts = db.session.query(BuildCost).options(joinedload(BuildCost.resource)).filter_by(placecategory=node.category.id, level=buildinglevel+1).all()
-        buildingcost=""
+        buildingcost=[]
         for cost in buildingcosts:
-            buildingcost += str(cost.amount) + " " + str(cost.resource.name) + " "
+            item = {}
+            item['name'] = cost.resource.name
+            item['amount'] = cost.amount
+            buildingcost.append( item )
 
         benefit = db.session.query(PlaceCategoryBenefit).filter_by(placecategory_id = node.category.id, level=buildinglevel).first()
         collectable = "-1"
@@ -67,4 +69,4 @@ def getPlaces(lat = None ,lon = None):
         item['collectable'] = collectable
 
         output.append(item)
-    return json.dumps(output)
+    return output

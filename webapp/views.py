@@ -101,7 +101,7 @@ def marker():
 def api_places():
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
-    response = Response( getPlaces(lat, lon ) )
+    response = Response( json.dumps(getPlaces(lat, lon ) ) )
     response.headers.add('Content-Type', "application/json")
     return response
 
