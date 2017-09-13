@@ -92,10 +92,12 @@ def marker():
     categories = db.session.query(PlaceCategory)
     return render_template("marker.js", markers = categories)
 
-@app.route("/js/places/<float:lat>,<float:lon>")
-def mobile_places(lat,lon):
+@app.route("/api/places")
+def api_places():
+    lat = float(request.args.get('lat'))
+    lon = float(request.args.get('lon'))
     response = Response( getPlaces(lat, lon ) )
-    response.headers.add('Content-Type', "application/javascript")
+    response.headers.add('Content-Type', "application/json")
     return response
 
 

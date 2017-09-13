@@ -44,8 +44,9 @@ var init = function (position)
 		zoom=2;
 	}
 
-	$.getScript( "/js/places/" +  lat + "," +  lon, function(){
-		wustopia.user.built.forEach(function(item) {
+	$.getJSON( "/api/places", { lat:lat,  lon:lon }).done( function(data) {
+		wustopia.user.built = data;
+		data.forEach(function(item) {
 			addItem(item);
 		})
 	});
@@ -110,7 +111,6 @@ var build = function(id)
 var addItem = function(item)
 {
 	var text = "";
-	var latlng = new L.LatLng( item.lat, item.lat );
 	text = item.name + '<br><input type=\"button\" value=\"bauen\" onclick=\"build(' + item.id + ')\">';
 	text = text + '<br>Level ' + item.level;
 	text = text + '<br>' + item.category;

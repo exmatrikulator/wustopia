@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import overpy
+import json
 from webapp import db
 from webapp.models import Built, BuildCost, Place, PlaceCategory, PlaceCategoryBenefit
 from flask_login import current_user
@@ -35,9 +36,9 @@ def importPlaces(lat1,lon1,lat2,lon2):
     return "import"
 
 def getPlaces(lat = None ,lon = None):
-    js = "wustopia.user.built=["
     ## Defines the allowed distance
-    diff=0.001
+    diff=0.005
+    output = []
     nodes = db.session.query(Place).filter( Place.lat.between(lat-diff, lat+diff)).filter( Place.lon.between(lon-diff, lon+diff)).all()
     nodes += db.session.query(Place).join(Built.place).filter(Built.user_id==current_user.id).all()
     for node in nodes:
@@ -54,7 +55,16 @@ def getPlaces(lat = None ,lon = None):
             collectable = timedelta(minutes=benefit.interval) + building.lastcollect - datetime.now()
             collectable = round(collectable.total_seconds() ) if collectable.total_seconds() > 0 else 0
 
-        js += "{"
-        js += "id:" + str(node.id) + ",lat:" + str(node.lat) + ",lon:" + str(node.lon) + ",name:\"" + str(node.name) + "\",level:\"" + str(buildinglevel) + "\",category:\"" + str(node.category.name) + "\",categoryid:" + str(node.category.id) + ",costs:\"" + buildingcost + "\",collectable:" + str(collectable) + ""
-        js += "},"
-    return js + "];"
+        item = {}
+        item['id'] = node.id
+        item['lat'] = node.lat
+        item['lon'] = node.lon
+        item['name'] = node.name
+        item['level'] = str(buildinglevel)
+        item['category'] = node.category.name
+        item['categoryid'] = node.category.id
+        item['costs'] = buildingcost
+        item['collectable'] = collectable
+
+        output.append(item)
+    return json.dumps(output)
