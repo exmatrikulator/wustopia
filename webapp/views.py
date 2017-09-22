@@ -92,10 +92,22 @@ def earn():
             return "unkown Error"
     return ""
 
-@app.route("/marker")
-def marker():
+@app.route("/api/markerIcon")
+def markerIcon():
+    output = []
     categories = db.session.query(PlaceCategory)
-    return render_template("marker.js", markers = categories)
+    for marker in categories:
+        item = {}
+        item['id'] = marker.id
+        item['name'] = marker.name
+        item['icon'] = marker.icon
+        item['markerColor'] = marker.markerColor
+        item['prefix'] = 'fa'
+        output.append(item)
+
+    response = Response( json.dumps( output ) )
+    response.headers.add('Content-Type', "application/json")
+    return response
 
 @app.route("/api/places")
 def api_places():
