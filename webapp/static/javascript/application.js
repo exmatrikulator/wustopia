@@ -1,4 +1,3 @@
-var user = '';
 var wustopia = {
   marker: [],
   map: {},
@@ -68,7 +67,7 @@ var init = function(position) {
         iconSize: [40, 40]
       })
     }).addTo(wustopia.map)
-    .bindPopup('You, ' + user)
+    .bindPopup('You')
     .openPopup();
 
   wustopia.map.on("move", update_places);
@@ -104,7 +103,6 @@ $(document).ready(function() {
   scaleMap();
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(init, init);
-    $("#user").text(user);
     update_resources();
   }
 });
