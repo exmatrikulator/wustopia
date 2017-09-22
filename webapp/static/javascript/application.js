@@ -1,7 +1,7 @@
-var marker = new Array();
 var user = '';
 var wustopia = {
-	map: {},
+  marker: [],
+  map: {},
   user: {
     built: [],
     places: []
@@ -120,17 +120,17 @@ var earn = function(el) {
     'place': id
   }, function(data) {
     if (data == "success") update_resources();
-    else if (data != "") marker[id].setPopupContent("Error " + data);
+    else if (data != "") wustopia.marker[id].setPopupContent("Error " + data);
   })
-  marker[id].disablePermanentHighlight();
+  wustopia.marker[id].disablePermanentHighlight();
 }
 
 var build = function(id) {
   $.get("/build", {
     'place': id
   }, function(data) {
-    if (data == "success") marker[id].setPopupContent("gebaut");
-    else marker[id].setPopupContent("Error " + data);
+    if (data == "success") wustopia.marker[id].setPopupContent("gebaut");
+    else wustopia.marker[id].setPopupContent("Error " + data);
     update_resources();
     get_places();
   })
@@ -145,7 +145,7 @@ var addItem = function(item) {
     text = text + '<br>' + item.amount + " " + item.name;
   });
 
-  marker[item.id] = L.marker([item.lat, item.lon], {
+  wustopia.marker[item.id] = L.marker([item.lat, item.lon], {
       icon: markerIcon[item.categoryid]
     })
     .bindPopup(text)
@@ -154,13 +154,13 @@ var addItem = function(item) {
     })
     .addTo(wustopia.map)
     .on('click', earn);
-  marker[item.id].place = []
-  marker[item.id].place.id = item.id;
-  marker[item.id].place.category = item.category;
-  marker[item.id].place.level = item.level;
+  wustopia.marker[item.id].place = []
+  wustopia.marker[item.id].place.id = item.id;
+  wustopia.marker[item.id].place.category = item.category;
+  wustopia.marker[item.id].place.level = item.level;
   if (item.collectable >= 0)
     setTimeout(function() {
-      marker[item.id].enablePermanentHighlight();
+      wustopia.marker[item.id].enablePermanentHighlight();
     }, item.collectable * 1000);
 }
 
