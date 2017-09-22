@@ -1,7 +1,7 @@
-var map = null;
 var marker = new Array();
 var user = '';
 var wustopia = {
+	map: {},
   user: {
     built: [],
     places: []
@@ -17,10 +17,10 @@ var is_update_places = false;
 var update_places = function() {
   if (is_update_places)
     return;
-  if (map.getZoom() < 17)
+  if (wustopia.map.getZoom() < 17)
     return;
   is_update_places = true;
-  var bounds = map.getBounds();
+  var bounds = wustopia.map.getBounds();
   var lng1 = bounds.getSouthWest().lng;
   var lat1 = bounds.getSouthWest().lat;
   var lng2 = bounds.getNorthEast().lng;
@@ -57,21 +57,21 @@ var init = function(position) {
   get_places();
 
 
-  map.setView([wustopia.session.lat, wustopia.session.lon], zoom);
+  wustopia.map.setView([wustopia.session.lat, wustopia.session.lon], zoom);
   L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
+  }).addTo(wustopia.map);
 
   L.marker([wustopia.session.lat, wustopia.session.lon], {
       icon: L.icon({
         iconUrl: ('http://upload.wikimedia.org/wikipedia/commons/c/cb/Icon_person_abstract_blue.jpg'),
         iconSize: [40, 40]
       })
-    }).addTo(map)
+    }).addTo(wustopia.map)
     .bindPopup('You, ' + user)
     .openPopup();
 
-  map.on("move", update_places);
+  wustopia.map.on("move", update_places);
 }
 
 
@@ -100,7 +100,7 @@ function update_resources() {
 }
 
 $(document).ready(function() {
-  map = L.map('map');
+  wustopia.map = L.map('map');
   scaleMap();
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(init, init);
@@ -152,7 +152,7 @@ var addItem = function(item) {
     .bindTooltip(item.level, {
       permanent: true
     })
-    .addTo(map)
+    .addTo(wustopia.map)
     .on('click', earn);
   marker[item.id].place = []
   marker[item.id].place.id = item.id;
