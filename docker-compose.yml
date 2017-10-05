@@ -6,6 +6,7 @@ services:
       - data:/var/lib/postgresql/data
   web:
     build: .
+    image: exmatrikulator/wustopia
     volumes:
       - config:/app/config
       - migrations:/app/migrations
