@@ -117,6 +117,13 @@ def api_places():
     response.headers.add('Content-Type', "application/json")
     return response
 
+@app.route("/api/version")
+def api_version():
+    with open("version.txt") as f:
+        content = f.read()
+    response = Response( content )
+    response.headers.add('Content-Type', "application/json")
+    return response
 
 is_update_places = False
 @app.route("/update_places/<float:lat1>,<float:lon1>,<float:lat2>,<float:lon2>")
