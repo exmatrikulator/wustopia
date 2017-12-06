@@ -29,17 +29,40 @@ class Built(db.Model):
     user = db.relationship("User", foreign_keys=[user_id])
     level = Column(Integer(), default=1, nullable=False )
     lastcollect = Column(DateTime, default=datetime.utcnow, nullable=False)
+    ready = Column(DateTime, nullable=False)
 
-##Stores the prices of resources to build a place (level)
+##Stores the time to build a place (level)
 class BuildCost(db.Model):
     __tablename__ = 'buildcost'
     id = Column(Integer(), primary_key=True, nullable=False)
-    placecategory = Column(Integer, ForeignKey('placecategory.id'), nullable=False)
+    placecategory_id = Column(Integer, ForeignKey('placecategory.id'), nullable=False)
+    placecategory = db.relationship("PlaceCategory", foreign_keys=[placecategory_id])
     level = Column(Integer(), nullable=False)
+    time = Column(Integer(), nullable=False)    #time in secounds
+    __table_args__ = (UniqueConstraint('placecategory_id', 'level'),)
+
+    def get_id(self, placecategory, level):
+        try:
+            query = db.session.query(BuildCost).filter_by(placecategory_id=PlaceCategory().get_id(placecategory), level=level)
+            instance = query.first()
+
+            if instance:
+                return instance.id
+            return None
+        except Exception as e:
+            raise e
+
+##Stores the prices of resources to build a place (level)
+class BuildCostResource(db.Model):
+    __tablename__ = 'buildcostresource'
+    id = Column(Integer(), primary_key=True, nullable=False)
+    buildcost_id = Column(Integer, ForeignKey('buildcost.id'), nullable=False)
+    buildcost = db.relationship("BuildCost", foreign_keys=[buildcost_id])
     resource_id = Column(Integer, ForeignKey('resource.id'), nullable=False)
     resource = db.relationship("Resource", foreign_keys=[resource_id])
     amount = Column(Integer(), nullable=False)
-    __table_args__ = (UniqueConstraint('placecategory', 'level', 'resource_id'),)
+    __table_args__ = (UniqueConstraint('buildcost_id', 'resource_id'),)
+
 
 ##Stores the places (nodes) from OSM
 class Place(db.Model):

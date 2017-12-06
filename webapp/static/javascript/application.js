@@ -13,6 +13,42 @@ var wustopia = {
   }
 };
 
+var get_time_as_string = function(time)
+{
+  var output = "";
+  var hours = Math.floor(time / 3600);
+  var minutes = Math.floor((time - (hours * 3600)) / 60);
+  var seconds = time - (hours * 3600) - (minutes * 60);
+  if( hours > 0)
+    output += hours + "h ";
+  if( minutes > 0)
+    output += minutes + "m ";
+  if( hours == 0)
+    output += seconds + "s";
+  return output.trim();
+}
+
+//only for testing
+var test_time = function()
+{
+  if(
+    get_time_as_string(5) == "5s" &&
+    get_time_as_string(10) == "10s" &&
+    get_time_as_string(60) == "1m 0s" &&
+    get_time_as_string(61) == "1m 1s" &&
+    get_time_as_string(130) == "2m 10s" &&
+    get_time_as_string(600) == "10m 0s" &&
+    get_time_as_string(3600) == "1h" &&
+    get_time_as_string(3604) == "1h" &&
+    get_time_as_string(3660) == "1h 1m")
+    {
+      return true;
+  }
+  else {
+    return false;
+  }
+}
+
 var is_update_places = false;
 var update_places = function() {
   if (is_update_places)
@@ -129,14 +165,34 @@ var earn = function(el) {
   wustopia.marker[id].disablePermanentHighlight();
 }
 
+var show_countdown = function(id, seconds) {
+  wustopia.marker[id].setPopupContent(get_time_as_string(seconds));
+  if(seconds-- > 0)
+  {
+    setTimeout(function() {
+      show_countdown(id,seconds);
+    }, 1000);
+  }
+  else {
+    wustopia.marker[id].setPopupContent("gebaut");
+    get_places();
+  }
+}
+
 var build = function(id) {
   $.get("/build", {
     'place': id
   }, function(data) {
-    if (data == "success") wustopia.marker[id].setPopupContent("gebaut");
+    if (data == "success")
+    {
+      show_countdown(id, wustopia.marker[id].place.buildtime);
+      wustopia.marker[id]._popup.options.closeOnClick = false;
+      wustopia.marker[id]._popup.options.autoClose = false;
+      wustopia.marker[id].openPopup();
+    }
     else wustopia.marker[id].setPopupContent("Error " + data);
     update_resources();
-    get_places();
+
   })
 }
 
@@ -148,7 +204,13 @@ var addItem = function(item) {
   item.costs.forEach(function(item) {
     text = text + '<br>' + item.amount + " " + item.name;
   });
+  if(item.buildtime) {
+    text = text + "<br>Bauzeit: " + get_time_as_string(item.buildtime);
+  }
 
+  //remove old marker/layer
+  if(wustopia.marker[item.id])
+    wustopia.map.removeLayer(wustopia.marker[item.id]);
   wustopia.marker[item.id] = L.marker([item.lat, item.lon], {
       icon: wustopia.markerIcon[item.categoryid]
     })
@@ -162,10 +224,21 @@ var addItem = function(item) {
   wustopia.marker[item.id].place.id = item.id;
   wustopia.marker[item.id].place.category = item.category;
   wustopia.marker[item.id].place.level = item.level;
+  wustopia.marker[item.id].place.buildtime = item.buildtime;
   if (item.collectable >= 0)
     setTimeout(function() {
       wustopia.marker[item.id].enablePermanentHighlight();
     }, item.collectable * 1000);
+
+  //show countdown if not ready
+  ready_delta = item.ready - Math.floor(Date.now() / 1000);
+  if(ready_delta > 0) {
+    show_countdown(item.id, ready_delta);
+    wustopia.marker[item.id]._popup.options.closeOnClick = false;
+    wustopia.marker[item.id]._popup.options.autoClose = false;
+    wustopia.marker[item.id].openPopup();
+  }
+
 }
 
 var scaleMap = function() {

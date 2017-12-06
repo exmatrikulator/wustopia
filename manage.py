@@ -16,14 +16,17 @@ def session_add(model):
     try:
         db.session.add(model)
         db.session.commit()
-    except:
+    except Exception as e:
         db.session.rollback()
+        if app.debug:
+            print(e)
 
 @manager.command
 def imoprtInitData():
     "Inititalise the database"
     import csv
 
+    print("import PlaceCategory")
     with open('webapp/import/PlaceCategory.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
         for row in content:
@@ -32,6 +35,7 @@ def imoprtInitData():
             else:
                 session_add( PlaceCategory( name=row[0], filter=row[1], markerColor=row[2] ) )
 
+    print("import Resource")
     with open('webapp/import/Resource.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
         for row in content:
@@ -40,11 +44,19 @@ def imoprtInitData():
             else:
                 session_add( Resource( name=row[0], image=row[1] ) )
 
+    print("import BuildCost")
     with open('webapp/import/BuildCost.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
         for row in content:
-            session_add(BuildCost(placecategory=PlaceCategory().get_id(row[0]), resource_id=Resource().get_id(row[1]), level=row[2], amount=row[3]))
+            session_add(BuildCost(placecategory_id=PlaceCategory().get_id(row[0]), level=row[1], time=row[2]))
 
+    print("import BuildCostResource")
+    with open('webapp/import/BuildCostResource.csv', 'r') as csvfile:
+        content = csv.reader(csvfile, delimiter=',')
+        for row in content:
+            session_add(BuildCostResource(buildcost_id=BuildCost().get_id(row[0],row[1]), resource_id=Resource().get_id(row[2]), amount=row[3]))
+
+    print("import PlaceCategoryBenefit")
     with open('webapp/import/PlaceCategoryBenefit.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
         for row in content:

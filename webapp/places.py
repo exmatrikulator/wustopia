@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import overpy
 from webapp import db
-from webapp.models import Built, BuildCost, Place, PlaceCategory, PlaceCategoryBenefit
+from webapp.models import Built, BuildCost, BuildCostResource, Place, PlaceCategory, PlaceCategoryBenefit
 from flask_login import current_user
 from sqlalchemy import desc
 from sqlalchemy.orm import joinedload
@@ -38,21 +38,37 @@ def getPlaces(lat = None ,lon = None):
     ## Defines the allowed distance
     diff=0.005
     output = []
+    #TODO: Filter duplicate
     nodes = db.session.query(Place).filter( Place.lat.between(lat-diff, lat+diff)).filter( Place.lon.between(lon-diff, lon+diff)).all()
     nodes += db.session.query(Place).join(Built.place).filter(Built.user_id==current_user.id).all()
     for node in nodes:
-        building = db.session.query(Built).filter_by(place_id=node.id, user_id=current_user.id).first()
-        buildinglevel = int(building.level) if building else 0
-        buildingcosts = db.session.query(BuildCost).options(joinedload(BuildCost.resource)).filter_by(placecategory=node.category.id, level=buildinglevel+1).all()
+        ready = 0
         buildingcost=[]
+        collectable = "-1"
+
+        building = db.session.query(Built).filter(Built.place_id==node.id, Built.user_id==current_user.id).first()
+        if building:
+            ready = int(building.ready.timestamp())
+            if building.ready < datetime.now():
+                buildinglevel = int(building.level)
+            else:
+                buildinglevel = int(building.level) -1
+        else:
+            buildinglevel = 0
+        #buildingcosts = db.session.query(BuildCost).options(joinedload(BuildCost.resource)).filter_by(placecategory=node.category.id, level=buildinglevel+1).all()
+        buildingcosts = db.session.query(BuildCostResource).options(joinedload(BuildCostResource.buildcost)).options(joinedload(BuildCostResource.resource)).filter(BuildCost.placecategory_id==node.category.id, BuildCost.level==buildinglevel+1, BuildCostResource.buildcost_id==BuildCost.id).all()
         for cost in buildingcosts:
             item = {}
             item['name'] = cost.resource.name
             item['amount'] = cost.amount
             buildingcost.append( item )
+        buildcost = db.session.query(BuildCost).filter_by(placecategory_id=node.category.id, level=buildinglevel+1,).first()
+        if buildcost:
+            buildtime = buildcost.time
+        else:
+            buildtime = None
 
         benefit = db.session.query(PlaceCategoryBenefit).filter_by(placecategory_id = node.category.id, level=buildinglevel).first()
-        collectable = "-1"
         if benefit:
             collectable = timedelta(minutes=benefit.interval) + building.lastcollect - datetime.now()
             collectable = round(collectable.total_seconds() ) if collectable.total_seconds() > 0 else 0
@@ -66,7 +82,9 @@ def getPlaces(lat = None ,lon = None):
         item['category'] = node.category.name
         item['categoryid'] = node.category.id
         item['costs'] = buildingcost
+        item['buildtime'] = buildtime
         item['collectable'] = collectable
+        item['ready'] = ready
 
         output.append(item)
     return output

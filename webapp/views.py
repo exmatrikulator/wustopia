@@ -48,7 +48,7 @@ def build():
     place = db.session.query(Place).options(joinedload(Place.placecategory)).filter_by(id = request.args.get('place')).first()
     building = db.session.query(Built).filter_by(place_id = request.args.get('place'), user_id = current_user.id).first()
     buildinglevel = building.level+1 if building else 1
-    buildcost = db.session.query(BuildCost).filter_by(placecategory = place.placecategory.id, level=buildinglevel).all()
+    buildcost = db.session.query(BuildCostResource).options(joinedload(BuildCostResource.buildcost)).filter(BuildCost.placecategory_id == place.placecategory.id, BuildCost.level==buildinglevel, BuildCostResource.buildcost_id==BuildCost.id).all()
 
     for costs in buildcost:
         current_balance = getBalanceofResource(current_user.id, costs.resource.id)
@@ -58,17 +58,20 @@ def build():
         else:
             return str(getBalanceofResource(current_user.id, costs.resource.id).amount) + " >= " + str(costs.amount)
 
+    buildtime = db.session.query(BuildCost).filter(BuildCost.placecategory_id == place.placecategory.id, BuildCost.level==buildinglevel).first().time
+    ready = datetime.datetime.now() + datetime.timedelta(seconds = buildtime)
     if building:
         building.level = building.level+1
+        building.ready = ready
         building.lastcollect = datetime.datetime.now()
     else:
-        db.session.add(Built(place_id = request.args.get('place'), user_id = current_user.id, lastcollect = datetime.datetime.now()))
+        db.session.add(Built(place_id = request.args.get('place'), user_id = current_user.id, lastcollect = datetime.datetime.now(), ready=ready))
     try:
         db.session.commit()
         return "success"
-    except:
+    except Exception as e:
         db.session.rollback()
-        return "unkown Error"
+        return "unkown Error: " + str(e)
 
 @app.route("/earn")
 def earn():
