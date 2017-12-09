@@ -29,6 +29,7 @@ def imoprtInitData():
     print("import PlaceCategory")
     with open('webapp/import/PlaceCategory.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
+        next(content) # skip header
         for row in content:
             if len(row) == 4:
                 session_add( PlaceCategory( name=row[0], filter=row[1], markerColor=row[2], icon=row[3] ) )
@@ -38,6 +39,7 @@ def imoprtInitData():
     print("import Resource")
     with open('webapp/import/Resource.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
+        next(content) # skip header
         for row in content:
             if len(row) == 3:
                 session_add( Resource( name=row[0], image=row[1], major=row[2] ) )
@@ -47,18 +49,21 @@ def imoprtInitData():
     print("import BuildCost")
     with open('webapp/import/BuildCost.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
+        next(content) # skip header
         for row in content:
             session_add(BuildCost(placecategory_id=PlaceCategory().get_id(row[0]), level=row[1], time=row[2]))
 
     print("import BuildCostResource")
     with open('webapp/import/BuildCostResource.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
+        next(content) # skip header
         for row in content:
             session_add(BuildCostResource(buildcost_id=BuildCost().get_id(row[0],row[1]), resource_id=Resource().get_id(row[2]), amount=row[3]))
 
     print("import PlaceCategoryBenefit")
     with open('webapp/import/PlaceCategoryBenefit.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
+        next(content) # skip header
         for row in content:
             session_add(PlaceCategoryBenefit(placecategory_id=PlaceCategory().get_id(row[0]), resource_id=Resource().get_id(row[1]), level=row[2], amount=row[3], interval=row[4]))
 

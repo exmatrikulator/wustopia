@@ -1,4 +1,5 @@
+Resource,Image,IsMajor
 Gold,http://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Gold_coin_icon.png/32px-Gold_coin_icon.png,1
 Nahrung,http://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Food-Jelly.svg/48px-Food-Jelly.svg.png,1
 Baumaterial,http://upload.wikimedia.org/wikipedia/commons/6/68/Nuvola_apps_package_development.png,1
-Kultur,http://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Crystal_Clear_app_krita.png/64px-Crystal_Clear_app_krita.png
+Kultur,http://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Crystal_Clear_app_krita.png/64px-Crystal_Clear_app_krita.png,0
