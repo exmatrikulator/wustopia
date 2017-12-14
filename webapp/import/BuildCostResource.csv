@@ -3,3 +3,8 @@ Bushaltestelle,1,Gold,10
 Bushaltestelle,2,Gold,14
 Bushaltestelle,3,Gold,19
 Bushaltestelle,3,Baumaterial,10
+Restaurant,1,Gold,50
+Restaurant,2,Gold,80
+Restaurant,2,Nahrung,50
+Restaurant,3,Gold,100
+Restaurant,3,Nahrung,150
