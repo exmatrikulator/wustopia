@@ -147,15 +147,30 @@ $(document).ready(function() {
     navigator.geolocation.getCurrentPosition(init, init);
     update_resources();
   }
+  $("#collect_all").click(function(){collect_all();});
+
 });
 
+var collect_all = function() {
+  wustopia.marker.forEach(function(marker) {
+    if(marker.place.collectable) earn(marker);
+  });
+}
+
 var earn = function(el) {
+  //switch between marker and direct item
+  if(el.target) {
+    item = el.target
+  }
+  else {
+    item = el
+  }
   //do not collect non buildings
-  if (el.target.place.level == 0) {
+  if (item.place.level == 0) {
     return;
   }
 
-  id = el.target.place.id;
+  id = item.place.id;
   $.get("/earn", {
     'place': id
   }, function(data) {
@@ -225,10 +240,12 @@ var addItem = function(item) {
   wustopia.marker[item.id].place.category = item.category;
   wustopia.marker[item.id].place.level = item.level;
   wustopia.marker[item.id].place.buildtime = item.buildtime;
-  if (item.collectable >= 0)
+  wustopia.marker[item.id].place.collectable = false;
+  if (item.collectablein >= 0)
     setTimeout(function() {
+      wustopia.marker[item.id].place.collectable = true;
       wustopia.marker[item.id].enablePermanentHighlight();
-    }, item.collectable * 1000);
+    }, item.collectablein * 1000);
 
   //show countdown if not ready
   ready_delta = item.ready - Math.floor(Date.now() / 1000);
@@ -244,5 +261,6 @@ var addItem = function(item) {
 var scaleMap = function() {
   $("#map").css('height', $(window).height() - 30 + 'px');
 };
+
 
 $(window).resize(scaleMap);

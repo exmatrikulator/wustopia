@@ -44,7 +44,7 @@ def getPlaces(lat = None ,lon = None):
     for node in nodes:
         ready = 0
         buildingcost=[]
-        collectable = "-1"
+        collectablein = "-1"
 
         building = db.session.query(Built).filter(Built.place_id==node.id, Built.user_id==current_user.id).first()
         if building:
@@ -70,8 +70,8 @@ def getPlaces(lat = None ,lon = None):
 
         benefit = db.session.query(PlaceCategoryBenefit).filter_by(placecategory_id = node.category.id, level=buildinglevel).first()
         if benefit:
-            collectable = timedelta(minutes=benefit.interval) + building.lastcollect - datetime.now()
-            collectable = round(collectable.total_seconds() ) if collectable.total_seconds() > 0 else 0
+            collectablein = timedelta(minutes=benefit.interval) + building.lastcollect - datetime.now()
+            collectablein = round(collectablein.total_seconds() ) if collectablein.total_seconds() > 0 else 0
 
         item = {}
         item['id'] = node.id
@@ -83,7 +83,7 @@ def getPlaces(lat = None ,lon = None):
         item['categoryid'] = node.category.id
         item['costs'] = buildingcost
         item['buildtime'] = buildtime
-        item['collectable'] = collectable
+        item['collectablein'] = collectablein
         item['ready'] = ready
 
         output.append(item)

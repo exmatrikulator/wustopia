@@ -17,6 +17,7 @@
 <div id="menu">
     <div id="resources" class="menu"></div>
     <div id="logout" class="menu">
+      <a id="collect_all" href="#">alles einsammeln</a>
       {% if current_user.is_authenticated %}
         ({{ current_user.username }})
       {% endif %}
