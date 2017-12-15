@@ -1,4 +1,9 @@
 PlaceCategory,Resource,Level,Amount,Time
-Bushaltestelle,Gold,1,3,60
-Bushaltestelle,Gold,2,5,60
-Bushaltestelle,Gold,3,8,60
+Bushaltestelle,Gold,1,1,10
+Bushaltestelle,Gold,2,2,30
+Bushaltestelle,Gold,3,7,60
+Bushaltestelle,Gold,4,15,90
+Bushaltestelle,Gold,5,25,120
+Restaurant,Nahrung,1,2,30
+Restaurant,Nahrung,2,10,65
+Restaurant,Nahrung,3,2,30
