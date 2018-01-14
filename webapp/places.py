@@ -30,8 +30,11 @@ def importPlaces(lat1,lon1,lat2,lon2):
             try:
                 db.session.add( Place( osmNodeId=node.id, lon=node.lon, lat = node.lat, placecategory_id=category.id, name=node.tags.get("name") ) )
                 db.session.commit()
-            except:
+
+            except Exception as e:
                 db.session.rollback()
+                if app.debug:
+                    print(e)
     return "import"
 
 def getPlaces(lat = None ,lon = None):

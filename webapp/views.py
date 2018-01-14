@@ -71,6 +71,8 @@ def build():
         return "success"
     except Exception as e:
         db.session.rollback()
+        if app.debug:
+            print(e)
         return "unkown Error: " + str(e)
 
 @app.route("/earn")
@@ -90,8 +92,10 @@ def earn():
         try:
             db.session.commit()
             return "success"
-        except:
+        except Exception as e:
             db.session.rollback()
+            if app.debug:
+                print(e)
             return "unkown Error"
     return ""
 
