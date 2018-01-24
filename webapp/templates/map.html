@@ -1,28 +1,33 @@
-{% extends "base.html" %} {% block title %}Index{% endblock %} {% block head %} {{ super() }}
-<style type="text/css">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <style type="text/css">
     .important {
-        color: #336699;
+      color: #336699;
     }
-</style>
-<link rel="stylesheet" href="{{ url_for('static',filename='style/leaflet.css') }}" />
-<script src="{{ url_for('static',filename='javascript/leaflet.js') }}"></script>
-<link rel="stylesheet" href="{{ url_for('static', filename='style/font-awesome.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='style/leaflet.awesome-markers.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='style/leaflet.marker.highlight.css') }}">
-<script src="{{ url_for('static', filename='javascript/leaflet.awesome-markers.js') }}"></script>
-<script src="{{ url_for('static', filename='javascript/leaflet.marker.highlight.js') }}"></script>
-<script src="{{ url_for('static',filename='javascript/jquery-3.2.1.js') }}"></script>
-<script src="{{ url_for('static',filename='javascript/application.js') }}"></script>
-{% endblock %} {% block content %}
-<div id="menu">
+  </style>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style/leaflet.css') }}" />
+  <script src="{{ url_for('static',filename='javascript/leaflet.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style/font-awesome.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style/leaflet.awesome-markers.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style/leaflet.marker.highlight.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+  <script src="{{ url_for('static', filename='javascript/leaflet.awesome-markers.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript/leaflet.marker.highlight.js') }}"></script>
+  <script src="{{ url_for('static',filename='javascript/jquery-3.2.1.js') }}"></script>
+  <script src="{{ url_for('static',filename='javascript/application.js') }}"></script>
+</head>
+
+<body>
+  <div id="menu">
     <div id="resources" class="menu"></div>
     <div id="logout" class="menu">
-      <a id="collect_all" href="#">alles einsammeln</a>
-      {% if current_user.is_authenticated %}
-        ({{ current_user.username }})
-      {% endif %}
+      <a id="collect_all" href="#">alles einsammeln</a> {% if current_user.is_authenticated %} ({{ current_user.username }}) {% endif %}
       <a href="/user/logout">Logout</a>
     </div>
-</div>
-<div id="map"></div>
-{% endblock %}
+  </div>
+  <div id="map"></div>
+</body>
+
+</html>

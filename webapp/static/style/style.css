@@ -68,3 +68,7 @@ body {
   background-color: #d252b9;
   color: #fff;
 }
+
+.notification a {
+  text-decoration: none !important;
+}

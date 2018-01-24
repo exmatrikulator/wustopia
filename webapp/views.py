@@ -12,17 +12,24 @@ from webapp.places import getPlaces, importPlaces
 from webapp.forms import *
 from webapp.finance import *
 
+def wustopia_render_template(template, **kwargs):
+    if not 'UserLoginForm' in kwargs:
+        kwargs['UserLoginForm']=UserLoginForm()
+    if not 'UserCreateForm' in kwargs:
+        kwargs['UserCreateForm']=UserCreateForm()
+    return render_template(template, **kwargs)
+
 @app.route("/")
 def index():
     if current_user.is_authenticated:
         return redirect('/map')
-    return render_template('index.html', UserLoginForm=UserLoginForm(), UserCreateForm=UserCreateForm())
+    return wustopia_render_template('index.html', UserLoginForm=UserLoginForm(), UserCreateForm=UserCreateForm())
 
 
 @app.route("/map")
 @login_required
 def map():
-    return render_template('map.html')
+    return wustopia_render_template('map.html')
 
 @app.route("/api/resources")
 @login_required
@@ -187,9 +194,9 @@ def user_create():
             #return html
             login_user(user)
             return redirect('/map')
-        return render_template("error.html", error = form.errors)
+        return wustopia_render_template("error.html", error = form.errors)
     except Exception as e:
-        return render_template("error.html", error=e)
+        return wustopia_render_template("error.html", error=e)
 
 @app.route('/user/login', methods=['POST','GET'])
 def user_login():
@@ -197,10 +204,10 @@ def user_login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if not user or not user.is_correct_password(form.password.data):
-            return redirect('/')
+            return wustopia_render_template("error.html", error="wrong User / Password")
         login_user(user)
         return redirect('/map')
-    return redirect('/')
+    return wustopia_render_template("error.html",error="Did you fill all fields?")
 
 @app.route('/user/logout')
 def user_logout():
