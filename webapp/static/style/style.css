@@ -47,3 +47,24 @@ body {
     padding: 0px;
     font-family: Arial, serif;
 }
+
+
+/*bulma modifications*/
+
+.notification.is-ocher {
+  background-color: #ffcb92;
+  color: #fff;
+}
+
+.notification.is-orange {
+  background-color: #f69730;
+  color: #fff;
+}
+.notification.is-turquoise {
+  background-color: #00d1b2;
+  color: #fff;
+}
+.notification.is-purple {
+  background-color: #d252b9;
+  color: #fff;
+}

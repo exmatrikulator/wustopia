@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='style/bulma.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='style/fontawesome-all.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static',filename='style/style.css') }}" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -11,10 +13,5 @@
 </head>
 <body>
     <div id="content">{% block content %}{% endblock %}</div>
-    <div id="footer">
-        {% block footer %}
-
-        {% endblock %}
-    </div>
 </body>
 </html>

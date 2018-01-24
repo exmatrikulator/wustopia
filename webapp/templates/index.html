@@ -1,23 +1,103 @@
-{% extends "base.html" %} {% block title %}Index{% endblock %} {% block head %} {{ super() }}
+{% extends "base.html" %} {% block title %}Index{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
 
-{% endblock %} {% block content %}
+<div class="notification is-danger">
+  Alpha Version:<br/>
+	All Data will be <strong>deleted</strong>!
+</div>
 
-<h1>Wustopia</h1>
+<div class="container">
+	<div class="tile is-ancestor">
+		<div class="tile is-4 is-parent is-vertical">
+			<div class="tile is-child box notification is-purple">
+				<h1 class="title">Wustopia</h1>
+				<div class="tabs">
+					<ul>
+						<li class="is-active">Wustopia is ...</li>
+					</ul>
+				</div>
+			</div>
+			<div class="tile is-child box notification is-turquoise">
+				<div class="tabs">
+					<ul>
+						<li class="is-active">Login</li>
+					</ul>
+				</div>
+				<form method="POST" action="/user/login">
+					{{ UserLoginForm.hidden_tag() }}
+					<div class="field">
+						{{ UserLoginForm.username.label(class_="label") }}
+						<div class="control has-icons-left">
+							{{ UserLoginForm.username(class_="input") }}
+							<span class="icon is-small is-left">
+								<i class="fas fa-user"></i>
+							</span>
+						</div>
+					</div>
+					<div class="field">
+						{{ UserCreateForm.password.label(class_="label") }}
+						<div class="control has-icons-left">
+							{{ UserCreateForm.password(class_="input") }}
+							<span class="icon is-small is-left">
+								<i class="fas fa-lock"></i>
+							</span>
+						</div>
+					</div>
+					<input class="button is-dark" type="submit" value="login" />
+				</form>
+			</div>
+			<div class="tile is-child box notification is-turquoise">
+				<div class="tabs">
+					<ul>
+						<li class="is-active">Create</li>
+					</ul>
+				</div>
+				<form method="POST" action="/user/create">
+					{{ UserCreateForm.hidden_tag() }}
+					<div class="field">
+						{{ UserLoginForm.username.label(class_="label") }}
+						<div class="control has-icons-left">
+							{{ UserLoginForm.username(class_="input") }}
+							<span class="icon is-small is-left">
+								<i class="fas fa-user"></i>
+							</span>
+						</div>
+					</div>
+					<div class="field">
+						{{ UserCreateForm.email.label(class_="label") }}
+						<div class="control has-icons-left">
+							{{ UserCreateForm.email(class_="input") }}
+							<span class="icon is-small is-left">
+								<i class="fas fa-envelope"></i>
+							</span>
+						</div>
+					</div>
+					<div class="field">
+						{{ UserCreateForm.password.label(class_="label") }}
+						<div class="control has-icons-left">
+							{{ UserCreateForm.password(class_="input") }}
+							<span class="icon is-small is-left">
+								<i class="fas fa-lock"></i>
+							</span>
+						</div>
+					</div>
+					<input class="button is-dark" type="submit" value="create" />
+				</form>
+			</div>
+		</div>
+		<div class="tile is-parent ">
+			<div class="tile is-child box notification is-ocher">
+				<figure class="image is-square">
+					<img src="/static/images/home1.png">
+				</figure>
+			</div>
+		</div>
+	</div>
+</div>
 
-Login
-		<form method="POST" action="/user/login">
-			{{ UserLoginForm.hidden_tag() }}
-			{{ UserLoginForm.username.label }} {{ UserLoginForm.username() }}<br/>
-			{{ UserLoginForm.password.label }} {{ UserLoginForm.password() }}<br/>
-			<input type="submit" value="login">
-		</form>
-		Create
-		<form method="POST" action="/user/create">
-			{{ UserCreateForm.hidden_tag() }}
-			{{ UserCreateForm.username.label }} {{ UserCreateForm.username() }}<br/>
-			{{ UserCreateForm.email.label }} {{ UserCreateForm.email() }}<br/>
-			{{ UserCreateForm.password.label }} {{ UserCreateForm.password() }}<br/>
-			<input type="submit" value="create">
-		</form>
-    
+
+<footer class="footer">
+<a href="https://github.com/devtal-de/wustopia">Source</a>
+</footer>
+
+
 {% endblock %}
