@@ -23,7 +23,7 @@ def wustopia_render_template(template, **kwargs):
 def index():
     if current_user.is_authenticated:
         return redirect('/map')
-    return wustopia_render_template('index.html', UserLoginForm=UserLoginForm(), UserCreateForm=UserCreateForm())
+    return wustopia_render_template('index.html')
 
 
 @app.route("/map")
