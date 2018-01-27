@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from flask import render_template, request, Response, redirect
+from flask import render_template, request, Response, redirect, abort
 from flask_login import login_user, logout_user, login_required, current_user
 from sqlalchemy.orm import joinedload
 
@@ -56,6 +56,10 @@ def build():
     building = db.session.query(Built).filter_by(place_id = request.args.get('place'), user_id = current_user.id).first()
     buildinglevel = building.level+1 if building else 1
     buildcost = db.session.query(BuildCostResource).options(joinedload(BuildCostResource.buildcost)).filter(BuildCost.placecategory_id == place.placecategory.id, BuildCost.level==buildinglevel, BuildCostResource.buildcost_id==BuildCost.id).all()
+
+    #if there aren't buildcost defined, return
+    if not buildcost:
+        abort(404)
 
     for costs in buildcost:
         current_balance = getBalanceofResource(current_user.id, costs.resource.id)
