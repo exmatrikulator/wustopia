@@ -34,7 +34,7 @@ if [ -z "$@" ]; then
     #if app is mounted, Dockerfile is available
     if [ -f Dockerfile ]; then
         echo "Running app in debug mode!"
-        python3 app.py
+        python3 manage.py runserver -h 0.0.0.0 -p 80
     else
         echo "Running app in production mode!"
         nginx && uwsgi --ini /app/app.ini
