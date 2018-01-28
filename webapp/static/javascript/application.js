@@ -92,12 +92,6 @@ var init = function(position) {
   }
   get_places();
 
-  $.getJSON("/api/markerIcon", {}).done(function(data) {
-    data.forEach(function(item) {
-      wustopia.markerIcon[item.id] = L.AwesomeMarkers.icon(item);
-    })
-  });
-
   wustopia.map.setView([wustopia.session.lat, wustopia.session.lon], zoom);
   L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -262,5 +256,10 @@ var scaleMap = function() {
   $("#map").css('height', $(window).height() - 30 + 'px');
 };
 
+$.getJSON("/api/markerIcon", {}).done(function(data) {
+  data.forEach(function(item) {
+    wustopia.markerIcon[item.id] = L.AwesomeMarkers.icon(item);
+  })
+});
 
 $(window).resize(scaleMap);
