@@ -64,6 +64,7 @@ def getPlaces(lat = None ,lon = None):
             item = {}
             item['name'] = cost.resource.name
             item['amount'] = cost.amount
+            item['image'] = cost.resource.image
             buildingcost.append( item )
         buildcost = db.session.query(BuildCost).filter_by(placecategory_id=node.category.id, level=buildinglevel+1,).first()
         if buildcost:

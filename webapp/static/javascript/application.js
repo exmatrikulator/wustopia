@@ -207,15 +207,16 @@ var build = function(id) {
 
 //var addItem = function(ilat, ilon, name, level, id, category, categoryid, costs)
 var addItem = function(item) {
-  var text = "";
-  text = item.name + '<br><input type=\"button\" value=\"bauen\" onclick=\"build(' + item.id + ')\">';
-  text = text + '<br>' + item.category;
+  var text = item.name;
+  text = text + "<br>" + item.category;
   item.costs.forEach(function(item) {
-    text = text + '<br>' + item.amount + " " + item.name;
+    text = text + "<br> <img src=\"" + item.image + "\" alt=\"" + item.name + "\"> " + item.amount;
   });
   if(item.buildtime) {
     text = text + "<br>Bauzeit: " + get_time_as_string(item.buildtime);
   }
+  text = text + "<br><button class=\"button is-primary\" onclick=\"build(' + item.id + ')\">bauen</button>";
+
 
   //remove old marker/layer
   if(wustopia.marker[item.id])
