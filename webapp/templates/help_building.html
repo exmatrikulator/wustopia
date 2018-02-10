@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block title %}Help{% endblock %} {% block head %} {{ super() }}
+
+{% endblock %} {% block content %}
+
+
+<table>
+  <tr>
+    <th>
+      Level
+    </th>
+    <th>
+      Time
+    </th>
+    <th>
+      Resource
+    </th>
+    <th>
+      Amount
+    </th>
+  </tr>
+{% for data in costs %}
+  <tr>
+    <td>
+      {{ data.buildcost.level }}
+    </td>
+    <td>
+      {{ data.buildcost.time }}
+    </td>
+    <td>
+      {{ data.resource.name }}
+    </td>
+    <td>
+      {{ data.amount }}
+    </td>
+  </tr>
+{% endfor %}
+</table>
+
+{% endblock %}

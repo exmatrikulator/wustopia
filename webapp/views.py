@@ -167,6 +167,11 @@ def is_update_places2():
     return str(is_update_places)
 
 
+@app.route("/help/building/<slug>")
+def help_building(slug):
+    costs = db.session.query(BuildCostResource).options(joinedload(BuildCostResource.buildcost)).filter(BuildCost.placecategory_id == PlaceCategory().get_id(slug)).order_by(BuildCost.level.asc()).all()
+    return wustopia_render_template('help_building.html', costs=costs)
+
 @app.route('/user/create', methods=['POST'])
 def user_create():
     try:
