@@ -221,6 +221,9 @@ var addItem = function(item) {
   if(item.buildtime) {
     text = text + "<br>Bauzeit: " + get_time_as_string(item.buildtime);
   }
+  if(get_time_as_string(item.collectablein)) {
+    text = text + "<br>einsammelbar in: " + get_time_as_string(item.collectablein);
+  }
   text = text + "<br><button class=\"button is-primary\" onclick=\"build(" + item.id + ")\">bauen</button>";
   text = text + "<br><a href=\"/help/building/" + item.category + "\">help</a>"
 
