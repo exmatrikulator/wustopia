@@ -94,6 +94,15 @@
             </form>
           </div>
         </div>
+      {% else %}
+      <div class="tile is-child box notification is-turquoise">
+        <div class="tabs">
+            <ul>
+              <li class="is-active">Hi {{ current_user.username }}!</li>
+            </ul>
+            <a href="/user/logout">Logout</a>
+        </div>
+      </div>
       {% endif %}
       <div class="tile is-parent ">
         <div class="tile is-child box notification is-ocher">
