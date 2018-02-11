@@ -215,7 +215,7 @@ var addItem = function(item) {
   if(item.buildtime) {
     text = text + "<br>Bauzeit: " + get_time_as_string(item.buildtime);
   }
-  text = text + "<br><button class=\"button is-primary\" onclick=\"build(' + item.id + ')\">bauen</button>";
+  text = text + "<br><button class=\"button is-primary\" onclick=\"build(" + item.id + ")\">bauen</button>";
   text = text + "<br><a href=\"/help/building/" + item.category + "\">help</a>"
 
   //remove old marker/layer
