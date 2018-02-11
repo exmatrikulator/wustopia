@@ -3,6 +3,7 @@
 from flask import render_template, request, Response, redirect, abort
 from flask_login import login_user, logout_user, login_required, current_user
 from sqlalchemy.orm import joinedload
+from sqlalchemy import func
 
 import json
 
@@ -184,6 +185,23 @@ def help_building(slug):
     if not costs:
         abort(404)
     return wustopia_render_template('help_building.html', costs=costs, benefit=benefit, slug=slug)
+
+@app.route("/ranking/building/<slug>")
+def ranking_building(slug):
+    ranking = db.session.query(func.count(Built.id).label('count'), User) \
+        .join(User) \
+        .join(Place) \
+        .filter(Place.placecategory_id == PlaceCategory().get_id(slug)) \
+        .group_by(User.id) \
+        .order_by(db.desc('count')) \
+        .limit(50) \
+        .all()
+
+    #if there aren't any rankings, return
+    if not ranking:
+        abort(404)
+    return wustopia_render_template('ranking_building.html', ranking=ranking, slug=slug)
+
 
 @app.route('/user/create', methods=['POST'])
 def user_create():

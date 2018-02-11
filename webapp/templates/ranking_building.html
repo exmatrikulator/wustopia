@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block title %}Ranking | {{slug}}{% endblock %} {% block head %} {{ super() }}
+
+{% endblock %} {% block content %}
+
+<h1 class="title">{{slug}}</h1>
+
+Costs
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Pos
+      </th>
+      <th>
+        User
+      </th>
+      <th>
+        Buildings
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for data in ranking %}
+    <tr>
+      <td>
+        {{ loop.index }}
+      </td>
+      <td>
+        {{ data.User.username }}
+      </td>
+      <td>
+        {{ data.count }}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
