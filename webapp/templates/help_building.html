@@ -1,39 +1,38 @@
-{% extends "base.html" %} {% block title %}Help{% endblock %} {% block head %} {{ super() }}
+{% extends "base.html" %} {% block title %}Help | {{slug}}{% endblock %} {% block head %} {{ super() }}
 
 {% endblock %} {% block content %}
 
+<h1 class="title">{{slug}}</h1>
 
-<table>
-  <tr>
-    <th>
-      Level
-    </th>
-    <th>
-      Time
-    </th>
-    <th>
-      Resource
-    </th>
-    <th>
-      Amount
-    </th>
-  </tr>
-{% for data in costs %}
-  <tr>
-    <td>
-      {{ data.buildcost.level }}
-    </td>
-    <td>
-      {{ data.buildcost.time }}
-    </td>
-    <td>
-      {{ data.resource.name }}
-    </td>
-    <td>
-      {{ data.amount }}
-    </td>
-  </tr>
-{% endfor %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Level
+      </th>
+      <th>
+        Time
+      </th>
+      <th>
+        Resources
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for data in costs %}
+    <tr>
+      <td>
+        {{ data.BuildCost.level }}
+      </td>
+      <td>
+        {{ data.BuildCost.time }}
+      </td>
+      <td>
+        <img src="{{ data.Resource.image }}" alt="{{ data.Resource.name }}"> {{ data.BuildCostResource.amount }}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
 </table>
 
 {% endblock %}
