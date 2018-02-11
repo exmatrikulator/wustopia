@@ -175,10 +175,15 @@ def help_building(slug):
         .filter(BuildCost.placecategory_id == PlaceCategory().get_id(slug)) \
         .all()
 
+    benefit = db.session.query(PlaceCategoryBenefit, Resource) \
+        .join(Resource) \
+        .filter(PlaceCategoryBenefit.placecategory_id == PlaceCategory().get_id(slug)) \
+        .all()
+
     #if there aren't costs defined, return
     if not costs:
         abort(404)
-    return wustopia_render_template('help_building.html', costs=costs, slug=slug)
+    return wustopia_render_template('help_building.html', costs=costs, benefit=benefit, slug=slug)
 
 @app.route('/user/create', methods=['POST'])
 def user_create():

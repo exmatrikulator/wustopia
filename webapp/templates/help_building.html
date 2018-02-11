@@ -4,6 +4,7 @@
 
 <h1 class="title">{{slug}}</h1>
 
+Costs
 <table class="table">
   <thead>
     <tr>
@@ -29,6 +30,38 @@
       </td>
       <td>
         <img src="{{ data.Resource.image }}" alt="{{ data.Resource.name }}"> {{ data.BuildCostResource.amount }}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+Benefit
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Level
+      </th>
+      <th>
+        Interval
+      </th>
+      <th>
+        Resources
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for data in benefit %}
+    <tr>
+      <td>
+        {{ data.PlaceCategoryBenefit.level }}
+      </td>
+      <td>
+        {{ data.PlaceCategoryBenefit.interval }}
+      </td>
+      <td>
+        <img src="{{ data.Resource.image }}" alt="{{ data.Resource.name }}"> {{ data.PlaceCategoryBenefit.amount }}
       </td>
     </tr>
   {% endfor %}
