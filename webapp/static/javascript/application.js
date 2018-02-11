@@ -15,6 +15,9 @@ var wustopia = {
 
 var get_time_as_string = function(time)
 {
+  if(parseInt(time) <= 0 || isNaN(time))
+    return;
+
   var output = "";
   var hours = Math.floor(time / 3600);
   var minutes = Math.floor((time - (hours * 3600)) / 60);
@@ -32,6 +35,9 @@ var get_time_as_string = function(time)
 var test_time = function()
 {
   if(
+    get_time_as_string(-1) == undefined &&
+    get_time_as_string() == undefined &&
+    get_time_as_string(0) == undefined &&
     get_time_as_string(5) == "5s" &&
     get_time_as_string(10) == "10s" &&
     get_time_as_string(60) == "1m 0s" &&
