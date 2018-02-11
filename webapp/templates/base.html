@@ -25,74 +25,76 @@
             </ul>
           </div>
         </div>
-        <div class="tile is-child box notification is-turquoise">
-          <div class="tabs">
-            <ul>
-              <li class="is-active">Login</li>
-            </ul>
+        {% if not current_user.is_authenticated %}
+          <div class="tile is-child box notification is-turquoise">
+            <div class="tabs">
+              <ul>
+                <li class="is-active">Login</li>
+              </ul>
+            </div>
+            <form method="POST" action="/user/login">
+              {{ UserLoginForm.hidden_tag() }}
+              <div class="field">
+                {{ UserLoginForm.username.label(class_="label") }}
+                <div class="control has-icons-left">
+                  {{ UserLoginForm.username(class_="input") }}
+                  <span class="icon is-small is-left">
+                      <i class="fas fa-user"></i>
+                    </span>
+                </div>
+              </div>
+              <div class="field">
+                {{ UserCreateForm.password.label(class_="label") }}
+                <div class="control has-icons-left">
+                  {{ UserCreateForm.password(class_="input") }}
+                  <span class="icon is-small is-left">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                </div>
+              </div>
+              <input class="button is-dark" type="submit" value="login" />
+            </form>
           </div>
-          <form method="POST" action="/user/login">
-            {{ UserLoginForm.hidden_tag() }}
-            <div class="field">
-              {{ UserLoginForm.username.label(class_="label") }}
-              <div class="control has-icons-left">
-                {{ UserLoginForm.username(class_="input") }}
-                <span class="icon is-small is-left">
-    								<i class="fas fa-user"></i>
-    							</span>
-              </div>
+          <div class="tile is-child box notification is-turquoise">
+            <div class="tabs">
+              <ul>
+                <li class="is-active">Create</li>
+              </ul>
             </div>
-            <div class="field">
-              {{ UserCreateForm.password.label(class_="label") }}
-              <div class="control has-icons-left">
-                {{ UserCreateForm.password(class_="input") }}
-                <span class="icon is-small is-left">
-    								<i class="fas fa-lock"></i>
-    							</span>
+            <form method="POST" action="/user/create">
+              {{ UserCreateForm.hidden_tag() }}
+              <div class="field">
+                {{ UserLoginForm.username.label(class_="label") }}
+                <div class="control has-icons-left">
+                  {{ UserLoginForm.username(class_="input") }}
+                  <span class="icon is-small is-left">
+                      <i class="fas fa-user"></i>
+                    </span>
+                </div>
               </div>
-            </div>
-            <input class="button is-dark" type="submit" value="login" />
-          </form>
-        </div>
-        <div class="tile is-child box notification is-turquoise">
-          <div class="tabs">
-            <ul>
-              <li class="is-active">Create</li>
-            </ul>
+              <div class="field">
+                {{ UserCreateForm.email.label(class_="label") }}
+                <div class="control has-icons-left">
+                  {{ UserCreateForm.email(class_="input") }}
+                  <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+              </div>
+              <div class="field">
+                {{ UserCreateForm.password.label(class_="label") }}
+                <div class="control has-icons-left">
+                  {{ UserCreateForm.password(class_="input") }}
+                  <span class="icon is-small is-left">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                </div>
+              </div>
+              <input class="button is-dark" type="submit" value="create" />
+            </form>
           </div>
-          <form method="POST" action="/user/create">
-            {{ UserCreateForm.hidden_tag() }}
-            <div class="field">
-              {{ UserLoginForm.username.label(class_="label") }}
-              <div class="control has-icons-left">
-                {{ UserLoginForm.username(class_="input") }}
-                <span class="icon is-small is-left">
-    								<i class="fas fa-user"></i>
-    							</span>
-              </div>
-            </div>
-            <div class="field">
-              {{ UserCreateForm.email.label(class_="label") }}
-              <div class="control has-icons-left">
-                {{ UserCreateForm.email(class_="input") }}
-                <span class="icon is-small is-left">
-    								<i class="fas fa-envelope"></i>
-    							</span>
-              </div>
-            </div>
-            <div class="field">
-              {{ UserCreateForm.password.label(class_="label") }}
-              <div class="control has-icons-left">
-                {{ UserCreateForm.password(class_="input") }}
-                <span class="icon is-small is-left">
-    								<i class="fas fa-lock"></i>
-    							</span>
-              </div>
-            </div>
-            <input class="button is-dark" type="submit" value="create" />
-          </form>
         </div>
-      </div>
+      {% endif %}
       <div class="tile is-parent ">
         <div class="tile is-child box notification is-ocher">
 {% block content %}{% endblock %}
