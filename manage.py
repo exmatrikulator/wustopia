@@ -42,7 +42,7 @@ def imoprtInitData():
         next(content) # skip header
         for row in content:
             if len(row) == 3:
-                session_add( Resource( name=row[0], image=row[1], major=row[2] ) )
+                session_add( Resource( name=row[0], image=row[1], major=bool(row[2]) ) )
             else:
                 session_add( Resource( name=row[0], image=row[1] ) )
 
