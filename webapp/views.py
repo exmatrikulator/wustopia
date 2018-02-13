@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from flask import render_template, request, Response, redirect, abort
-from flask_login import login_user, logout_user, login_required, current_user
 from flask_babel import gettext
+from flask_login import login_user, logout_user, login_required, current_user
 from sqlalchemy.orm import joinedload
 from sqlalchemy import func
 
@@ -41,7 +41,7 @@ def api_resources():
     for resource in resources:
         item = {}
         item['id'] = resource.resource.id
-        item['name'] = resource.resource.name
+        item['name'] = gettext("#%s" % resource.resource.name)
         item['image'] = resource.resource.image
         item['major'] = resource.resource.major
         item['amount'] = resource.amount
@@ -120,7 +120,7 @@ def markerIcon():
     for marker in categories:
         item = {}
         item['id'] = marker.id
-        item['name'] = marker.name
+        item['name'] = gettext("#%s" % marker.name)
         item['icon'] = marker.icon
         item['markerColor'] = marker.markerColor
         item['prefix'] = 'fa'
