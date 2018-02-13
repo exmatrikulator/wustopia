@@ -70,6 +70,15 @@ def imoprtInitData():
     print("done")
 
 @manager.command
+def pybabel():
+    "Generate new translations"
+    import os
+    os.system('pybabel extract -F babel.cfg -o messages.pot .')
+    os.system('pybabel update -i messages.pot -d webapp/translations')
+    os.system('pybabel compile -d webapp/translations')
+
+
+@manager.command
 def bcryptbenchmark():
     "Test number of rounds"
     # Chance the number of rounds (second argument) until it takes between

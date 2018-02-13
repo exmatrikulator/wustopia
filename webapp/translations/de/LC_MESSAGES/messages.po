@@ -1,0 +1,113 @@
+
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-02-13 19:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.3\n"
+
+#: webapp/views.py:74
+#, python-format
+msgid "#not enough: %(a)s >= %(b)s"
+msgstr "nicht genug: %(a)s >= %(b)s"
+
+#: webapp/views.py:86 webapp/views.py:109
+msgid "#success"
+msgstr "Erfolgreich"
+
+#: webapp/views.py:91 webapp/views.py:114
+#, python-format
+msgid "#unkown Error: %(e)s"
+msgstr "unbekannter Fehler: %(e)s"
+
+#: webapp/views.py:157
+msgid "#already running"
+msgstr "läuft schon"
+
+#: webapp/views.py:162
+msgid "#range to big"
+msgstr "zu große Auswahl"
+
+#: webapp/views.py:166
+msgid "#OK"
+msgstr "OK"
+
+#: webapp/templates/base.html:24
+msgid "#Wustopia is ..."
+msgstr "Wustopia ist ..."
+
+#: webapp/templates/base.html:32
+msgid "#Login"
+msgstr "Login"
+
+#: webapp/templates/base.html:61
+msgid "#Create"
+msgstr "Erstellen"
+
+#: webapp/templates/error.html:1
+msgid "#Error"
+msgstr ""
+
+#: webapp/templates/help_building.html:7
+#: webapp/templates/ranking_building.html:7
+msgid "#Costs"
+msgstr "Kosten"
+
+#: webapp/templates/help_building.html:12
+#: webapp/templates/help_building.html:44
+msgid "#Level"
+msgstr "Level"
+
+#: webapp/templates/help_building.html:15
+msgid "#Time"
+msgstr "Zeit"
+
+#: webapp/templates/help_building.html:18
+#: webapp/templates/help_building.html:50
+msgid "#Resources"
+msgstr "Ressourcen"
+
+#: webapp/templates/help_building.html:39
+msgid "#Benefit"
+msgstr "Gewinn"
+
+#: webapp/templates/help_building.html:47
+msgid "#Interval"
+msgstr "Interval"
+
+#: webapp/templates/help_building.html:71
+msgid "#Ranking"
+msgstr "Ranking"
+
+#: webapp/templates/index.html:4
+msgid "#Alpha Version:<br/> All Data will be <strong>deleted</strong>!"
+msgstr "Alpha Version:<br/> Alel Daten werden <strong>gelöscht</strong>!"
+
+#: webapp/templates/map.html:28
+msgid "#collect all"
+msgstr "alles einsammeln"
+
+#: webapp/templates/map.html:29
+msgid "#Logout"
+msgstr "Logout"
+
+#: webapp/templates/ranking_building.html:12
+msgid "#Position"
+msgstr "Position"
+
+#: webapp/templates/ranking_building.html:15
+msgid "#User"
+msgstr "User"
+
+#: webapp/templates/ranking_building.html:18
+msgid "#Buildings"
+msgstr "Gebäude"
+

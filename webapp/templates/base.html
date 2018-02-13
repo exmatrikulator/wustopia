@@ -21,7 +21,7 @@
           <a href="/"><h1 class="title">Wustopia</h1></a>
           <div class="tabs">
             <ul>
-              <li class="is-active">Wustopia is ...</li>
+              <li class="is-active">{{ gettext("#Wustopia is ...") }}</li>
             </ul>
           </div>
         </div>
@@ -29,7 +29,7 @@
           <div class="tile is-child box notification is-turquoise">
             <div class="tabs">
               <ul>
-                <li class="is-active">Login</li>
+                <li class="is-active">{{ gettext("#Login") }}</li>
               </ul>
             </div>
             <form method="POST" action="/user/login">
@@ -58,7 +58,7 @@
           <div class="tile is-child box notification is-turquoise">
             <div class="tabs">
               <ul>
-                <li class="is-active">Create</li>
+                <li class="is-active">{{ gettext("#Create") }}</li>
               </ul>
             </div>
             <form method="POST" action="/user/create">

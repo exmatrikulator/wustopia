@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from flask import render_template, request, Response, redirect, abort
 from flask_login import login_user, logout_user, login_required, current_user
+from flask_babel import gettext
 from sqlalchemy.orm import joinedload
 from sqlalchemy import func
 
@@ -68,7 +69,8 @@ def build():
             current_balance.amount -= costs.amount
             db.session.add(current_balance)
         else:
-            return str(getBalanceofResource(current_user.id, costs.resource.id).amount) + " >= " + str(costs.amount)
+            #return str(getBalanceofResource(current_user.id, costs.resource.id).amount) + " >= " + str(costs.amount)
+            return gettext('#not enough: %(a)s >= %(b)s', a=getBalanceofResource(current_user.id, costs.resource.id).amount, b=costs.amount )
 
     buildtime = db.session.query(BuildCost).filter(BuildCost.placecategory_id == place.placecategory.id, BuildCost.level==buildinglevel).first().time
     ready = datetime.datetime.now() + datetime.timedelta(seconds = buildtime)
@@ -80,12 +82,12 @@ def build():
         db.session.add(Built(place_id = request.args.get('place'), user_id = current_user.id, lastcollect = datetime.datetime.now(), ready=ready))
     try:
         db.session.commit()
-        return "success"
+        return gettext('#success')
     except Exception as e:
         db.session.rollback()
         if app.debug:
             print(e)
-        return "unkown Error: " + str(e)
+        return gettext('#unkown Error: %(e)s', e=e)
 
 @app.route("/earn")
 def earn():
@@ -103,12 +105,12 @@ def earn():
     if something_changed:
         try:
             db.session.commit()
-            return "success"
+            return gettext('#success')
         except Exception as e:
             db.session.rollback()
             if app.debug:
                 print(e)
-            return "unkown Error"
+            return gettext('#unkown Error: %(e)s', e=e)
     return ""
 
 @app.route("/api/markerIcon")
@@ -151,16 +153,16 @@ def update_places(lat1,lon1,lat2,lon2):
 
     global is_update_places
     if is_update_places:
-        return "already running"
+        return gettext("#already running")
     is_update_places = True
 
     if(lon2-lon1 > 0.01 or lat2-lat1 > 0.01):
         is_update_places = False
-        return "range to big"
+        return gettext("#range to big")
 
     importPlaces(lon1,lat1,lon2,lat2)
     is_update_places = False
-    return "OK"
+    return gettext("#OK")
 
 @app.route("/is_update_places")
 def is_update_places2():

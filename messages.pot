@@ -1,0 +1,116 @@
+# Translations template for PROJECT.
+# Copyright (C) 2018 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-02-13 19:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.3\n"
+
+#: webapp/views.py:74
+#, python-format
+msgid "#not enough: %(a)s >= %(b)s"
+msgstr ""
+
+#: webapp/views.py:86 webapp/views.py:109
+msgid "#success"
+msgstr ""
+
+#: webapp/views.py:91 webapp/views.py:114
+#, python-format
+msgid "#unkown Error: %(e)s"
+msgstr ""
+
+#: webapp/views.py:157
+msgid "#already running"
+msgstr ""
+
+#: webapp/views.py:162
+msgid "#range to big"
+msgstr ""
+
+#: webapp/views.py:166
+msgid "#OK"
+msgstr ""
+
+#: webapp/templates/base.html:24
+msgid "#Wustopia is ..."
+msgstr ""
+
+#: webapp/templates/base.html:32
+msgid "#Login"
+msgstr ""
+
+#: webapp/templates/base.html:61
+msgid "#Create"
+msgstr ""
+
+#: webapp/templates/error.html:1
+msgid "#Error"
+msgstr ""
+
+#: webapp/templates/help_building.html:7
+#: webapp/templates/ranking_building.html:7
+msgid "#Costs"
+msgstr ""
+
+#: webapp/templates/help_building.html:12
+#: webapp/templates/help_building.html:44
+msgid "#Level"
+msgstr ""
+
+#: webapp/templates/help_building.html:15
+msgid "#Time"
+msgstr ""
+
+#: webapp/templates/help_building.html:18
+#: webapp/templates/help_building.html:50
+msgid "#Resources"
+msgstr ""
+
+#: webapp/templates/help_building.html:39
+msgid "#Benefit"
+msgstr ""
+
+#: webapp/templates/help_building.html:47
+msgid "#Interval"
+msgstr ""
+
+#: webapp/templates/help_building.html:71
+msgid "#Ranking"
+msgstr ""
+
+#: webapp/templates/index.html:4
+msgid "#Alpha Version:<br/> All Data will be <strong>deleted</strong>!"
+msgstr ""
+
+#: webapp/templates/map.html:28
+msgid "#collect all"
+msgstr ""
+
+#: webapp/templates/map.html:29
+msgid "#Logout"
+msgstr ""
+
+#: webapp/templates/ranking_building.html:12
+msgid "#Position"
+msgstr ""
+
+#: webapp/templates/ranking_building.html:15
+msgid "#User"
+msgstr ""
+
+#: webapp/templates/ranking_building.html:18
+msgid "#Buildings"
+msgstr ""
+

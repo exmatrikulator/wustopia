@@ -14,6 +14,9 @@ if [ -z "$@" ]; then
         pip3 install -r requirements.txt
     fi
 
+    #run translation
+    python3 manage.py pybabel
+
     #wait for postgres
     until python3 manage.py db current > /dev/null ; do
       >&2 echo "Postgres is unavailable - sleeping"

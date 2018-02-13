@@ -4,18 +4,18 @@
 
 <h1 class="title">{{slug}}</h1>
 
-Costs
+{{ gettext("#Costs") }}
 <table class="table">
   <thead>
     <tr>
       <th>
-        Level
+        {{ gettext("#Level") }}
       </th>
       <th>
-        Time
+        {{ gettext("#Time") }}
       </th>
       <th>
-        Resources
+        {{ gettext("#Resources") }}
       </th>
     </tr>
   </thead>
@@ -36,18 +36,18 @@ Costs
   </tbody>
 </table>
 
-Benefit
+{{ gettext("#Benefit") }}
 <table class="table">
   <thead>
     <tr>
       <th>
-        Level
+        {{ gettext("#Level") }}
       </th>
       <th>
-        Interval
+        {{ gettext("#Interval") }}
       </th>
       <th>
-        Resources
+        {{ gettext("#Resources") }}
       </th>
     </tr>
   </thead>
@@ -68,6 +68,6 @@ Benefit
   </tbody>
 </table>
 
-<a href="/ranking/building/{{ slug }}">Ranking</a>
+<a href="/ranking/building/{{ slug }}">{{ gettext("#Ranking") }}</a>
 
 {% endblock %}
