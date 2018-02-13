@@ -73,10 +73,20 @@ def imoprtInitData():
 def pybabel():
     "Generate new translations"
     import os
+    from pojson import convert
     os.system('pybabel extract -F babel.cfg -o messages.pot .')
     os.system('pybabel update -i messages.pot -d webapp/translations')
     os.system('pybabel compile -d webapp/translations')
 
+    if not os.path.exists("webapp/static/translations"):
+        os.makedirs("webapp/static/translations")
+    localeDirs = [name for name in os.listdir("webapp/translations")]
+    for locale in localeDirs:
+        print("gen: " + locale)
+        result = convert("webapp/translations/%s/LC_MESSAGES/messages.po" % locale)
+        name = "webapp/static/translations/%s.json" % locale
+        with open(name, 'w') as f:
+            f.write("{'wustopia': %s }" % result)
 
 @manager.command
 def bcryptbenchmark():
@@ -100,4 +110,6 @@ def bcryptbenchmark():
 
 if __name__ == "__main__":
     app.debug = True
+    app.jinja_env.auto_reload = True
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
     manager.run()

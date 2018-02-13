@@ -70,7 +70,7 @@ def build():
             db.session.add(current_balance)
         else:
             #return str(getBalanceofResource(current_user.id, costs.resource.id).amount) + " >= " + str(costs.amount)
-            return gettext('#not enough: %(a)s >= %(b)s', a=getBalanceofResource(current_user.id, costs.resource.id).amount, b=costs.amount )
+            return gettext('#not enough: %(a)s >= %(b)s', a=getBalanceofResource(current_user.id, costs.resource.id).amount, b=costs.amount ), 500
 
     buildtime = db.session.query(BuildCost).filter(BuildCost.placecategory_id == place.placecategory.id, BuildCost.level==buildinglevel).first().time
     ready = datetime.datetime.now() + datetime.timedelta(seconds = buildtime)
@@ -87,7 +87,7 @@ def build():
         db.session.rollback()
         if app.debug:
             print(e)
-        return gettext('#unkown Error: %(e)s', e=e)
+        return gettext('#unkown Error: %(e)s', e=e), 500
 
 @app.route("/earn")
 def earn():
@@ -110,7 +110,7 @@ def earn():
             db.session.rollback()
             if app.debug:
                 print(e)
-            return gettext('#unkown Error: %(e)s', e=e)
+            return gettext('#unkown Error: %(e)s', e=e), 500
     return ""
 
 @app.route("/api/markerIcon")

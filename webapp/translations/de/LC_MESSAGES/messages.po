@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-13 19:20+0000\n"
+"POT-Creation-Date: 2018-02-13 21:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de\n"
@@ -14,31 +14,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: webapp/views.py:74
+#: webapp/views.py:73
 #, python-format
 msgid "#not enough: %(a)s >= %(b)s"
 msgstr "nicht genug: %(a)s >= %(b)s"
 
-#: webapp/views.py:86 webapp/views.py:109
+#: webapp/views.py:85 webapp/views.py:108
 msgid "#success"
 msgstr "Erfolgreich"
 
-#: webapp/views.py:91 webapp/views.py:114
+#: webapp/views.py:90 webapp/views.py:113
 #, python-format
 msgid "#unkown Error: %(e)s"
 msgstr "unbekannter Fehler: %(e)s"
 
-#: webapp/views.py:157
+#: webapp/views.py:156
 msgid "#already running"
 msgstr "läuft schon"
 
-#: webapp/views.py:162
+#: webapp/views.py:161
 msgid "#range to big"
 msgstr "zu große Auswahl"
 
-#: webapp/views.py:166
+#: webapp/views.py:165
 msgid "#OK"
 msgstr "OK"
+
+#: webapp/static/javascript/application.js:115
+msgid "#You"
+msgstr "Du"
+
+#: webapp/static/javascript/application.js:182
+#: webapp/static/javascript/application.js:212 webapp/templates/error.html:1
+msgid "#Error"
+msgstr "Fehler"
+
+#: webapp/static/javascript/application.js:198
+msgid "#built"
+msgstr "gebaut"
+
+#: webapp/static/javascript/application.js:226
+msgid "#build time"
+msgstr "Bauzeit"
+
+#: webapp/static/javascript/application.js:229
+msgid "#collectable in"
+msgstr "einsammelbar in"
+
+#: webapp/static/javascript/application.js:231
+msgid "#build"
+msgstr "bauen"
+
+#: webapp/static/javascript/application.js:232
+msgid "#help"
+msgstr "Hilfe"
 
 #: webapp/templates/base.html:24
 msgid "#Wustopia is ..."
@@ -51,10 +80,6 @@ msgstr "Login"
 #: webapp/templates/base.html:61
 msgid "#Create"
 msgstr "Erstellen"
-
-#: webapp/templates/error.html:1
-msgid "#Error"
-msgstr ""
 
 #: webapp/templates/help_building.html:7
 #: webapp/templates/ranking_building.html:7
@@ -91,11 +116,11 @@ msgstr "Ranking"
 msgid "#Alpha Version:<br/> All Data will be <strong>deleted</strong>!"
 msgstr "Alpha Version:<br/> Alel Daten werden <strong>gelöscht</strong>!"
 
-#: webapp/templates/map.html:28
+#: webapp/templates/map.html:30
 msgid "#collect all"
 msgstr "alles einsammeln"
 
-#: webapp/templates/map.html:29
+#: webapp/templates/map.html:31
 msgid "#Logout"
 msgstr "Logout"
 

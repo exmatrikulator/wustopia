@@ -14,9 +14,11 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style/leaflet.awesome-markers.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='style/leaflet.marker.highlight.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+  <link rel="gettext" type="application/json" href="{{ url_for('static', filename='translations/' + locale_select() + '.json' ) }}">
   <script src="{{ url_for('static', filename='javascript/leaflet.awesome-markers.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/leaflet.marker.highlight.js') }}"></script>
   <script src="{{ url_for('static',filename='javascript/jquery-3.2.1.js') }}"></script>
+  <script src="{{ url_for('static',filename='javascript/gettext.js') }}"></script>
   <script src="{{ url_for('static',filename='javascript/application.js') }}"></script>
 </head>
 

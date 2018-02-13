@@ -7,5 +7,6 @@ Flask-Script
 Flask-SQLAlchemy
 Flask-WTF
 overpy
+pojson
 psycopg2
 wtforms
