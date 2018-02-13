@@ -74,7 +74,7 @@ def pybabel():
     "Generate new translations"
     import os
     from pojson import convert
-    os.system('pybabel extract -F babel.cfg -o messages.pot .')
+    os.system('pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot .')
     os.system('pybabel update -i messages.pot -d webapp/translations')
     os.system('pybabel compile -d webapp/translations')
 
