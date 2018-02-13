@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-13 21:28+0000\n"
+"POT-Creation-Date: 2018-02-13 21:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,18 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
+
+#: webapp/forms.py:7 webapp/forms.py:12
+msgid "#Username"
+msgstr ""
+
+#: webapp/forms.py:8 webapp/forms.py:13
+msgid "#Password"
+msgstr ""
+
+#: webapp/forms.py:9
+msgid "#EMail"
+msgstr ""
 
 #: webapp/views.py:73
 #, python-format
@@ -41,6 +53,14 @@ msgstr ""
 
 #: webapp/views.py:165
 msgid "#OK"
+msgstr ""
+
+#: webapp/views.py:249
+msgid "#wrong User / Password"
+msgstr ""
+
+#: webapp/views.py:252
+msgid "#Did you fill all fields?"
 msgstr ""
 
 #: webapp/static/javascript/application.js:115
@@ -76,11 +96,11 @@ msgstr ""
 msgid "#Wustopia is ..."
 msgstr ""
 
-#: webapp/templates/base.html:32
+#: webapp/templates/base.html:32 webapp/templates/base.html:55
 msgid "#Login"
 msgstr ""
 
-#: webapp/templates/base.html:61
+#: webapp/templates/base.html:61 webapp/templates/base.html:93
 msgid "#Create"
 msgstr ""
 

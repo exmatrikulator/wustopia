@@ -1,18 +1,31 @@
-
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-13 21:28+0000\n"
+"POT-Creation-Date: 2018-02-13 21:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
+"X-Language: de_DE\n"
+"X-Source-Language: C\n"
+
+#: webapp/forms.py:7 webapp/forms.py:12
+msgid "#Username"
+msgstr "Benutzer"
+
+#: webapp/forms.py:8 webapp/forms.py:13
+msgid "#Password"
+msgstr "Passwort"
+
+#: webapp/forms.py:9
+msgid "#EMail"
+msgstr "EMail"
 
 #: webapp/views.py:73
 #, python-format
@@ -39,6 +52,14 @@ msgstr "zu große Auswahl"
 #: webapp/views.py:165
 msgid "#OK"
 msgstr "OK"
+
+#: webapp/views.py:249
+msgid "#wrong User / Password"
+msgstr "falscher Benutzer / Passwort"
+
+#: webapp/views.py:252
+msgid "#Did you fill all fields?"
+msgstr "Hast du alle Felder ausgefüllt?"
 
 #: webapp/static/javascript/application.js:115
 msgid "#You"
@@ -73,11 +94,11 @@ msgstr "Hilfe"
 msgid "#Wustopia is ..."
 msgstr "Wustopia ist ..."
 
-#: webapp/templates/base.html:32
+#: webapp/templates/base.html:32 webapp/templates/base.html:55
 msgid "#Login"
 msgstr "Login"
 
-#: webapp/templates/base.html:61
+#: webapp/templates/base.html:61 webapp/templates/base.html:93
 msgid "#Create"
 msgstr "Erstellen"
 
@@ -135,4 +156,3 @@ msgstr "User"
 #: webapp/templates/ranking_building.html:18
 msgid "#Buildings"
 msgstr "Gebäude"
-

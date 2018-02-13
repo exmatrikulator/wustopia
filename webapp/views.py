@@ -246,10 +246,10 @@ def user_login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if not user or not user.is_correct_password(form.password.data):
-            return wustopia_render_template("error.html", error="wrong User / Password")
+            return wustopia_render_template("error.html", error=gettext("#wrong User / Password"))
         login_user(user)
         return redirect('/map')
-    return wustopia_render_template("error.html",error="Did you fill all fields?")
+    return wustopia_render_template("error.html",error=gettext("#Did you fill all fields?"))
 
 @app.route('/user/logout')
 def user_logout():
