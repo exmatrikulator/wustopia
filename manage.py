@@ -26,11 +26,13 @@ def imoprtInitData():
     "Inititalise the database"
     import csv
 
+    importTextToTranslate = []
     print("import PlaceCategory")
     with open('webapp/import/PlaceCategory.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
         next(content) # skip header
         for row in content:
+            importTextToTranslate.append(row[0])
             if len(row) == 4:
                 session_add( PlaceCategory( name=row[0], filter=row[1], markerColor=row[2], icon=row[3] ) )
             else:
@@ -41,10 +43,16 @@ def imoprtInitData():
         content = csv.reader(csvfile, delimiter=',')
         next(content) # skip header
         for row in content:
+            importTextToTranslate.append(row[0])
             if len(row) == 3:
                 session_add( Resource( name=row[0], image=row[1], major=bool(row[2]) ) )
             else:
                 session_add( Resource( name=row[0], image=row[1] ) )
+
+
+    with open('importTextToTranslate.txt', 'w') as f:
+        for text in importTextToTranslate:
+            f.write("gettext(\"#%s\")\n" % text)
 
     print("import BuildCost")
     with open('webapp/import/BuildCost.csv', 'r') as csvfile:

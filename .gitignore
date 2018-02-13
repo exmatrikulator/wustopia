@@ -4,3 +4,4 @@ venv/
 migrations
 config/config.py
 webapp/static/translations/*json
+importTextToTranslate.txt

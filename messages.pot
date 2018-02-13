@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-13 21:41+0000\n"
+"POT-Creation-Date: 2018-02-13 22:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,82 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
+
+#: importTextToTranslate.txt:1
+msgid "#Bushaltestelle"
+msgstr ""
+
+#: importTextToTranslate.txt:2
+msgid "#Bahnhof"
+msgstr ""
+
+#: importTextToTranslate.txt:3
+msgid "#Treppe"
+msgstr ""
+
+#: importTextToTranslate.txt:4
+msgid "#Bäcker"
+msgstr ""
+
+#: importTextToTranslate.txt:5
+msgid "#Metzger"
+msgstr ""
+
+#: importTextToTranslate.txt:6
+msgid "#Kiosk"
+msgstr ""
+
+#: importTextToTranslate.txt:7
+msgid "#Baumarkt"
+msgstr ""
+
+#: importTextToTranslate.txt:8
+msgid "#Restaurant"
+msgstr ""
+
+#: importTextToTranslate.txt:9
+msgid "#Kneipe"
+msgstr ""
+
+#: importTextToTranslate.txt:10
+msgid "#Post"
+msgstr ""
+
+#: importTextToTranslate.txt:11
+msgid "#Fast Food"
+msgstr ""
+
+#: importTextToTranslate.txt:12
+msgid "#Eisdiele"
+msgstr ""
+
+#: importTextToTranslate.txt:13
+msgid "#Theater"
+msgstr ""
+
+#: importTextToTranslate.txt:14
+msgid "#Religion"
+msgstr ""
+
+#: importTextToTranslate.txt:15
+msgid "#Hackerspace"
+msgstr ""
+
+#: importTextToTranslate.txt:16
+msgid "#Gold"
+msgstr ""
+
+#: importTextToTranslate.txt:17
+msgid "#Nahrung"
+msgstr ""
+
+#: importTextToTranslate.txt:18
+msgid "#Baumaterial"
+msgstr ""
+
+#: importTextToTranslate.txt:19
+msgid "#Kultur"
+msgstr ""
 
 #: webapp/forms.py:7 webapp/forms.py:12
 msgid "#Username"
@@ -89,7 +165,8 @@ msgid "#build"
 msgstr ""
 
 #: webapp/static/javascript/application.js:232
-msgid "#help"
+#: webapp/templates/help_building.html:1
+msgid "#Help"
 msgstr ""
 
 #: webapp/templates/base.html:24

@@ -1,19 +1,94 @@
+
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-13 21:41+0000\n"
+"POT-Creation-Date: 2018-02-13 22:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
-"X-Language: de_DE\n"
-"X-Source-Language: C\n"
+
+#: importTextToTranslate.txt:1
+msgid "#Bushaltestelle"
+msgstr "Bushaltestelle"
+
+#: importTextToTranslate.txt:2
+msgid "#Bahnhof"
+msgstr "Bahnhof"
+
+#: importTextToTranslate.txt:3
+msgid "#Treppe"
+msgstr "Treppe"
+
+#: importTextToTranslate.txt:4
+msgid "#Bäcker"
+msgstr "Bäcker"
+
+#: importTextToTranslate.txt:5
+msgid "#Metzger"
+msgstr "Metzger"
+
+#: importTextToTranslate.txt:6
+msgid "#Kiosk"
+msgstr "Kiosk"
+
+#: importTextToTranslate.txt:7
+msgid "#Baumarkt"
+msgstr "Baumarkt"
+
+#: importTextToTranslate.txt:8
+msgid "#Restaurant"
+msgstr "Restaurant"
+
+#: importTextToTranslate.txt:9
+msgid "#Kneipe"
+msgstr "Kneipe"
+
+#: importTextToTranslate.txt:10
+msgid "#Post"
+msgstr "Post"
+
+#: importTextToTranslate.txt:11
+msgid "#Fast Food"
+msgstr "Fast Food"
+
+#: importTextToTranslate.txt:12
+msgid "#Eisdiele"
+msgstr "Eisdiele"
+
+#: importTextToTranslate.txt:13
+msgid "#Theater"
+msgstr "Theater"
+
+#: importTextToTranslate.txt:14
+msgid "#Religion"
+msgstr "Religion"
+
+#: importTextToTranslate.txt:15
+msgid "#Hackerspace"
+msgstr "Hackerspace"
+
+#: importTextToTranslate.txt:16
+msgid "#Gold"
+msgstr "Gold"
+
+#: importTextToTranslate.txt:17
+msgid "#Nahrung"
+msgstr "Nahrung"
+
+#: importTextToTranslate.txt:18
+msgid "#Baumaterial"
+msgstr "Baumaterial"
+
+#: importTextToTranslate.txt:19
+msgid "#Kultur"
+msgstr "Kultur"
 
 #: webapp/forms.py:7 webapp/forms.py:12
 msgid "#Username"
@@ -87,7 +162,8 @@ msgid "#build"
 msgstr "bauen"
 
 #: webapp/static/javascript/application.js:232
-msgid "#help"
+#: webapp/templates/help_building.html:1
+msgid "#Help"
 msgstr "Hilfe"
 
 #: webapp/templates/base.html:24

@@ -7,18 +7,92 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-13 21:41+0000\n"
+"POT-Creation-Date: 2018-02-13 22:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
 "Language-Team: en <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
-"X-Language: en\n"
-"X-Source-Language: C\n"
+
+#: importTextToTranslate.txt:1
+msgid "#Bushaltestelle"
+msgstr "bus stop"
+
+#: importTextToTranslate.txt:2
+msgid "#Bahnhof"
+msgstr "train station"
+
+#: importTextToTranslate.txt:3
+msgid "#Treppe"
+msgstr "stairs"
+
+#: importTextToTranslate.txt:4
+msgid "#Bäcker"
+msgstr "bakery"
+
+#: importTextToTranslate.txt:5
+msgid "#Metzger"
+msgstr "butcher"
+
+#: importTextToTranslate.txt:6
+msgid "#Kiosk"
+msgstr "Kiosk"
+
+#: importTextToTranslate.txt:7
+msgid "#Baumarkt"
+msgstr "hardware store"
+
+#: importTextToTranslate.txt:8
+msgid "#Restaurant"
+msgstr "Restaurant"
+
+#: importTextToTranslate.txt:9
+msgid "#Kneipe"
+msgstr "Bar"
+
+#: importTextToTranslate.txt:10
+msgid "#Post"
+msgstr "Post Office"
+
+#: importTextToTranslate.txt:11
+msgid "#Fast Food"
+msgstr "Fast Food"
+
+#: importTextToTranslate.txt:12
+msgid "#Eisdiele"
+msgstr "ice cream"
+
+#: importTextToTranslate.txt:13
+msgid "#Theater"
+msgstr "Theater"
+
+#: importTextToTranslate.txt:14
+msgid "#Religion"
+msgstr "Religion"
+
+#: importTextToTranslate.txt:15
+msgid "#Hackerspace"
+msgstr "Hackerspace"
+
+#: importTextToTranslate.txt:16
+msgid "#Gold"
+msgstr "Gold"
+
+#: importTextToTranslate.txt:17
+msgid "#Nahrung"
+msgstr "food"
+
+#: importTextToTranslate.txt:18
+msgid "#Baumaterial"
+msgstr "building material"
+
+#: importTextToTranslate.txt:19
+msgid "#Kultur"
+msgstr "culture"
 
 #: webapp/forms.py:7 webapp/forms.py:12
 msgid "#Username"
@@ -92,8 +166,9 @@ msgid "#build"
 msgstr "build"
 
 #: webapp/static/javascript/application.js:232
-msgid "#help"
-msgstr "help"
+#: webapp/templates/help_building.html:1
+msgid "#Help"
+msgstr "Help"
 
 #: webapp/templates/base.html:24
 msgid "#Wustopia is ..."
