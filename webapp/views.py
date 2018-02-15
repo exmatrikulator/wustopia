@@ -176,11 +176,13 @@ def help_building(slug):
         .join(BuildCostResource) \
         .join(Resource) \
         .filter(BuildCost.placecategory_id == PlaceCategory().get_id(slug)) \
+        .order_by(db.asc('level')) \
         .all()
 
     benefit = db.session.query(PlaceCategoryBenefit, Resource) \
         .join(Resource) \
         .filter(PlaceCategoryBenefit.placecategory_id == PlaceCategory().get_id(slug)) \
+        .order_by(db.asc('level')) \
         .all()
 
     #if there aren't costs defined, return
