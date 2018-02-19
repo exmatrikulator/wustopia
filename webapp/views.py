@@ -185,10 +185,13 @@ def help_building(slug):
         .order_by(db.asc('level')) \
         .all()
 
-    #if there aren't costs defined, return
-    if not costs:
+    placecategory = db.session.query(PlaceCategory) \
+        .filter(PlaceCategory.name == slug) \
+        .first()
+
+    if not placecategory:
         abort(404)
-    return wustopia_render_template('help_building.html', costs=costs, benefit=benefit, slug=slug)
+    return wustopia_render_template('help_building.html', costs=costs, benefit=benefit, placecategory=placecategory, slug=slug)
 
 @app.route("/ranking/building/<slug>")
 def ranking_building(slug):

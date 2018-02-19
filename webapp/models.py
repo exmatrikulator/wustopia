@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from flask_bcrypt import Bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy import Column, DateTime, Integer, Float, BigInteger, String, Boolean, Binary, ForeignKey, UniqueConstraint
+from sqlalchemy import Column, DateTime, Integer, Float, BigInteger, String, Boolean, Binary, ForeignKey, UniqueConstraint, Text
 from sqlalchemy.orm import relationship
 from datetime import datetime
 
@@ -81,6 +81,7 @@ class PlaceCategory(db.Model):
     __tablename__ = 'placecategory'
     id = Column(Integer(), primary_key=True, nullable=False)
     name = Column(String(255), unique=True, nullable=False)
+    description = Column(Text())
     filter = Column(String(255))
     places = relationship('Place', backref='category')
     icon = Column(String(255), default="home")

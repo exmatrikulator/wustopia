@@ -33,10 +33,11 @@ def imoprtInitData():
         next(content) # skip header
         for row in content:
             importTextToTranslate.append(row[0])
+            importTextToTranslate.append(row[1])
             if len(row) == 4:
-                session_add( PlaceCategory( name=row[0], filter=row[1], markerColor=row[2], icon=row[3] ) )
+                session_add( PlaceCategory( name=row[0], description=row[1], filter=row[2], markerColor=row[3], icon=row[4] ) )
             else:
-                session_add( PlaceCategory( name=row[0], filter=row[1], markerColor=row[2] ) )
+                session_add( PlaceCategory( name=row[0], description=row[1], filter=row[2], markerColor=row[3] ) )
 
     print("import Resource")
     with open('webapp/import/Resource.csv', 'r') as csvfile:
