@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% block title %}{{ gettext("#Error") }}{% endblock %} {% block head %} {{ super() }}
+
+{% endblock %} {% block content %}
+
+
+<h1 class="title">{{ gettext("#Ranking")}}</h1>
+
+
+{% for data in PlaceCategory %}
+  <a href="ranking/building/{{data.name}}">{{ gettext("#"+data.name)}}</a><br>
+{% endfor %}
+
+{% endblock %}

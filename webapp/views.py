@@ -33,6 +33,11 @@ def index():
 def map():
     return wustopia_render_template('map.html')
 
+@app.route("/ranking")
+def ranking():
+    return wustopia_render_template('ranking.html', PlaceCategory = db.session.query(PlaceCategory).all())
+
+
 @app.route("/api/resources")
 @login_required
 def api_resources():
