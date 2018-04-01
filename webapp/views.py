@@ -14,6 +14,7 @@ from webapp.models import *
 from webapp.places import getPlaces, importPlaces
 from webapp.forms import *
 from webapp.finance import *
+from webapp.achievements import *
 
 def wustopia_render_template(template, **kwargs):
     if not 'UserLoginForm' in kwargs:
@@ -38,6 +39,18 @@ def map():
 def ranking():
     return wustopia_render_template('ranking.html', PlaceCategory = db.session.query(PlaceCategory).all())
 
+@app.route("/achievements")
+@login_required
+def achievements():
+    return wustopia_render_template('achievements.html', achievements=getAchievements(current_user.id) )
+
+@app.route("/api/achievements")
+@login_required
+def api_achievements():
+    output = getAchievements(current_user.id)
+    response = Response( json.dumps(output) )
+    response.headers.add('Content-Type', "application/json")
+    return response
 
 @app.route("/api/resources")
 @login_required

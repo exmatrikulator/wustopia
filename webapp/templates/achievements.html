@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block title %}{{ gettext("#Achievements") }}{% endblock %} {% block head %} {{ super() }}
+
+{% endblock %} {% block content %}
+
+
+<h1 class="title">{{ gettext("#Achievements")}}</h1>
+
+
+{% for data in achievements %}
+<div class="columns">
+  {% if data.reached  %}
+  <div class="column notification is-success">
+  {% else %}
+  <div class="column notification is-light">
+  {% endif %}
+    {{data.name}}: {{data.amount}}
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}
