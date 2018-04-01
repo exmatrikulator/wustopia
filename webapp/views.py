@@ -5,6 +5,7 @@ from flask_babel import gettext
 from flask_login import login_user, logout_user, login_required, current_user
 from sqlalchemy.orm import joinedload
 from sqlalchemy import func
+from datetime import datetime, timedelta
 
 import json
 
@@ -78,13 +79,13 @@ def build():
             return gettext('#not enough: %(a)s >= %(b)s', a=getBalanceofResource(current_user.id, costs.resource.id).amount, b=costs.amount ), 500
 
     buildtime = db.session.query(BuildCost).filter(BuildCost.placecategory_id == place.placecategory.id, BuildCost.level==buildinglevel).first().time
-    ready = datetime.datetime.now() + datetime.timedelta(seconds = buildtime)
+    ready = datetime.now() + timedelta(seconds = buildtime)
     if building:
         building.level = building.level+1
         building.ready = ready
-        building.lastcollect = datetime.datetime.now()
+        building.lastcollect = datetime.now()
     else:
-        db.session.add(Built(place_id = request.args.get('place'), user_id = current_user.id, lastcollect = datetime.datetime.now(), ready=ready))
+        db.session.add(Built(place_id = request.args.get('place'), user_id = current_user.id, lastcollect = datetime.now(), ready=ready))
     try:
         db.session.commit()
         return gettext('#success')
@@ -100,10 +101,10 @@ def earn():
     building = db.session.query(Built).options(joinedload(Built.place)).filter_by(place_id = request.args.get('place'), user_id = current_user.id).first()
     buildingbenefit = db.session.query(PlaceCategoryBenefit).filter_by(placecategory_id = building.place.placecategory.id, level=building.level).all()
     for benefit in buildingbenefit:
-        if datetime.timedelta(minutes=benefit.interval) <= datetime.datetime.now() - building.lastcollect:
+        if timedelta(minutes=benefit.interval) <= datetime.now() - building.lastcollect:
             current_balance = getBalanceofResource(current_user.id, benefit.resource.id)
             current_balance.amount += benefit.amount
-            building.lastcollect = datetime.datetime.now()
+            building.lastcollect = datetime.now()
             db.session.add(current_balance)
             db.session.add(building)
             something_changed=True
