@@ -102,8 +102,8 @@ def earn():
     buildingbenefit = db.session.query(PlaceCategoryBenefit).filter_by(placecategory_id = building.place.placecategory.id, level=building.level).all()
     for benefit in buildingbenefit:
         if timedelta(minutes=benefit.interval) <= datetime.now() - building.lastcollect:
-            current_balance = getBalanceofResource(current_user.id, benefit.resource.id)
-            current_balance.amount += benefit.amount
+            current_balance = db.session.query(Balance).options(joinedload(Balance.resource)).filter_by(user=current_user.id, resource_id=benefit.resource.id).first()
+            current_balance.amount = Balance.amount + benefit.amount
             building.lastcollect = datetime.now()
             db.session.add(current_balance)
             db.session.add(building)
