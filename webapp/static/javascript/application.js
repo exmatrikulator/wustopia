@@ -173,7 +173,7 @@ var earn = function(el) {
     return;
   }
 
-  id = item.place.id;
+  var id = item.place.id;
   $.get("/earn", {
     'place': id
   }, function(data) {
