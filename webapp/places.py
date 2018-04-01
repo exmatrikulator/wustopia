@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import overpy
-from webapp import db
+from webapp import app, db
 from webapp.models import Built, BuildCost, BuildCostResource, Place, PlaceCategory, PlaceCategoryBenefit
 from flask_babel import gettext
 from flask_login import current_user
