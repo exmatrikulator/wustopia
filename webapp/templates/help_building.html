@@ -1,8 +1,8 @@
-{% extends "base.html" %} {% block title %}{{ gettext("#Help") }} | {{slug}}{% endblock %} {% block head %} {{ super() }}
+{% extends "base.html" %} {% block title %}{{ gettext("#Help") }} | {{ gettext("#"+placecategory.name)}}{% endblock %} {% block head %} {{ super() }}
 
 {% endblock %} {% block content %}
 
-<h1 class="title">{{slug}}</h1>
+<h1 class="title">{{ gettext("#"+placecategory.name)}}</h1>
 
 <p>
 {{ gettext("#%s" % placecategory.description) }}
@@ -72,6 +72,6 @@
   </tbody>
 </table>
 
-<a href="/ranking/building/{{ slug }}">{{ gettext("#Ranking") }}</a>
+<a href="/ranking/building/{{ placecategory.id }}-{{ gettext("#"+placecategory.name) | replace(' ', '_') }}">{{ gettext("#Ranking") }}</a>
 
 {% endblock %}

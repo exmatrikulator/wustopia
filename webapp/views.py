@@ -189,44 +189,48 @@ def is_update_places2():
     return str(is_update_places)
 
 
-@app.route("/help/building/<slug>")
-def help_building(slug):
+@app.route("/help/building/<id>-<slug>")
+def help_building(id,slug):
     costs = db.session.query(BuildCost,BuildCostResource, Resource) \
         .join(BuildCostResource) \
         .join(Resource) \
-        .filter(BuildCost.placecategory_id == PlaceCategory().get_id(slug)) \
+        .filter(BuildCost.placecategory_id == id) \
         .order_by(db.asc('level')) \
         .all()
 
     benefit = db.session.query(PlaceCategoryBenefit, Resource) \
         .join(Resource) \
-        .filter(PlaceCategoryBenefit.placecategory_id == PlaceCategory().get_id(slug)) \
+        .filter(PlaceCategoryBenefit.placecategory_id == id) \
         .order_by(db.asc('level')) \
         .all()
 
     placecategory = db.session.query(PlaceCategory) \
-        .filter(PlaceCategory.name == slug) \
+        .filter(PlaceCategory.id == id) \
         .first()
 
     if not placecategory:
         abort(404)
-    return wustopia_render_template('help_building.html', costs=costs, benefit=benefit, placecategory=placecategory, slug=slug)
+    return wustopia_render_template('help_building.html', costs=costs, benefit=benefit, placecategory=placecategory)
 
-@app.route("/ranking/building/<slug>")
-def ranking_building(slug):
+@app.route("/ranking/building/<id>-<slug>")
+def ranking_building(id,slug):
     ranking = db.session.query(func.count(Built.id).label('count'), User) \
         .join(User) \
         .join(Place) \
-        .filter(Place.placecategory_id == PlaceCategory().get_id(slug)) \
+        .filter(Place.placecategory_id == id) \
         .group_by(User.id) \
         .order_by(db.desc('count')) \
         .limit(50) \
         .all()
 
+    placecategory = db.session.query(PlaceCategory) \
+        .filter(PlaceCategory.id == id) \
+        .first()
+
     #if there aren't any rankings, return
-    if not ranking:
-        abort(404)
-    return wustopia_render_template('ranking_building.html', ranking=ranking, slug=slug)
+    #if not ranking:
+    #    abort(404)
+    return wustopia_render_template('ranking_building.html', ranking=ranking, placecategory=placecategory)
 
 
 @app.route('/user/create', methods=['POST'])

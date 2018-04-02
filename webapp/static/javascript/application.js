@@ -235,7 +235,7 @@ var addItem = function(item) {
     text = text + "<br>" + gettext("#collectable in") + ": " + get_time_as_string(item.collectablein);
   }
   text = text + "<br><button class=\"button is-primary\" onclick=\"build(" + item.id + ")\">" + gettext("#build") + "</button>";
-  text = text + "<br><a href=\"/help/building/" + item.category + "\">" + gettext("#Help") + "</a>"
+  text = text + "<br><a href=\"/help/building/" + item.categoryid + "-" + item.category.replace(' ','_') + "\">" + gettext("#Help") + "</a>"
 
   //remove old marker/layer
   if(wustopia.marker[item.id])

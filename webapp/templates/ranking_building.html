@@ -1,10 +1,9 @@
-{% extends "base.html" %} {% block title %}Ranking | {{slug}}{% endblock %} {% block head %} {{ super() }}
+{% extends "base.html" %} {% block title %}Ranking | {{ gettext("#"+placecategory.name)}}{% endblock %} {% block head %} {{ super() }}
 
 {% endblock %} {% block content %}
 
-<h1 class="title">{{ gettext("#"+slug) }}</h1>
+<h1 class="title">{{ gettext("#"+placecategory.name)}}</h1>
 
-{{ gettext("#Costs") }}
 <table class="table">
   <thead>
     <tr>

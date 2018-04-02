@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}{{ gettext("#Error") }}{% endblock %} {% block head %} {{ super() }}
+{% extends "base.html" %} {% block title %}{{ gettext("#Ranking")}}{% endblock %} {% block head %} {{ super() }}
 
 {% endblock %} {% block content %}
 
@@ -7,7 +7,7 @@
 
 
 {% for data in PlaceCategory %}
-  <a href="ranking/building/{{data.name}}">{{ gettext("#"+data.name)}}</a><br>
+  <a href="ranking/building/{{ data.id }}-{{ gettext("#"+data.name) | replace(' ', '_') }}">{{ gettext("#"+data.name)}}</a><br>
 {% endfor %}
 
 {% endblock %}
