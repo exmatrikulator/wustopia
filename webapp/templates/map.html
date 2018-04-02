@@ -35,6 +35,18 @@
     </div>
   </div>
   <div id="map"></div>
+  <audio id="audio_build" preload="auto">
+    <!-- CC BY 3.0 https://freesound.org/people/LittleRobotSoundFactory/sounds/316173/ -->
+    <source src="{{ url_for('static',filename='sounds/build.wav') }}" type="audio/wav">
+  </audio>
+  <audio id="audio_earn" preload="auto">
+    <!-- CC BY-NC 3.0 https://freesound.org/people/pierrecartoons1979/sounds/90121/ -->
+    <source src="{{ url_for('static',filename='sounds/earn.wav') }}" type="audio/wav">
+  </audio>
+  <audio id="audio_error" preload="auto">
+    <!-- CC0 1.0 https://freesound.org/people/fins/sounds/171526/ -->
+    <source src="{{ url_for('static',filename='sounds/error.wav') }}" type="audio/wav">
+  </audio>
 </body>
 
 </html>

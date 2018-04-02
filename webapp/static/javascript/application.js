@@ -162,14 +162,15 @@ var collect_all = function() {
 
 var earn = function(el) {
   //switch between marker and direct item
+  var item;
   if(el.target) {
     item = el.target
   }
   else {
     item = el
   }
-  //do not collect non buildings
-  if (item.place.level == 0) {
+  //only if is collectable
+  if (!item.place.collectable) {
     return;
   }
 
@@ -177,8 +178,11 @@ var earn = function(el) {
   $.get("/earn", {
     'place': id
   }, function(data) {
+    $("#audio_earn").trigger('play');
+    item.place.collectable = false;
     update_resources();
   }).fail(function(data) {
+    $("#audio_error").trigger('play');
     wustopia.marker[id].setPopupContent(gettext("#Error") + ": " + data.responseText);
   }).always(function() {
     wustopia.marker[id].disablePermanentHighlight();
@@ -204,11 +208,13 @@ var build = function(id) {
   $.get("/build", {
     'place': id
   }, function(data) {
+    $("#audio_build").trigger('play');
     show_countdown(id, wustopia.marker[id].place.buildtime);
     wustopia.marker[id]._popup.options.closeOnClick = false;
     wustopia.marker[id]._popup.options.autoClose = false;
     wustopia.marker[id].openPopup();
   }).fail(function(data) {
+    $("#audio_error").trigger('play');
     wustopia.marker[id].setPopupContent(gettext("#Error") + ": " + data.responseText);
   }).always(function() {
     update_resources();
