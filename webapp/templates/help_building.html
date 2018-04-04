@@ -24,10 +24,14 @@
     </tr>
   </thead>
   <tbody>
+  {% set level=namespace(last=0) %}
   {% for data in costs %}
     <tr>
       <td>
-        {{ data.BuildCost.level }}
+        {% if level.last != data.BuildCost.level %}
+          {{ data.BuildCost.level }}
+          {% set level.last = data.BuildCost.level %}
+        {% endif %}
       </td>
       <td>
         {{ data.BuildCost.time }}
