@@ -2,6 +2,7 @@
 
 {% endblock %} {% block content %}
 
+
 <h1 class="title">{{ gettext("#"+placecategory.name)}}</h1>
 
 <table class="table">
@@ -14,7 +15,7 @@
         {{ gettext("#User") }}
       </th>
       <th>
-        {{ gettext("#Buildings") }}
+        {{ gettext("#Amount") }}
       </th>
     </tr>
   </thead>
@@ -34,5 +35,7 @@
   {% endfor %}
   </tbody>
 </table>
+
+<a href="/ranking">{{ gettext("#back to Ranking") }}</a>
 
 {% endblock %}
