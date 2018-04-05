@@ -16,7 +16,7 @@
         {{ gettext("#Level") }}
       </th>
       <th>
-        {{ gettext("#Time") }}
+        {{ gettext("#Time in Seconds") }}
       </th>
       <th>
         {{ gettext("#Resources") }}
@@ -30,11 +30,13 @@
       <td>
         {% if level.last != data.BuildCost.level %}
           {{ data.BuildCost.level }}
-          {% set level.last = data.BuildCost.level %}
         {% endif %}
       </td>
       <td>
-        {{ data.BuildCost.time }}
+        {% if level.last != data.BuildCost.level %}
+          {{ data.BuildCost.time }}
+          {% set level.last = data.BuildCost.level %}
+        {% endif %}
       </td>
       <td>
         <img src="{{ data.Resource.image }}" alt="{{ data.Resource.name }}"> {{ data.BuildCostResource.amount }}
@@ -52,7 +54,7 @@
         {{ gettext("#Level") }}
       </th>
       <th>
-        {{ gettext("#Interval") }}
+        {{ gettext("#Interval in Minutes") }}
       </th>
       <th>
         {{ gettext("#Resources") }}
