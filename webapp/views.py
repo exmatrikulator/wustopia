@@ -116,7 +116,12 @@ def earn():
     for benefit in buildingbenefit:
         if timedelta(minutes=benefit.interval) <= datetime.now() - building.lastcollect:
             current_balance = db.session.query(Balance).options(joinedload(Balance.resource)).filter_by(user=current_user.id, resource_id=benefit.resource.id).first()
-            current_balance.amount = Balance.amount + benefit.amount
+            if current_balance:
+                #update
+                current_balance.amount = Balance.amount + benefit.amount
+            else:
+                #new entry
+                current_balance = Balance(user=current_user.id, resource_id=benefit.resource.id, amount=benefit.amount)
             building.lastcollect = datetime.now()
             db.session.add(current_balance)
             db.session.add(building)
@@ -247,9 +252,9 @@ def user_create():
             db.session.flush()
 
             db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Gold"), amount=100))
-            db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Nahrung"), amount=100))
-            db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Baumaterial"), amount=100))
-            db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Kultur"), amount=100))
+            #db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Nahrung"), amount=100))
+            #db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Baumaterial"), amount=100))
+            #db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Kultur"), amount=100))
             db.session.commit()
             #subject = "Confirm your email"
             #token = ts.dumps(form.email.data, salt='email-confirm-key')
