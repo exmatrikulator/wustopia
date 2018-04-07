@@ -1,11 +1,10 @@
 PlaceCategory,Description,Filter,MarkerColor,Icon
 Bushaltestelle,"",[highway=bus_stop],darkgreen,bus
 Bahnhof,"",[railway=station],darkgreen,train
-Treppe,"",[highway=steps],gray,signal
 Bäcker,"",[shop=bakery],orange,
 Metzger,"",[shop=butcher],orange,
 Kiosk,"",[shop=kiosk],orange,
-Baumarkt,"",[shop=doityourself],purple,
+Baumarkt,"",[shop=doityourself],purple,wrench
 Restaurant,"",[amenity=restaurant],orange,cutlery
 Kneipe,"",[amenity=pub],orange,coffee
 Post,"",[amenity=post_office],purple,envelope
@@ -14,3 +13,6 @@ Eisdiele,"",[amenity=ice_cream],orange,
 Theater,"",[amenity=theatre],red,
 Religion,"",[amenity=place_of_worship],cadetblue,
 Hackerspace,"",[leisure=hackerspace],white,gamepad
+Spielplatz,"",[leisure=playground],purple,child
+Denkmal,"",[historic=monument],,
+Bauernhof,"",[landuse=farmyard],,
