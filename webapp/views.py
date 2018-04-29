@@ -221,8 +221,9 @@ def help_building(id,slug):
         abort(404)
     return wustopia_render_template('help_building.html', costs=costs, benefit=benefit, placecategory=placecategory)
 
+@app.route("/ranking/building/<id>-")
 @app.route("/ranking/building/<id>-<slug>")
-def ranking_building(id,slug):
+def ranking_building(id,slug=None):
     ranking = db.session.query(func.count(Built.id).label('count'), User) \
         .join(User) \
         .join(Place) \
