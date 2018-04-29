@@ -242,35 +242,22 @@ def ranking_building(id,slug):
     return wustopia_render_template('ranking_building.html', ranking=ranking, placecategory=placecategory)
 
 
+@app.route('/demo', methods=['POST'])
+def demo():
+    user = User.new_user()
+    login_user(user)
+    return redirect('/map')
+
 @app.route('/user/create', methods=['POST'])
 def user_create():
     try:
         form = UserCreateForm()
         if form.validate_on_submit():
-            user = User(
+            user = User.new_user(
                 username = form.username.data,
                 email = form.email.data,
                 password = form.password.data
             )
-            db.session.add(user)
-            db.session.flush()
-
-            db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Gold"), amount=100))
-            #db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Nahrung"), amount=100))
-            #db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Baumaterial"), amount=100))
-            #db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Kultur"), amount=100))
-            db.session.commit()
-            #subject = "Confirm your email"
-            #token = ts.dumps(form.email.data, salt='email-confirm-key')
-            #confirm_url = url_for(
-            #    'user_confirm',
-            #    token=token,
-            #    _external=True)
-            #html = render_template(
-            #    'email/confirm.html',
-            #    confirm_url=confirm_url)
-            # We'll assume that send_email has been defined in myapp/util.py
-            #return html
             login_user(user)
             return redirect('/map')
         return wustopia_render_template("error.html", error = form.errors)

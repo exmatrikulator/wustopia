@@ -58,6 +58,16 @@
           <div class="tile is-child box notification is-turquoise">
             <div class="tabs">
               <ul>
+                <li class="is-active">{{ gettext("#Demo") }}</li>
+              </ul>
+            </div>
+            <form method="POST" action="/demo">
+              <input class="button is-dark" type="submit" value="{{ gettext("#Create") }}" />
+            </form>
+          </div>
+          <div class="tile is-child box notification is-turquoise">
+            <div class="tabs">
+              <ul>
                 <li class="is-active">{{ gettext("#Create") }}</li>
               </ul>
             </div>

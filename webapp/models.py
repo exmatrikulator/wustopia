@@ -5,6 +5,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy import Column, DateTime, Integer, Float, BigInteger, String, Boolean, Binary, ForeignKey, UniqueConstraint, Text
 from sqlalchemy.orm import relationship
 from datetime import datetime
+import random
 
 from webapp import db
 
@@ -160,3 +161,19 @@ class User(db.Model):
 
     def is_authenticated(self):
         return True
+
+    def new_user(username=None, password=None, email=None):
+        if not username:
+            username = "User" + str( random.randint(1, 10000) )
+        if not password:
+            password = str( random.random() )
+        user = User(
+            username = username,
+            password = password,
+            email = email
+        )
+        db.session.add(user)
+        db.session.commit()
+        db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Gold"), amount=100))
+        db.session.commit()
+        return user
