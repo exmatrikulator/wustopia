@@ -10,7 +10,7 @@ from  webapp.models import *
 
 class WustopiaModelView(sqla.ModelView):
     def is_accessible(self):
-        return current_user.is_admin
+        return current_user.is_admin()
 
 class BuiltAdmin(WustopiaModelView):
     column_filters = ('user',)
