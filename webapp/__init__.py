@@ -33,6 +33,7 @@ app.jinja_env.globals.update(locale_select=locale_select)
 from  webapp.models import User
 #import webapp.models
 import webapp.views
+import webapp.admin
 
 @login_manager.user_loader
 def load_user(user_id):

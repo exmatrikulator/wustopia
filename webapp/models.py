@@ -15,7 +15,8 @@ bcrypt = Bcrypt()
 class Balance(db.Model):
     __tablename__ = 'balance'
     id = Column(Integer(), primary_key=True, nullable=False)
-    user = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user = db.relationship("User", foreign_keys=[user_id])
     resource_id = Column(Integer, ForeignKey('resource.id'), nullable=False)
     resource = db.relationship("Resource", foreign_keys=[resource_id])
     amount = Column(Integer(), nullable=False)
@@ -77,6 +78,9 @@ class Place(db.Model):
     placecategory = db.relationship("PlaceCategory", foreign_keys=[placecategory_id])
     lastupdate = Column(DateTime, default=datetime.utcnow, nullable=False)
 
+    def __str__(self):
+        return self.name
+
 ##Stores the category of a place. E.g. Bus Stop, Restaurant
 class PlaceCategory(db.Model):
     __tablename__ = 'placecategory'
@@ -89,6 +93,8 @@ class PlaceCategory(db.Model):
     markerColor = Column(String(255), default="blue")
     benefit = db.relationship("PlaceCategoryBenefit", back_populates="placecategory")
 
+    def __str__(self):
+        return self.name
 
     def get_id(self, name):
         try:
@@ -123,6 +129,9 @@ class Resource(db.Model):
     image = Column(String(255))
     major = Column(Boolean())  #is a major resource to show in status bar?
 
+    def __str__(self):
+        return self.name
+
     def get_id(self, name):
         try:
             query = db.session.query(Resource).filter_by(name=name)
@@ -141,6 +150,9 @@ class User(db.Model):
     username = Column(String(32), unique=True, nullable=False)
     _password = Column(Binary(60), nullable=False)
     email = Column(String(255))
+
+    def __str__(self):
+        return self.username
 
     @hybrid_property
     def password(self):
@@ -162,6 +174,9 @@ class User(db.Model):
     def is_authenticated(self):
         return True
 
+    def is_admin(self):
+        return self.id == 1
+
     def new_user(username=None, password=None, email=None):
         if not username:
             username = "User" + str( random.randint(1, 10000) )
@@ -174,6 +189,6 @@ class User(db.Model):
         )
         db.session.add(user)
         db.session.commit()
-        db.session.add(Balance(user=user.id, resource_id=Resource().get_id("Gold"), amount=100))
+        db.session.add(Balance(user_id=user.id, resource_id=Resource().get_id("Gold"), amount=100))
         db.session.commit()
         return user
