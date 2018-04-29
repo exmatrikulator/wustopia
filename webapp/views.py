@@ -35,6 +35,10 @@ def index():
 def map():
     return wustopia_render_template('map.html')
 
+@app.route("/imprint")
+def imprint():
+    return wustopia_render_template('imprint.html')
+
 @app.route("/ranking")
 def ranking():
     return wustopia_render_template('ranking.html', PlaceCategory = db.session.query(PlaceCategory).all())

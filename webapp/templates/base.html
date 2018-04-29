@@ -98,9 +98,9 @@
       <div class="tile is-child box notification is-turquoise">
         <div class="tabs">
             <ul>
-              <li class="is-active">Hi {{ current_user.username }}!</li>
+              <li class="is-active">{{ gettext("#Hi") }} {{ current_user.username }}!</li>
             </ul>
-            <a href="/user/logout">Logout</a>
+            <a href="/user/logout">{{ gettext("#Logout") }}</a>
         </div>
       </div>
       {% endif %}
@@ -114,7 +114,8 @@
 
 
   <footer class="footer">
-    <a href="https://github.com/devtal-de/wustopia">Source</a>
+    <a href="https://github.com/devtal-de/wustopia">{{ gettext("#Source") }}</a>
+    <a href="/imprint">{{ gettext("#Impressum") }}</a>
   </footer>
 </body>
 
