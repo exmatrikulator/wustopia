@@ -25,7 +25,11 @@ babel = Babel(app)
 
 @babel.localeselector
 def locale_select():
-    return request.accept_languages.best_match(['de', 'en'])
+    lang = request.accept_languages.best_match(['de', 'en'])
+    if lang:
+        return lang
+    else:
+        return "en"
 #make it callable from jinja2
 app.jinja_env.globals.update(locale_select=locale_select)
 
