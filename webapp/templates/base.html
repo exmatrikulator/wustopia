@@ -44,9 +44,9 @@
                 </div>
               </div>
               <div class="field">
-                {{ UserCreateForm.password.label(class_="label") }}
+                {{ UserLoginForm.password.label(class_="label") }}
                 <div class="control has-icons-left">
-                  {{ UserCreateForm.password(class_="input") }}
+                  {{ UserLoginForm.password(class_="input") }}
                   <span class="icon is-small is-left">
                       <i class="fas fa-lock"></i>
                     </span>
@@ -74,9 +74,9 @@
             <form method="POST" action="/user/create">
               {{ UserCreateForm.hidden_tag() }}
               <div class="field">
-                {{ UserLoginForm.username.label(class_="label") }}
+                {{ UserCreateForm.username.label(class_="label") }}
                 <div class="control has-icons-left">
-                  {{ UserLoginForm.username(class_="input") }}
+                  {{ UserCreateForm.username(class_="input") }}
                   <span class="icon is-small is-left">
                       <i class="fas fa-user"></i>
                     </span>
