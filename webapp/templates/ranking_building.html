@@ -36,6 +36,8 @@
   </tbody>
 </table>
 
-<a href="/ranking">{{ gettext("#back to Ranking") }}</a>
+<a href="/ranking">{{ gettext("#back to Ranking") }}</a><br/>
+<a href="/help/building/{{ placecategory.id }}-{{ gettext("#"+placecategory.name) | replace(' ', '_') }}">{{ gettext("#Help") }}</a>
+
 
 {% endblock %}

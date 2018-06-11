@@ -6,6 +6,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from sqlalchemy.orm import joinedload
 from sqlalchemy import func
 from datetime import datetime, timedelta
+from graphviz import Digraph
 
 import json
 
@@ -196,6 +197,49 @@ def update_places(lat1,lon1,lat2,lon2):
 def is_update_places2():
     global is_update_places
     return str(is_update_places)
+
+@app.route("/help")
+def help():
+    return wustopia_render_template('help.html', PlaceCategory = db.session.query(PlaceCategory).all())
+
+def help_dependencies(format):
+    dot = Digraph(engine = 'circo')
+    dot.attr('node', shape='box', style='filled', fontname = "DejaVu")
+
+    dot.attr('node', color='#ffcb92')
+    for resource in db.session.query(Resource).all():
+        dot.node("res_" + str(resource.id), resource.name)
+
+    dot.attr('node', color='#00d1b2')
+    for place in db.session.query(PlaceCategory).all():
+        dot.node("place_" + str(place.id), place.name)
+
+    dot.attr('edge',color='#23D160')
+    for benefit in db.session.query(PlaceCategoryBenefit.placecategory_id, PlaceCategoryBenefit.resource_id ).distinct():
+        dot.edge("place_" + str(benefit.placecategory_id), "res_" + str(benefit.resource_id))
+
+    dot.attr('edge',color='#FF3860')
+    for cost in db.session.query(BuildCost, BuildCostResource).join(BuildCostResource).distinct(BuildCost.placecategory_id, BuildCostResource.resource_id):
+        dot.edge("res_" + str(cost.BuildCostResource.resource_id), "place_" + str(cost.BuildCost.placecategory_id))
+
+    response = Response()
+    if format == "svg":
+        dot.format = "svg"
+        response.set_data( dot.pipe().decode('utf-8') )
+        response.headers.add('Content-Type', "svg/xml")
+    elif format == "png":
+        dot.format = "png"
+        response.set_data( dot.pipe() )
+        response.headers.add('Content-Type', "image/png")
+    return response
+
+@app.route("/help/dependencies.svg")
+def help_dependencies_svg():
+    return help_dependencies("svg")
+
+@app.route("/help/dependencies.png")
+def help_dependencies_png():
+    return help_dependencies("png")
 
 
 @app.route("/help/building/<id>-<slug>")

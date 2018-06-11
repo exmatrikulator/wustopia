@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block title %}{{ gettext("#Help")}}{% endblock %} {% block head %} {{ super() }}
+
+{% endblock %} {% block content %}
+
+
+<h1 class="title">{{ gettext("#Help")}}</h1>
+
+<a href="/help/dependencies.svg">
+<img src="/help/dependencies.png" style="width:auto; height: auto">
+</a>
+
+{% for data in PlaceCategory %}
+  <a href="help/building/{{ data.id }}-{{ gettext("#"+data.name) | replace(' ', '_') }}">{{ gettext("#"+data.name)}}</a><br>
+{% endfor %}
+
+{% endblock %}
