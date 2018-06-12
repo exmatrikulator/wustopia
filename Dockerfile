@@ -5,7 +5,7 @@ FROM alpine
 EXPOSE 80
 
 #build tools for Flask-SQLAlchemy-->cffi
-RUN apk add --no-cache bash git nginx uwsgi uwsgi-python3 python3-dev libffi-dev alpine-sdk postgresql-dev graphviz ttf-dejavu\
+RUN apk add --no-cache bash git nginx uwsgi uwsgi-python3 python3-dev libffi-dev alpine-sdk postgresql-dev graphviz ttf-dejavu jpeg-dev zlib-dev\
 	&& pip3 install --upgrade pip
 
 

@@ -62,3 +62,13 @@ Bäcker,Brot,20,664,1808
 Restaurant,Nahrung,1,2,30
 Restaurant,Nahrung,2,10,65
 Restaurant,Nahrung,3,24,140
+Bahnhof,Ticket,1,1,60
+Eisdiele,Eis,1,1,60
+Post,Brief,1,1,60
+Metzger,Salami,1,1,60
+Optiker,Brille,1,1,60
+Bekleidungsgeschäft,T-Shirt,1,1,60
+Fast Food,Pizza,1,1,60
+Fast Food,Pommes,1,1,60
+Fast Food,Döner,1,1,60
+Hackerspace,Mate,1,1,60

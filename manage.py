@@ -79,6 +79,22 @@ def imoprtInitData():
     print("done")
 
 @manager.command
+def generate_asset():
+    from PIL import Image
+    import os
+    for root, dirs, files in os.walk('webapp/static/images/resources'):
+        for name in files:
+            file = os.path.join(root, name)
+            filename, file_extension = os.path.splitext(file)
+            if file_extension != ".png" or filename.endswith("_32"):
+                continue
+
+            img = Image.open(file)
+            img = img.resize((32,32))
+            img.save(filename + "_32" + file_extension)
+
+
+@manager.command
 def pybabel():
     "Generate new translations"
     import os

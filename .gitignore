@@ -1,5 +1,6 @@
 *.mo
 *.pyc
+*_32.png
 venv/
 migrations
 config/config.py

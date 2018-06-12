@@ -33,6 +33,7 @@ if [ -z "$@" ]; then
     python3 manage.py db migrate
     python3 manage.py db upgrade
     python3 manage.py imoprtInitData
+    python3 manage.py generate_asset
 
     #if app is mounted, Dockerfile is available
     if [ -f Dockerfile ]; then

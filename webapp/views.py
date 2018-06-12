@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from graphviz import Digraph
 
 import json
+import os
 
 from webapp import app
 from webapp.models import *
@@ -202,13 +203,19 @@ def is_update_places2():
 def help():
     return wustopia_render_template('help.html', PlaceCategory = db.session.query(PlaceCategory).all())
 
+# returns the image name with a "_32" suffix
+def image_32px(image):
+    filename, file_extension = os.path.splitext(image)
+    return str(filename + "_32" + file_extension)
+
 def help_dependencies(format):
+    #TODO: cache
     dot = Digraph(engine = 'circo')
     dot.attr('node', shape='box', style='filled', fontname = "DejaVu")
 
     dot.attr('node', color='#ffcb92')
     for resource in db.session.query(Resource).all():
-        dot.node("res_" + str(resource.id), resource.name)
+        dot.node("res_" + str(resource.id), image=image_32px("webapp/"+str(resource.image)), label=resource.name, labelloc="t")
 
     dot.attr('node', color='#00d1b2')
     for place in db.session.query(PlaceCategory).all():

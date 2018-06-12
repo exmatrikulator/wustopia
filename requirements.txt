@@ -9,6 +9,7 @@ Flask-SQLAlchemy
 Flask-WTF
 graphviz
 overpy
+Pillow
 pojson
 psycopg2
 wtforms
