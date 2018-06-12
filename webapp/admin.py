@@ -3,7 +3,7 @@
 import flask_admin as admin
 from flask_admin.base import MenuLink
 from flask_admin.contrib import sqla
-from flask_babel import gettext
+from flask_babel import lazy_gettext
 from flask_login import current_user
 
 from webapp import db, app
@@ -37,8 +37,8 @@ class PlaceCategoryBenefitAdmin(WustopiaModelView):
     column_filters = ['placecategory', 'resource']
 
 
-admin = admin.Admin(app, name=gettext("#Wustopia Admin") ,template_mode='bootstrap3')
-admin.add_link(MenuLink(name=gettext('#Back to Map'), url='/map'))
+admin = admin.Admin(app, name=lazy_gettext("#Wustopia Admin") ,template_mode='bootstrap3')
+admin.add_link(MenuLink(name=lazy_gettext('#Back to Map'), url='/map'))
 admin.add_view(UserAdmin(User, db.session))
 admin.add_view(BalanceAdmin(Balance, db.session))
 admin.add_view(PlaceAdmin(Place, db.session))
