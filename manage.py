@@ -46,7 +46,7 @@ def imoprtInitData():
         for row in content:
             importTextToTranslate.append(row[0])
             if len(row) == 3:
-                session_add( Resource( name=row[0], image=row[1], major=bool(row[2]) ) )
+                session_add( Resource( name=row[0], image=row[1], major=bool(int(row[2])) ) )
             else:
                 session_add( Resource( name=row[0], image=row[1] ) )
 
