@@ -108,8 +108,8 @@ var init = function(position) {
 
   L.marker([wustopia.session.lat, wustopia.session.lon], {
       icon: L.icon({
-        iconUrl: ('http://upload.wikimedia.org/wikipedia/commons/c/cb/Icon_person_abstract_blue.jpg'),
-        iconSize: [40, 40]
+        iconUrl: ('/static/images/resources/me_32.png'),
+        iconSize: [32, 32]
       })
     }).addTo(wustopia.map)
     .bindPopup(gettext("#You"))
