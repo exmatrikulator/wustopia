@@ -1,0 +1,18 @@
+stages:
+- build
+- test
+
+
+build_image:
+  tags:
+    - docker
+  stage: build
+  script:
+    - docker build -t exmatrikulator/wustopia:$CI_COMMIT_REF_NAME .
+
+test_image:
+  tags:
+    - docker
+  stage: test
+  script:
+    - docker run --rm exmatrikulator/wustopia:$CI_COMMIT_REF_NAME python3 tests.py
