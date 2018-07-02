@@ -161,9 +161,10 @@ def markerIcon():
     return response
 
 @app.route("/api/places")
+@login_required
 def api_places():
-    lat = float(request.args.get('lat'))
-    lon = float(request.args.get('lon'))
+    lat = float(request.args.get('lat') or 0)
+    lon = float(request.args.get('lon') or 0)
     response = Response( json.dumps(getPlaces(lat, lon ) ) )
     response.headers.add('Content-Type', "application/json")
     return response
@@ -272,6 +273,7 @@ def help_building(id,slug):
         abort(404)
     return wustopia_render_template('help_building.html', costs=costs, benefit=benefit, placecategory=placecategory)
 
+@app.route("/ranking/building/<id>")
 @app.route("/ranking/building/<id>-")
 @app.route("/ranking/building/<id>-<slug>")
 def ranking_building(id,slug=None):

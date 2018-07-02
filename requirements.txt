@@ -6,6 +6,7 @@ flask_login
 Flask-Babel
 Flask-Script
 Flask-SQLAlchemy
+Flask-Testing
 Flask-WTF
 graphviz
 overpy

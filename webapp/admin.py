@@ -11,6 +11,8 @@ from  webapp.models import *
 
 class WustopiaModelView(sqla.ModelView):
     def is_accessible(self):
+        if not current_user.is_authenticated:
+            return False
         return current_user.is_admin()
 
 class UserAdmin(WustopiaModelView):

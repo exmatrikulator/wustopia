@@ -11,15 +11,17 @@ from flask_babel import Babel
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@db/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config.from_pyfile('../config/config.py')
+try:
+    app.config.from_pyfile('../config/config.py')
+except Exception:
+    pass
 
 db = SQLAlchemy(app)
 
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view =  "user_login"
-
+login_manager.login_view =  "index"
 
 babel = Babel(app)
 
