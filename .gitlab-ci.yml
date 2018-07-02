@@ -36,7 +36,7 @@ deploy_job:
   stage: deploy
   when: manual
   script:
-    - git remote set-url github git@github.com:devtal-de/wustopia.git
-    - git push master github:master
+    - git remote add github git@github.com:devtal-de/wustopia.git
+    - git push github master
     - docker tag exmatrikulator/wustopia:master exmatrikulator/wustopia:latest
     - docker service update --force wustopia_web
