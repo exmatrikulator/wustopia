@@ -27,4 +27,4 @@ deploy_job:
   when: manual
   script:
     - docker tag exmatrikulator/wustopia:master exmatrikulator/wustopia:latest
-    - docker service update wustopia_web
+    - docker service update --force wustopia_web
