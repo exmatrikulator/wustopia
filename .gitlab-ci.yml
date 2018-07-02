@@ -1,6 +1,7 @@
 stages:
 - build
 - test
+- cleanup
 - deploy
 
 
@@ -17,6 +18,15 @@ test_image:
   stage: test
   script:
     - docker run --rm exmatrikulator/wustopia:$CI_COMMIT_REF_NAME python3 tests.py
+
+cleanup:
+  tags:
+    - docker
+  stage: cleanup
+  except:
+    - master
+  script:
+    - docker rmi exmatrikulator/wustopia:$CI_COMMIT_REF_NAME
 
 deploy_job:
   tags:
