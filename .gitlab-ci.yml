@@ -1,6 +1,7 @@
 stages:
 - build
 - test
+- deploy
 
 
 build_image:
@@ -16,3 +17,14 @@ test_image:
   stage: test
   script:
     - docker run --rm exmatrikulator/wustopia:$CI_COMMIT_REF_NAME python3 tests.py
+
+deploy_job:
+  tags:
+    - docker
+  only:
+    - master
+  stage: deploy
+  when: manual
+  script:
+    - docker tag exmatrikulator/wustopia:master exmatrikulator/wustopia:latest
+    - docker service update wustopia_web
