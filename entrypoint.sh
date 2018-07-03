@@ -17,11 +17,12 @@ if [ -z "$@" ]; then
     #run translation
     python3 manage.py pybabel
 
+    #chicken and egg problem: checking needs migrations
     #wait for postgres
-    until python3 manage.py db current > /dev/null ; do
-      >&2 echo "Postgres is unavailable - sleeping"
-      sleep 1
-    done
+    # until python3 manage.py db current > /dev/null ; do
+    #   >&2 echo "Postgres is unavailable - sleeping"
+    #   sleep 1
+    # done
 
     # if /app/migrations is empty init database
     if [ ! -f /app/migrations/README ]; then
