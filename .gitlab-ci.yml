@@ -36,6 +36,6 @@ deploy_job:
   stage: deploy
   when: manual
   script:
-    - git push github master
+    - git push github HEAD:master
     - docker tag exmatrikulator/wustopia:master exmatrikulator/wustopia:latest
     - docker service update --force wustopia_web
