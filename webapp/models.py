@@ -150,6 +150,7 @@ class User(db.Model):
     username = Column(String(32), unique=True, nullable=False)
     _password = Column(Binary(60), nullable=False)
     email = Column(String(255))
+    created = Column(DateTime, default=datetime.utcnow, nullable=False)
 
     def __str__(self):
         return self.username
