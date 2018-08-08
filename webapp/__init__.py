@@ -9,7 +9,7 @@ from flask_babel import Babel
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@db/postgres'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@db/postgres?client_encoding=utf8'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 try:
     app.config.from_pyfile('../config/config.py')
