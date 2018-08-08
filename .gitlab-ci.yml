@@ -1,6 +1,7 @@
 stages:
 - build
 - test
+- publish
 - cleanup
 - deploy
 
@@ -10,14 +11,23 @@ build_image:
     - docker
   stage: build
   script:
-    - docker build -t exmatrikulator/wustopia:$CI_COMMIT_REF_NAME .
+    - docker build -t docker.nico-hessler.de/ex/wustopia:$CI_COMMIT_REF_NAME .
 
 test_image:
   tags:
     - docker
   stage: test
   script:
-    - docker run --rm exmatrikulator/wustopia:$CI_COMMIT_REF_NAME python3 tests.py
+    - docker run --rm docker.nico-hessler.de/ex/wustopia:$CI_COMMIT_REF_NAME python3 tests.py
+
+publish:
+  tags:
+    - docker
+  stage: publish
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.nico-hessler.de
+    - docker push docker.nico-hessler.de/ex/wustopia:$CI_COMMIT_REF_NAME
+
 
 cleanup:
   tags:
@@ -26,7 +36,7 @@ cleanup:
   except:
     - master
   script:
-    - docker rmi exmatrikulator/wustopia:$CI_COMMIT_REF_NAME
+    - docker rmi docker.nico-hessler.de/ex/wustopia:$CI_COMMIT_REF_NAME
 
 deploy_job:
   tags:
@@ -37,5 +47,5 @@ deploy_job:
   when: manual
   script:
     - git push github HEAD:master
-    - docker tag exmatrikulator/wustopia:master exmatrikulator/wustopia:latest
+    - docker tag docker.nico-hessler.de/ex/wustopia:master docker.nico-hessler.de/ex/wustopia:latest
     - docker service update --force wustopia_web
