@@ -312,7 +312,7 @@ def user_create():
                 email = form.email.data,
                 password = form.password.data
             )
-            login_user(user)
+            login_user(user, remember=True)
             return redirect('/map')
         return wustopia_render_template("error.html", error = form.errors)
     except Exception as e:
@@ -325,7 +325,7 @@ def user_login():
         user = User.query.filter_by(username=form.username.data).first()
         if not user or not user.is_correct_password(form.password.data):
             return wustopia_render_template("error.html", error=gettext("#wrong User / Password"))
-        login_user(user)
+        login_user(user, remember=True)
         return redirect('/map')
     return wustopia_render_template("error.html",error=gettext("#Did you fill all fields?"))
 
