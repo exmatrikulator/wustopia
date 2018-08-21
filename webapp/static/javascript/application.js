@@ -82,9 +82,14 @@ function get_places() {
       lon: wustopia.session.lon
     }).done(function(data) {
       wustopia.user.places = data;
-      data.forEach(function(item) {
-        addItem(item);
-      })
+      if(data.length > 0) {
+        data.forEach(function(item) {
+          addItem(item);
+        })
+      }
+      else {
+        alert(gettext("#No items found.\nMove the map and reload the page.\nIt could take some time, until you see items."));
+      }
     });
   }
 }
