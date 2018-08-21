@@ -62,7 +62,7 @@ var is_update_places = false;
 var update_places = function() {
   if (is_update_places)
     return;
-  if (wustopia.map.getZoom() < 17)
+  if (wustopia.map.getZoom() < 18)
     return;
   is_update_places = true;
   var bounds = wustopia.map.getBounds();
@@ -108,7 +108,8 @@ var init = function(position) {
 
   wustopia.map.setView([wustopia.session.lat, wustopia.session.lon], zoom);
   L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 18
   }).addTo(wustopia.map);
 
   L.marker([wustopia.session.lat, wustopia.session.lon], {
