@@ -219,30 +219,43 @@ var earn = function(el) {
 
 }
 
-var show_countdown = function(id, seconds) {
-  wustopia.marker[id].setPopupContent(get_time_as_string(seconds));
-  if (seconds-- > 0) {
-    setTimeout(function() {
-      show_countdown(id, seconds);
-    }, 1000);
-  } else {
-    wustopia.marker[id].setPopupContent(gettext("#built"));
-    get_places();
-  }
+var update_countdown = function() {
+  wustopia.marker.forEach(function(marker) {
+    if (marker.readyin > 1) {
+      marker.setPopupContent(get_time_as_string(marker.readyin--));
+    } else if (marker.readyin == 1) {
+      marker.readyin = 0;
+      marker.setPopupContent(gettext("#built"));
+      //get new marker info
+      get_places();
+    }
+  });
+  setTimeout(function() {
+    update_countdown();
+  }, 1000);
 }
+setTimeout(function() {
+  update_countdown();
+}, 1000);
+
+
 
 var build = function(id) {
   $.get("/build", {
     'place': id
   }, function(data) {
     $("#audio_build").trigger('play');
-    show_countdown(id, wustopia.marker[id].place.buildtime);
+    wustopia.marker[id].readyin = wustopia.marker[id].place.buildtime;
     wustopia.marker[id]._popup.options.closeOnClick = false;
     wustopia.marker[id]._popup.options.autoClose = false;
     wustopia.marker[id].openPopup();
   }).fail(function(data) {
     $("#audio_error").trigger('play');
     wustopia.marker[id].setPopupContent(gettext("#Error") + ": " + data.responseText);
+    //reset old popup text
+    setTimeout(function() {
+      wustopia.marker[id].setPopupContent(wustopia.marker[id].popupText);
+    }, 2000);
   }).always(function() {
     update_resources();
   });
@@ -276,6 +289,7 @@ var addItem = function(item) {
     })
     .addTo(wustopia.map)
     .on('click', earn);
+  wustopia.marker[item.id].popupText = text;
   wustopia.marker[item.id].place = []
   wustopia.marker[item.id].place.id = item.id;
   wustopia.marker[item.id].place.category = item.category;
@@ -291,7 +305,7 @@ var addItem = function(item) {
   //show countdown if not ready
   ready_delta = item.ready - Math.floor(Date.now() / 1000);
   if (ready_delta > 0) {
-    show_countdown(item.id, ready_delta);
+    wustopia.marker[item.id].readyin = ready_delta;
     wustopia.marker[item.id]._popup.options.closeOnClick = false;
     wustopia.marker[item.id]._popup.options.autoClose = false;
     wustopia.marker[item.id].openPopup();
