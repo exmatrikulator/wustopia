@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
@@ -23,7 +22,7 @@ def session_add(model):
 
 @manager.command
 def imoprtInitData():
-    "Inititalise the database"
+    """Inititalise the database"""
     import csv
 
     importTextToTranslate = []
@@ -96,7 +95,7 @@ def generate_asset():
 
 @manager.command
 def pybabel():
-    "Generate new translations"
+    """Generate new translations"""
     import os
     from pojson import convert
     os.system('pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot .')
@@ -115,7 +114,7 @@ def pybabel():
 
 @manager.command
 def bcryptbenchmark():
-    "Test number of rounds"
+    """Test number of rounds"""
     # Chance the number of rounds (second argument) until it takes between
     # 0.25 and 0.5 seconds to run.
     from flask.ext.bcrypt import generate_password_hash

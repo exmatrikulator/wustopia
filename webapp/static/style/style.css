@@ -7,7 +7,8 @@
 }
 #menu {
     position: absolute;
-    top: 0px left: 0px;
+    top: 0px;
+    left: 0px;
     height: 30px;
     width: 100%;
     background-color: #555555;

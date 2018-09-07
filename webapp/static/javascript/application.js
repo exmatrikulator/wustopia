@@ -290,7 +290,7 @@ var addItem = function(item) {
     .addTo(wustopia.map)
     .on('click', earn);
   wustopia.marker[item.id].popupText = text;
-  wustopia.marker[item.id].place = []
+  wustopia.marker[item.id].place = [];
   wustopia.marker[item.id].place.id = item.id;
   wustopia.marker[item.id].place.category = item.category;
   wustopia.marker[item.id].place.level = item.level;

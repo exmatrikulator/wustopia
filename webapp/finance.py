@@ -1,11 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from webapp import db
-from webapp.models import Balance, Built ,Place, PlaceCategory, PlaceCategoryBenefit
 from sqlalchemy.orm import joinedload
-from sqlalchemy import and_
-import datetime as datetime
+from webapp import db
+from webapp.models import Balance
 
 def getBalance(userid):
     amounts = db.session.query(Balance).options(joinedload(Balance.resource)).filter_by(user_id=userid).order_by(Balance.id).all()

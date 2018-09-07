@@ -11,8 +11,8 @@ from webapp import db
 
 bcrypt = Bcrypt()
 
-##Stores the current balance of an user
 class Balance(db.Model):
+    """Stores the current balance of an user"""
     __tablename__ = 'balance'
     id = Column(Integer(), primary_key=True, nullable=False)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
@@ -21,8 +21,8 @@ class Balance(db.Model):
     resource = db.relationship("Resource", foreign_keys=[resource_id])
     amount = Column(Integer(), nullable=False)
 
-##Stores the buildings of the user
 class Built(db.Model):
+    """Stores the buildings of the user"""
     __tablename__ = 'built'
     id = Column(Integer(), primary_key=True, nullable=False)
     place_id = Column(Integer, ForeignKey('place.id'), nullable=False)
@@ -33,8 +33,8 @@ class Built(db.Model):
     lastcollect = Column(DateTime, default=datetime.utcnow, nullable=False)
     ready = Column(DateTime, nullable=False)
 
-##Stores the time to build a place (level)
 class BuildCost(db.Model):
+    """Stores the time to build a place (level)"""
     __tablename__ = 'buildcost'
     id = Column(Integer(), primary_key=True, nullable=False)
     placecategory_id = Column(Integer, ForeignKey('placecategory.id'), nullable=False)
@@ -54,8 +54,8 @@ class BuildCost(db.Model):
         except Exception as e:
             raise e
 
-##Stores the prices of resources to build a place (level)
 class BuildCostResource(db.Model):
+    """Stores the prices of resources to build a place (level)"""
     __tablename__ = 'buildcostresource'
     id = Column(Integer(), primary_key=True, nullable=False)
     buildcost_id = Column(Integer, ForeignKey('buildcost.id'), nullable=False)
@@ -65,9 +65,8 @@ class BuildCostResource(db.Model):
     amount = Column(Integer(), nullable=False)
     __table_args__ = (UniqueConstraint('buildcost_id', 'resource_id'),)
 
-
-##Stores the places (nodes) from OSM
 class Place(db.Model):
+    """Stores the places (nodes) from OSM"""
     __tablename__ = 'place'
     id = Column(Integer(), primary_key=True, nullable=False)
     osmNodeId = Column(BigInteger(), unique=True, nullable=False)
@@ -81,8 +80,8 @@ class Place(db.Model):
     def __str__(self):
         return self.name
 
-##Stores the category of a place. E.g. Bus Stop, Restaurant
 class PlaceCategory(db.Model):
+    """Stores the category of a place. E.g. Bus Stop, Restaurant"""
     __tablename__ = 'placecategory'
     id = Column(Integer(), primary_key=True, nullable=False)
     name = Column(String(255), unique=True, nullable=False)
@@ -107,8 +106,8 @@ class PlaceCategory(db.Model):
         except Exception as e:
             raise e
 
-##Stores the information how much you earn
 class PlaceCategoryBenefit(db.Model):
+    """Stores the information how much you earn"""
     __tablename__ = 'placecategorybenefit'
     id = Column(Integer(), primary_key=True, nullable=False)
     placecategory_id = Column(Integer, ForeignKey('placecategory.id'), nullable=False)
@@ -121,8 +120,8 @@ class PlaceCategoryBenefit(db.Model):
     __table_args__ = (UniqueConstraint('placecategory_id', 'level', 'resource_id'),)
 
 
-##Stores the possible Resourceses witch User can earn/trade
 class Resource(db.Model):
+    """Stores the possible Resourceses witch User can earn/trade"""
     __tablename__ = 'resource'
     id = Column(Integer(), primary_key=True, nullable=False)
     name = Column(String(255), unique=True, nullable=False)
@@ -143,8 +142,8 @@ class Resource(db.Model):
         except Exception as e:
             raise e
 
-##Stores the User information
 class User(db.Model):
+    """Stores the User information"""
     __tablename__ = 'users'
     id = Column(Integer(), primary_key=True, nullable=False)
     username = Column(String(32), unique=True, nullable=False)

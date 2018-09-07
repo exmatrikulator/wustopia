@@ -1,7 +1,5 @@
 import unittest
-#import flask_testing
 from flask_testing import TestCase
-from flask import Flask, request
 from manage import imoprtInitData
 
 from webapp import db, app

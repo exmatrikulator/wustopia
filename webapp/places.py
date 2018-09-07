@@ -41,7 +41,7 @@ def importPlaces(lat1,lon1,lat2,lon2):
     return "OK"
 
 def getPlaces(lat = None ,lon = None):
-    ## Defines the allowed distance
+    #Defines the allowed distance
     diff=0.005
     output = []
     #TODO: Filter duplicate
