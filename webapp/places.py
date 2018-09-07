@@ -12,10 +12,12 @@ from datetime import datetime, timedelta
 api = overpy.Overpass()
 
 def importPlaces(lat1,lon1,lat2,lon2):
+    if(lon2-lon1 > 0.01 or lat2-lat1 > 0.01):
+        return gettext("#range to big")
     #only if last update is longer than a week ago
     lastupdate = db.session.query(Place.lastupdate).filter(Place.lat.between(lat1,lat2)).filter(Place.lon.between(lon1,lon2)).order_by(desc(Place.lastupdate)).first()
     if lastupdate is not None and lastupdate[0] is not None and (datetime.now() - lastupdate[0]) < timedelta(days = 7):
-        return "not necessary"
+        return gettext("#not necessary")
 
     categories = db.session.query(PlaceCategory)
     for category in categories:
@@ -36,7 +38,7 @@ def importPlaces(lat1,lon1,lat2,lon2):
                 db.session.rollback()
                 if app.debug:
                     print(e)
-    return "import"
+    return "OK"
 
 def getPlaces(lat = None ,lon = None):
     ## Defines the allowed distance

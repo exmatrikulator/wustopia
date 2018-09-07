@@ -1,5 +1,7 @@
 version: '2'
 services:
+  redis:
+    image: redis
   db:
     image: postgres
     volumes:

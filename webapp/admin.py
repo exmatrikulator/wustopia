@@ -5,11 +5,13 @@ from flask_admin.base import MenuLink
 from flask_admin.contrib import sqla
 from flask_babel import lazy_gettext
 from flask_login import current_user
+import rq_dashboard
 
 from webapp import db, app
 from  webapp.models import *
 
 class WustopiaModelView(sqla.ModelView):
+    page_size = 100
     def is_accessible(self):
         if not current_user.is_authenticated:
             return False
@@ -40,6 +42,7 @@ class PlaceCategoryBenefitAdmin(WustopiaModelView):
 
 
 admin = admin.Admin(app, name=lazy_gettext("#Wustopia Admin") ,template_mode='bootstrap3')
+admin.add_link(MenuLink(name=lazy_gettext('#RQ'), url='/admin/rq'))
 admin.add_link(MenuLink(name=lazy_gettext('#Back to Map'), url='/map'))
 admin.add_view(UserAdmin(User, db.session))
 admin.add_view(BalanceAdmin(Balance, db.session))
@@ -47,3 +50,12 @@ admin.add_view(PlaceAdmin(Place, db.session))
 admin.add_view(BuiltAdmin(Built, db.session))
 admin.add_view(BuildCostResourceAdmin(BuildCostResource, db.session))
 admin.add_view(PlaceCategoryBenefitAdmin(PlaceCategoryBenefit, db.session))
+
+#rq (Redis Queue)
+@rq_dashboard.blueprint.before_request
+def is_accessible():
+    if not current_user.is_authenticated:
+        return "",403
+    if not current_user.is_admin():
+        return "",403
+app.register_blueprint(rq_dashboard.blueprint, url_prefix="/admin/rq")

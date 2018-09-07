@@ -5,12 +5,15 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_babel import Babel
-
+import rq_dashboard
 
 
 app = Flask(__name__)
+app.config.from_object(rq_dashboard.default_settings)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@db/postgres?client_encoding=utf8'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['REDIS_URI'] = "redis://redis:6379"
+app.config['REDIS_HOST'] = "redis"
 try:
     app.config.from_pyfile('../config/config.py')
 except Exception:

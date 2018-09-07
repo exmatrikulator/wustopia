@@ -36,6 +36,8 @@ if [ -z "$@" ]; then
     python3 manage.py imoprtInitData
     python3 manage.py generate_asset
 
+    python3 worker.py &
+
     #if app is mounted, Dockerfile is available
     if [ -f Dockerfile ]; then
         echo "Running app in debug mode!"

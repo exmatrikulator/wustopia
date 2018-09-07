@@ -29,7 +29,7 @@ class WustopiaTest(TestCase):
 class TestFromAnonymous(WustopiaTest):
 
     def test_URL200(self):
-        urls = ["/","/help","/help/dependencies.svg","/help/dependencies.png","/imprint","/ranking","/is_update_places","/ranking/building/1","/ranking/building/1-Test"]
+        urls = ["/","/help","/help/dependencies.svg","/help/dependencies.png","/imprint","/ranking","/ranking/building/1","/ranking/building/1-Test"]
         urls.sort()
         for url in urls:
             print("check " + url)

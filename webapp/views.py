@@ -7,6 +7,9 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy import func
 from datetime import datetime, timedelta
 from graphviz import Digraph
+from rq import Queue
+from rq.job import Job
+from worker import conn
 
 import json
 import os
@@ -177,28 +180,24 @@ def api_version():
     response.headers.add('Content-Type', "application/json")
     return response
 
-is_update_places = False
 @app.route("/update_places/<float:lat1>,<float:lon1>,<float:lat2>,<float:lon2>")
 def update_places(lat1,lon1,lat2,lon2):
-    return importPlaces(lat1,lon1,lat2,lon2)
 
-    global is_update_places
-    if is_update_places:
-        return gettext("#already running")
-    is_update_places = True
+    q = Queue("update_places",connection=conn)
+    job = q.enqueue_call(
+        func=importPlaces, args=(lat1,lon1,lat2,lon2), result_ttl=60 # 1 minute
+    )
+    return job.get_id()
+    #return "<a href=\"/results/"+job.get_id()+"\">result</a>"
 
-    if(lon2-lon1 > 0.01 or lat2-lat1 > 0.01):
-        is_update_places = False
-        return gettext("#range to big")
+@app.route("/update_places/<job_key>", methods=['GET'])
+def get_results(job_key):
+    job = Job.fetch(job_key, connection=conn)
+    if job.is_finished:
+        return str(job.result), 200
+    else:
+        return gettext("#not yet"), 202
 
-    importPlaces(lon1,lat1,lon2,lat2)
-    is_update_places = False
-    return gettext("#OK")
-
-@app.route("/is_update_places")
-def is_update_places2():
-    global is_update_places
-    return str(is_update_places)
 
 @app.route("/help")
 def help():

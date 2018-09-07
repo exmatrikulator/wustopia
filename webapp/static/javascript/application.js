@@ -13,31 +13,33 @@ var wustopia = {
   }
 };
 
-var gt = new Gettext({domain: 'wustopia'});
-var gettext = function(msgid) { return gt.gettext(msgid); };
+var gt = new Gettext({
+  domain: 'wustopia'
+});
+var gettext = function(msgid) {
+  return gt.gettext(msgid);
+};
 
-var get_time_as_string = function(time)
-{
-  if(parseInt(time) <= 0 || isNaN(time))
+var get_time_as_string = function(time) {
+  if (parseInt(time) <= 0 || isNaN(time))
     return;
 
   var output = "";
   var hours = Math.floor(time / 3600);
   var minutes = Math.floor((time - (hours * 3600)) / 60);
   var seconds = time - (hours * 3600) - (minutes * 60);
-  if( hours > 0)
+  if (hours > 0)
     output += hours + "h ";
-  if( minutes > 0)
+  if (minutes > 0)
     output += minutes + "m ";
-  if( hours == 0)
+  if (hours == 0)
     output += seconds + "s";
   return output.trim();
 }
 
 //only for testing
-var test_time = function()
-{
-  if(
+var test_time = function() {
+  if (
     get_time_as_string(-1) == undefined &&
     get_time_as_string() == undefined &&
     get_time_as_string(0) == undefined &&
@@ -49,31 +51,49 @@ var test_time = function()
     get_time_as_string(600) == "10m 0s" &&
     get_time_as_string(3600) == "1h" &&
     get_time_as_string(3604) == "1h" &&
-    get_time_as_string(3660) == "1h 1m")
-    {
-      return true;
-  }
-  else {
+    get_time_as_string(3660) == "1h 1m") {
+    return true;
+  } else {
     return false;
   }
 }
 
-var is_update_places = false;
+var last_update_places = 0;
 var update_places = function() {
-  if (is_update_places)
+  //allow only every 5 secounds a call
+  if (last_update_places + 5 > Math.floor(Date.now() / 1000))
     return;
   if (wustopia.map.getZoom() < 18)
     return;
-  is_update_places = true;
+  last_update_places = Math.floor(Date.now() / 1000);
   var bounds = wustopia.map.getBounds();
   var lng1 = bounds.getSouthWest().lng;
   var lat1 = bounds.getSouthWest().lat;
   var lng2 = bounds.getNorthEast().lng;
   var lat2 = bounds.getNorthEast().lat;
   $.get("update_places/" + lat1 + "," + lng1 + "," + lat2 + "," + lng2, function(data) {
-    is_update_places = false;
+    if (!wustopia.update_places_jobId)
+      wustopia.update_places_jobId = data;
   });
 }
+
+
+var check_update_places = function() {
+  $.ajax({
+    url: "/update_places/" + wustopia.update_places_jobId,
+    statusCode: {
+      200: function() {
+        get_places();
+      },
+      202: function() {
+        setTimeout(function() {
+          check_update_places();
+        }, 1000);
+      }
+    }
+  });
+}
+
 
 function get_places() {
   if (wustopia.session.lat && wustopia.session.lat) {
@@ -82,13 +102,15 @@ function get_places() {
       lon: wustopia.session.lon
     }).done(function(data) {
       wustopia.user.places = data;
-      if(data.length > 0) {
+      if (data.length > 0) {
         data.forEach(function(item) {
           addItem(item);
         })
-      }
-      else {
-        alert(gettext("#No items found.\nMove the map and reload the page.\nIt could take some time, until you see items."));
+      } else {
+        alert(gettext("#No items found.\nWe'll look for you for new items.\nIt could take some time, until you see items."));
+        setTimeout(function() {
+          check_update_places();
+        }, 1000);
       }
     });
   }
@@ -156,23 +178,24 @@ $(document).ready(function() {
     navigator.geolocation.getCurrentPosition(init, init);
     update_resources();
   }
-  $("#collect_all").click(function(){collect_all();});
-
+  $("#collect_all").click(function() {
+    collect_all();
+  });
+  update_places();
 });
 
 var collect_all = function() {
   wustopia.marker.forEach(function(marker) {
-    if(marker.place.collectable) earn(marker);
+    if (marker.place.collectable) earn(marker);
   });
 }
 
 var earn = function(el) {
   //switch between marker and direct item
   var item;
-  if(el.target) {
+  if (el.target) {
     item = el.target
-  }
-  else {
+  } else {
     item = el
   }
   //only if is collectable
@@ -198,13 +221,11 @@ var earn = function(el) {
 
 var show_countdown = function(id, seconds) {
   wustopia.marker[id].setPopupContent(get_time_as_string(seconds));
-  if(seconds-- > 0)
-  {
+  if (seconds-- > 0) {
     setTimeout(function() {
-      show_countdown(id,seconds);
+      show_countdown(id, seconds);
     }, 1000);
-  }
-  else {
+  } else {
     wustopia.marker[id].setPopupContent(gettext("#built"));
     get_places();
   }
@@ -234,17 +255,17 @@ var addItem = function(item) {
   item.costs.forEach(function(item) {
     text = text + "<br> <img src=\"" + item.image + "\" alt=\"" + item.name + "\"> " + item.amount;
   });
-  if(item.buildtime) {
+  if (item.buildtime) {
     text = text + "<br>" + gettext("#build time") + ": " + get_time_as_string(item.buildtime);
   }
-  if(get_time_as_string(item.collectablein)) {
+  if (get_time_as_string(item.collectablein)) {
     text = text + "<br>" + gettext("#collectable in") + ": " + get_time_as_string(item.collectablein);
   }
   text = text + "<br><button class=\"button is-primary\" onclick=\"build(" + item.id + ")\">" + gettext("#build") + "</button>";
-  text = text + "<br><a href=\"/help/building/" + item.categoryid + "-" + item.category.replace(' ','_') + "\">" + gettext("#Help") + "</a>"
+  text = text + "<br><a href=\"/help/building/" + item.categoryid + "-" + item.category.replace(' ', '_') + "\">" + gettext("#Help") + "</a>"
 
   //remove old marker/layer
-  if(wustopia.marker[item.id])
+  if (wustopia.marker[item.id])
     wustopia.map.removeLayer(wustopia.marker[item.id]);
   wustopia.marker[item.id] = L.marker([item.lat, item.lon], {
       icon: wustopia.markerIcon[item.categoryid]
@@ -269,7 +290,7 @@ var addItem = function(item) {
 
   //show countdown if not ready
   ready_delta = item.ready - Math.floor(Date.now() / 1000);
-  if(ready_delta > 0) {
+  if (ready_delta > 0) {
     show_countdown(item.id, ready_delta);
     wustopia.marker[item.id]._popup.options.closeOnClick = false;
     wustopia.marker[item.id]._popup.options.autoClose = false;

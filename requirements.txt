@@ -13,4 +13,7 @@ overpy
 Pillow
 pojson
 psycopg2
+redis
+rq
+rq-dashboard
 wtforms
