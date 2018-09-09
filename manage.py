@@ -3,22 +3,16 @@
 
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
+from distutils.util import strtobool
+from flask_babel import gettext
 
-from webapp import app, db
+from webapp import app, db, session_add
 from webapp.models import *
 
 manager = Manager(app)
 migrate = Migrate(app, db)
 manager.add_command('db', MigrateCommand)
 
-def session_add(model):
-    try:
-        db.session.add(model)
-        db.session.commit()
-    except Exception as e:
-        db.session.rollback()
-        if app.debug:
-            print(e)
 
 @manager.command
 def imoprtInitData():
@@ -31,12 +25,12 @@ def imoprtInitData():
         content = csv.reader(csvfile, delimiter=',')
         next(content) # skip header
         for row in content:
-            importTextToTranslate.append(row[0])
             importTextToTranslate.append(row[1])
-            if len(row) == 4:
-                session_add( PlaceCategory( name=row[0], description=row[1], filter=row[2], markerColor=row[3], icon=row[4] ) )
+            importTextToTranslate.append(row[2])
+            if len(row) == 5:
+                session_add( PlaceCategory( slug=row[0], name=row[1], description=row[2], filter=row[3], markerColor=row[4], icon=row[5] ) )
             else:
-                session_add( PlaceCategory( name=row[0], description=row[1], filter=row[2], markerColor=row[3] ) )
+                session_add( PlaceCategory( slug=row[0], name=row[1], description=row[2], filter=row[3], markerColor=row[4] ) )
 
     print("import Resource")
     with open('webapp/import/Resource.csv', 'r') as csvfile:
@@ -44,10 +38,10 @@ def imoprtInitData():
         next(content) # skip header
         for row in content:
             importTextToTranslate.append(row[0])
-            if len(row) == 3:
-                session_add( Resource( name=row[0], image=row[1], major=bool(int(row[2])) ) )
+            if len(row) == 4:
+                session_add( Resource( slug=row[0], name=row[1], image=row[2], major=bool(int(row[3])) ) )
             else:
-                session_add( Resource( name=row[0], image=row[1] ) )
+                session_add( Resource( slug=row[0], name=row[1], image=row[2] ) )
 
 
     with open('importTextToTranslate.txt', 'w') as f:
@@ -74,6 +68,27 @@ def imoprtInitData():
         next(content) # skip header
         for row in content:
             session_add(PlaceCategoryBenefit(placecategory_id=PlaceCategory().get_id(row[0]), resource_id=Resource().get_id(row[1]), level=row[2], amount=row[3], interval=row[4]))
+
+
+    print("import Achievements")
+    categories = db.session.query(PlaceCategory).all()
+    amounts = [1,2,5,10,20,50,100,200,500,1000]
+    for category in categories:
+        last_amount=0
+        for amount in amounts:
+            session_add(Achievement(slug=str(amount)+category.slug,
+                name=str(amount)+" "+category.name,
+                description=gettext("#build %s of %s" % (amount, category.name)),
+                dependson=str(last_amount)+category.slug,
+                hidden=True,
+                stars=amount))
+            last_amount = amount
+
+    with open('webapp/import/Achievements.csv', 'r') as csvfile:
+        content = csv.reader(csvfile, delimiter=',')
+        next(content) # skip header
+        for row in content:
+            session_add(Achievement(slug=row[0], name=row[1], description=row[2], dependson=row[3], hidden=strtobool(row[4]), stars=row[5]))
 
     print("done")
 

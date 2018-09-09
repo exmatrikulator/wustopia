@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 from flask_bcrypt import Bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy import Column, DateTime, Integer, Float, BigInteger, String, Boolean, Binary, ForeignKey, UniqueConstraint, Text
+from sqlalchemy import Column, DateTime, Integer, Float, BigInteger, String, Boolean, Binary, ForeignKey, UniqueConstraint, Text, Table, MetaData
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import text
 from datetime import datetime
 import random
 
@@ -11,6 +12,45 @@ from webapp import db
 
 bcrypt = Bcrypt()
 
+
+class Achievement(db.Model):
+    """Stores Achievements / Tasks"""
+    __tablename__ = 'achievement'
+    id = Column(Integer(), primary_key=True, nullable=False)
+    slug = Column(String(12), unique=True, nullable=False)
+    name = Column(String(64))
+    description = Column(String(255))
+    filter = Column(String(2000))
+    dependson = Column(String(12))
+    hidden = Column(Boolean(), default=False)
+    stars = Column(Integer(), nullable=False)
+
+    def __str__(self):
+        return self.name
+
+    def get_id(self, slug):
+        try:
+            query = db.session.query(Achievement).filter_by(slug=slug)
+            instance = query.first()
+
+            if instance:
+                return instance.id
+            return None
+        except Exception as e:
+            raise e
+
+class AchievementsCollected(db.Model):
+    """Stores collected Achievements"""
+    __tablename__ = 'achievementscollected'
+    id = Column(Integer(), primary_key=True, nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user = db.relationship("User", foreign_keys=[user_id])
+    achievement_id = Column(Integer, ForeignKey('achievement.id'), nullable=False)
+    achievement = db.relationship("Achievement", foreign_keys=[achievement_id])
+    reached = Column(DateTime, default=datetime.utcnow, nullable=False)
+    __table_args__ = (UniqueConstraint('user_id', 'achievement_id'),)
+
+##Stores the current balance of an user
 class Balance(db.Model):
     """Stores the current balance of an user"""
     __tablename__ = 'balance'
@@ -85,6 +125,7 @@ class PlaceCategory(db.Model):
     __tablename__ = 'placecategory'
     id = Column(Integer(), primary_key=True, nullable=False)
     name = Column(String(255), unique=True, nullable=False)
+    slug = Column(String(48), unique=True, nullable=False)
     description = Column(Text())
     filter = Column(String(255))
     places = relationship('Place', backref='category')
@@ -95,9 +136,9 @@ class PlaceCategory(db.Model):
     def __str__(self):
         return self.name
 
-    def get_id(self, name):
+    def get_id(self, slug):
         try:
-            query = db.session.query(PlaceCategory).filter_by(name=name)
+            query = db.session.query(PlaceCategory).filter_by(slug=slug)
             instance = query.first()
 
             if instance:
@@ -125,15 +166,16 @@ class Resource(db.Model):
     __tablename__ = 'resource'
     id = Column(Integer(), primary_key=True, nullable=False)
     name = Column(String(255), unique=True, nullable=False)
+    slug = Column(String(50), unique=True, nullable=False)
     image = Column(String(255))
     major = Column(Boolean())  #is a major resource to show in status bar?
 
     def __str__(self):
         return self.name
 
-    def get_id(self, name):
+    def get_id(self, slug):
         try:
-            query = db.session.query(Resource).filter_by(name=name)
+            query = db.session.query(Resource).filter_by(slug=slug)
             instance = query.first()
 
             if instance:
@@ -189,6 +231,6 @@ class User(db.Model):
         )
         db.session.add(user)
         db.session.commit()
-        db.session.add(Balance(user_id=user.id, resource_id=Resource().get_id("Gold"), amount=100))
+        db.session.add(Balance(user_id=user.id, resource_id=Resource().get_id("gold"), amount=100))
         db.session.commit()
         return user

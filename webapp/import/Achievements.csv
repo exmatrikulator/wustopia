@@ -1,0 +1,4 @@
+slug,Name,Description,dependson,hidden,Stars
+5bus,5 bus stops,build 5 bus stops,,False,1
+50bus,50 bus stops,build 50 bus stops,,False,20
+500bus,500 bus stops,build 500 bus stops,,False,4000

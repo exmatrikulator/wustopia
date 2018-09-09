@@ -3,6 +3,7 @@ from flask_testing import TestCase
 from manage import imoprtInitData
 
 from webapp import db, app
+from webapp.models import PlaceCategory
 
 
 class WustopiaTest(TestCase):
@@ -85,7 +86,7 @@ class TestFromUser(WustopiaTest):
     def test_build(self):
         from  webapp.models import Place
         import json
-        db.session.add( Place( osmNodeId=1, lon=1, lat=1, placecategory_id=1, name="Test" ) )
+        db.session.add( Place( osmNodeId=1, lon=1, lat=1, placecategory_id=PlaceCategory().get_id("busstop"), name="Test" ) )
 
         response = self.client.get("/build?place=1")
         TestCase.assert200(self,response)

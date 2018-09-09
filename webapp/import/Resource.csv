@@ -1,19 +1,19 @@
-Resource,Image,IsMajor
-Gold,/static/images/resources/gold.png,1
-Nahrung,,1
-Baumaterial,,1
-Kultur,,0
-Brot,/static/images/resources/bread.png,0
-Bier,/static/images/resources/beer.png,0
-Mate,/static/images/resources/mate.png,0
-Süßigkeiten,,0
-Eis,/static/images/resources/ice.png,0
-Ticket,/static/images/resources/ticket.png,0
-Döner,/static/images/resources/kebab.png,0
-Pommes,/static/images/resources/fries.png,0
-Pizza,/static/images/resources/pizza.png,0
-Brief,/static/images/resources/letter.png,0
-T-Shirt,/static/images/resources/t-shirt.png,0
-Salami,/static/images/resources/salami.png,0
-Schuhe,/static/images/resources/shoes.png,0
-Brille,/static/images/resources/glasses.png,0
+slug,Resource,Image,IsMajor
+gold,Gold,/static/images/resources/gold.png,1
+food,Food,,1
+buildingmaterial,Building Material,,1
+culture,Culture,,0
+bread,Bread,/static/images/resources/bread.png,0
+beer,Beer,/static/images/resources/beer.png,0
+mate,Mate,/static/images/resources/mate.png,0
+sweets,Sweets,,0
+icecream,Ice Cream,/static/images/resources/ice.png,0
+ticket,Ticket,/static/images/resources/ticket.png,0
+kebab,Kebab,/static/images/resources/kebab.png,0
+frenchfries,French Fries,/static/images/resources/fries.png,0
+pizza,Pizza,/static/images/resources/pizza.png,0
+letter,Letter,/static/images/resources/letter.png,0
+tshirt,T-Shirt,/static/images/resources/t-shirt.png,0
+salami,Salami,/static/images/resources/salami.png,0
+shoes,Shoes,/static/images/resources/shoes.png,0
+glasses,Glasses,/static/images/resources/glasses.png,0

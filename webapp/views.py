@@ -51,15 +51,8 @@ def ranking():
 @app.route("/achievements")
 @login_required
 def achievements():
-    return wustopia_render_template('achievements.html', achievements=getAchievements(current_user.id) )
-
-@app.route("/api/achievements")
-@login_required
-def api_achievements():
-    output = getAchievements(current_user.id)
-    response = Response( json.dumps(output) )
-    response.headers.add('Content-Type', "application/json")
-    return response
+    achievements = db.session.query(AchievementsCollected).filter_by(user_id=current_user.id).order_by(AchievementsCollected.reached)
+    return wustopia_render_template('achievements.html', achievements=achievements )
 
 @app.route("/api/resources")
 @login_required
@@ -110,6 +103,9 @@ def build():
         db.session.add(Built(place_id = request.args.get('place'), user_id = current_user.id, lastcollect = datetime.now(), ready=ready))
     try:
         db.session.commit()
+        #check for new achievements
+        if not app.config['TESTING']:
+            api_check_achievements()
         return gettext('#success')
     except Exception as e:
         db.session.rollback()
@@ -180,9 +176,17 @@ def api_version():
     response.headers.add('Content-Type', "application/json")
     return response
 
+@app.route("/api/check_achievements")
+def api_check_achievements():
+    q = Queue("achievements",connection=conn)
+    job = q.enqueue_call(
+        func=check_achievements, args=(current_user.id,), result_ttl=60 # 1 minute
+    )
+    return job.get_id()
+
+
 @app.route("/update_places/<float:lat1>,<float:lon1>,<float:lat2>,<float:lon2>")
 def update_places(lat1,lon1,lat2,lon2):
-
     q = Queue("update_places",connection=conn)
     job = q.enqueue_call(
         func=importPlaces, args=(lat1,lon1,lat2,lon2), result_ttl=60 # 1 minute

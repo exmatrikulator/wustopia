@@ -8,6 +8,16 @@ from flask_babel import Babel
 import rq_dashboard
 
 
+def session_add(model):
+    try:
+        db.session.add(model)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        if app.debug:
+            print(e)
+
+
 app = Flask(__name__)
 app.config.from_object(rq_dashboard.default_settings)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@db/postgres?client_encoding=utf8'
@@ -39,6 +49,7 @@ def locale_select():
         return "en"
 #make it callable from jinja2
 app.jinja_env.globals.update(locale_select=locale_select)
+
 
 
 from  webapp.models import User

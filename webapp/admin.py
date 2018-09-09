@@ -40,6 +40,9 @@ class BuildCostResourceAdmin(WustopiaModelView):
 class PlaceCategoryBenefitAdmin(WustopiaModelView):
     column_filters = ['placecategory', 'resource']
 
+class AchievementsCollectedAdmin(WustopiaModelView):
+    column_filters = ['achievement', 'user']
+    column_display_pk = True
 
 admin = admin.Admin(app, name=lazy_gettext("#Wustopia Admin") ,template_mode='bootstrap3')
 admin.add_link(MenuLink(name=lazy_gettext('#RQ'), url='/admin/rq'))
@@ -50,6 +53,8 @@ admin.add_view(PlaceAdmin(Place, db.session))
 admin.add_view(BuiltAdmin(Built, db.session))
 admin.add_view(BuildCostResourceAdmin(BuildCostResource, db.session))
 admin.add_view(PlaceCategoryBenefitAdmin(PlaceCategoryBenefit, db.session))
+admin.add_view(WustopiaModelView(Achievement, db.session))
+admin.add_view(AchievementsCollectedAdmin(AchievementsCollected, db.session))
 
 #rq (Redis Queue)
 @rq_dashboard.blueprint.before_request

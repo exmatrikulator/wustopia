@@ -4,7 +4,7 @@ import redis
 from rq import Worker, Queue, Connection
 from webapp import app
 
-listen = ['update_places']
+listen = ['update_places','achievements']
 
 conn = redis.from_url(app.config['REDIS_URI'])
 
