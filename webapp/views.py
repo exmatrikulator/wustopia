@@ -190,7 +190,7 @@ def update_places(lat1,lon1,lat2,lon2):
     return job.get_id()
     #return "<a href=\"/results/"+job.get_id()+"\">result</a>"
 
-@app.route("/update_places/<job_key>", methods=['GET'])
+@app.route("/update_places/<job_key>")
 def get_results(job_key):
     job = Job.fetch(job_key, connection=conn)
     if job.is_finished:

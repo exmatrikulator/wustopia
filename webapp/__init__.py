@@ -14,6 +14,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@db/postgres?clien
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['REDIS_URI'] = "redis://redis:6379"
 app.config['REDIS_HOST'] = "redis"
+app.config['MAX_LON'] = 0.01
+app.config['MAX_LAT'] = 0.01
 try:
     app.config.from_pyfile('../config/config.py')
 except Exception:

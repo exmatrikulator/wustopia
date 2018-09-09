@@ -12,8 +12,16 @@ from datetime import datetime, timedelta
 api = overpy.Overpass()
 
 def importPlaces(lat1,lon1,lat2,lon2):
-    if(lon2-lon1 > 0.01 or lat2-lat1 > 0.01):
-        return gettext("#range to big")
+    if(lon2-lon1 > app.config['MAX_LON'] or lat2-lat1 > app.config['MAX_LAT']):
+        #return gettext("#range to big")
+        #find the bigest possible rectangle
+        lonfactor=(lon2-lon1)/2
+        latfactor=(lat2-lat1)/2
+        lon2=lon2-lonfactor+app.config['MAX_LON']
+        lon1=lon1+lonfactor-app.config['MAX_LON']
+        lat2=lat2-latfactor+app.config['MAX_LAT']
+        lat1=lat1+latfactor-app.config['MAX_LAT']
+
     #only if last update is longer than a week ago
     lastupdate = db.session.query(Place.lastupdate).filter(Place.lat.between(lat1,lat2)).filter(Place.lon.between(lon1,lon2)).order_by(desc(Place.lastupdate)).first()
     if lastupdate is not None and lastupdate[0] is not None and (datetime.now() - lastupdate[0]) < timedelta(days = 7):
@@ -26,7 +34,12 @@ def importPlaces(lat1,lon1,lat2,lon2):
             result = api.query("[timeout:5];node("+str(lat1)+","+str(lon1)+","+str(lat2)+","+str(lon2)+")"+str(category.filter)+";out;")
         except overpy.exception.OverpassTooManyRequests:
             #Too many requests
-            return
+            return gettext("#to many requests")
+        except urllib.error.URLError:
+            return gettext("#URLError")
+        except socket.gaierror:
+            return gettext("#gaierror")
+
         for node in result.nodes:
             if node.tags.get("name") is None:   #nodes without name can't be shown
                 continue
