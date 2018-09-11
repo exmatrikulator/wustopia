@@ -7,7 +7,7 @@
 
 
 {% for data in PlaceCategory %}
-  <a href="ranking/building/{{ data.id }}-{{ gettext("#"+data.name) | replace(' ', '_') }}">{{ gettext("#"+data.name)}}</a><br>
+  <a href="ranking/building/{{ data.id }}-{{ lazy_gettext("#"+data.name) | replace(' ', '_') }}">{{ lazy_gettext("#"+data.name)}}</a><br>
 {% endfor %}
 
 {% endblock %}

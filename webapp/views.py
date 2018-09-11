@@ -62,7 +62,7 @@ def api_resources():
     for resource in resources:
         item = {}
         item['id'] = resource.resource.id
-        item['name'] = gettext("#%s" % resource.resource.name)
+        item['name'] = str(lazy_gettext("#%s" % resource.resource.name))
         item['image'] = resource.resource.image
         item['major'] = resource.resource.major
         item['amount'] = resource.amount
@@ -150,7 +150,7 @@ def markerIcon():
     for marker in categories:
         item = {}
         item['id'] = marker.id
-        item['name'] = gettext("#%s" % marker.name)
+        item['name'] = lazy_gettext("#%s" % marker.name)
         item['icon'] = marker.icon
         item['markerColor'] = marker.markerColor
         item['prefix'] = 'fa'
@@ -262,7 +262,6 @@ def help_dependencies_svg():
 @app.route("/help/dependencies.png")
 def help_dependencies_png():
     return help_dependencies("png")
-
 
 @app.route("/help/building/<id>-<slug>")
 def help_building(id,slug):
