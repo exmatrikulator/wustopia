@@ -10,7 +10,8 @@ var wustopia = {
     lat: 0,
     lon: 0,
     acc: null
-  }
+  },
+  toastr: []
 };
 
 var gt = new Gettext({
@@ -107,7 +108,7 @@ function get_places() {
           addItem(item);
         })
       } else {
-        alert(gettext("#No items found.\nWe'll look for you for new items.\nIt could take some time, until you see items."));
+        toastr.info(gettext("#No items found.\nWe'll look for you for new items.\nIt could take some time, until you see items."),gettext("#Info"),{"closeButton": true, "timeOut": 0});
         setTimeout(function() {
           check_update_places();
         }, 1000);
@@ -212,32 +213,30 @@ var earn = function(el) {
     update_resources();
   }).fail(function(data) {
     $("#audio_error").trigger('play');
-    wustopia.marker[id].setPopupContent(gettext("#Error") + ": " + data.responseText);
+    toastr.error(data.responseText);
   }).always(function() {
     wustopia.marker[id].disablePermanentHighlight();
   });
 
 }
 
-var update_countdown = function() {
-  wustopia.marker.forEach(function(marker) {
-    if (marker.readyin > 1) {
-      marker.setPopupContent(get_time_as_string(marker.readyin--));
-    } else if (marker.readyin == 1) {
-      marker.readyin = 0;
-      marker.setPopupContent(gettext("#built"));
-      //get new marker info
-      get_places();
-    }
-  });
-  setTimeout(function() {
-    update_countdown();
-  }, 1000);
-}
-setTimeout(function() {
-  update_countdown();
-}, 1000);
+var show_buildtime = function(itemId) {
+  //if toast is already shown
+  if(wustopia.toastr[itemId])
+    return
 
+  if (wustopia.marker[itemId].place.readyin !== undefined)
+    timeout = wustopia.marker[itemId].place.readyin * 1000;
+  else
+    timeout = wustopia.marker[itemId].place.buildtime * 1000;
+  toastr.info( wustopia.marker[itemId].name, gettext("#Build") + " " + wustopia.marker[itemId].place.category , {"timeOut": timeout, "extendedTimeOut":timeout, "progressBar": true})
+  wustopia.toastr[itemId] = true;
+  setTimeout(function () {
+    toastr.success( wustopia.marker[itemId].name, gettext("#Built") )
+    wustopia.toastr[itemId] = false;
+    get_places();
+  }, timeout );
+}
 
 
 var build = function(id) {
@@ -245,17 +244,11 @@ var build = function(id) {
     'place': id
   }, function(data) {
     $("#audio_build").trigger('play');
-    wustopia.marker[id].readyin = wustopia.marker[id].place.buildtime;
-    wustopia.marker[id]._popup.options.closeOnClick = false;
-    wustopia.marker[id]._popup.options.autoClose = false;
-    wustopia.marker[id].openPopup();
+    $("#"+id+"build").prop("disabled",true);
+    show_buildtime(id);
   }).fail(function(data) {
     $("#audio_error").trigger('play');
-    wustopia.marker[id].setPopupContent(gettext("#Error") + ": " + data.responseText);
-    //reset old popup text
-    setTimeout(function() {
-      wustopia.marker[id].setPopupContent(wustopia.marker[id].popupText);
-    }, 2000);
+    toastr.error(data.responseText);
   }).always(function() {
     update_resources();
   });
@@ -274,7 +267,7 @@ var addItem = function(item) {
   if (get_time_as_string(item.collectablein)) {
     text = text + "<br>" + gettext("#collectable in") + ": " + get_time_as_string(item.collectablein);
   }
-  text = text + "<br><button class=\"button is-primary\" onclick=\"build(" + item.id + ")\">" + gettext("#build") + "</button>";
+  text = text + "<br><button id=\""+item.id+"build\" class=\"button is-primary\" onclick=\"build(" + item.id + ")\">" + gettext("#build") + "</button>";
   text = text + "<br><a href=\"/help/building/" + item.categoryid + "-" + item.category.replace(' ', '_') + "\">" + gettext("#Help") + "</a>"
 
   //remove old marker/layer
@@ -289,12 +282,13 @@ var addItem = function(item) {
     })
     .addTo(wustopia.map)
     .on('click', earn);
-  wustopia.marker[item.id].popupText = text;
+  wustopia.marker[item.id].name = item.name;
   wustopia.marker[item.id].place = [];
   wustopia.marker[item.id].place.id = item.id;
   wustopia.marker[item.id].place.category = item.category;
   wustopia.marker[item.id].place.level = item.level;
   wustopia.marker[item.id].place.buildtime = item.buildtime;
+  wustopia.marker[item.id].place.ready = item.ready;
   wustopia.marker[item.id].place.collectable = false;
   if (item.collectablein >= 0)
     setTimeout(function() {
@@ -305,10 +299,8 @@ var addItem = function(item) {
   //show countdown if not ready
   ready_delta = item.ready - Math.floor(Date.now() / 1000);
   if (ready_delta > 0) {
-    wustopia.marker[item.id].readyin = ready_delta;
-    wustopia.marker[item.id]._popup.options.closeOnClick = false;
-    wustopia.marker[item.id]._popup.options.autoClose = false;
-    wustopia.marker[item.id].openPopup();
+    wustopia.marker[item.id].place.readyin = ready_delta;
+    show_buildtime(item.id);
   }
 
 }

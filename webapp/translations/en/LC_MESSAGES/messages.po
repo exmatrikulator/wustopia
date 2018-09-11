@@ -160,7 +160,7 @@ msgstr "Shoes"
 msgid "#glasses"
 msgstr "Glasses"
 
-#: manage.py:83
+#: manage.py:97
 #, python-format
 msgid "#build %s of %s"
 msgstr "build %s of %s"
@@ -206,38 +206,42 @@ msgid "#gaierror"
 msgstr "DNS Error"
 
 #: webapp/places.py:81 webapp/places.py:102 webapp/views.py:65
-#: webapp/views.py:151
+#: webapp/views.py:90 webapp/views.py:153
 #, python-format
 msgid "#%s"
 msgstr "%s"
 
-#: webapp/views.py:94
+#: webapp/views.py:90
+msgid "#You don't have "
+msgstr "You don't have "
+
+#: webapp/views.py:96
 #, python-format
 msgid "#not enough: %(a)s >= %(b)s"
 msgstr "not enough: %(a)s >= %(b)s"
 
-#: webapp/views.py:108 webapp/views.py:136
+#: webapp/views.py:110 webapp/views.py:138
 msgid "#success"
 msgstr "success"
 
-#: webapp/views.py:113 webapp/views.py:141
+#: webapp/views.py:115 webapp/views.py:143
 #, python-format
 msgid "#unkown Error: %(e)s"
 msgstr "unkown Error: %(e)s"
 
-#: webapp/views.py:208
+#: webapp/views.py:210
 msgid "#not yet"
 msgstr "not yet"
 
-#: webapp/views.py:335
+#: webapp/views.py:341
 msgid "#wrong User / Password"
 msgstr "wrong User / Password"
 
-#: webapp/views.py:338
+#: webapp/views.py:344
 msgid "#Did you fill all fields?"
 msgstr "Did you fill all fields?"
 
-#: webapp/static/javascript/application.js:110
+#: webapp/static/javascript/application.js:111
 msgid ""
 "#No items found.\n"
 "We'll look for you for new items.\n"
@@ -247,43 +251,46 @@ msgstr ""
 "We'll look for you for new items.\n"
 "It could take some time, until you see items."
 
-#: webapp/static/javascript/application.js:143
+#: webapp/static/javascript/application.js:111
+msgid "#Info"
+msgstr "Info"
+
+#: webapp/static/javascript/application.js:144
 msgid "#You"
 msgstr "You"
 
-#: webapp/static/javascript/application.js:215
-#: webapp/static/javascript/application.js:254 webapp/templates/error.html:1
-msgid "#Error"
-msgstr "Error"
+#: webapp/static/javascript/application.js:232
+msgid "#Build"
+msgstr "Build"
 
-#: webapp/static/javascript/application.js:228
-msgid "#built"
-msgstr "built"
+#: webapp/static/javascript/application.js:235
+msgid "#Built"
+msgstr "Built"
 
-#: webapp/static/javascript/application.js:272
+#: webapp/static/javascript/application.js:265
 msgid "#build time"
 msgstr "build time"
 
-#: webapp/static/javascript/application.js:275
+#: webapp/static/javascript/application.js:268
 msgid "#collectable in"
 msgstr "collectable in"
 
-#: webapp/static/javascript/application.js:277
+#: webapp/static/javascript/application.js:270
 msgid "#build"
 msgstr "build"
 
-#: webapp/static/javascript/application.js:278 webapp/templates/help.html:1
+#: webapp/static/javascript/application.js:271 webapp/templates/help.html:1
 #: webapp/templates/help.html:6 webapp/templates/help_building.html:1
-#: webapp/templates/map.html:36 webapp/templates/ranking_building.html:40
+#: webapp/templates/map.html:38 webapp/templates/ranking_building.html:40
 msgid "#Help"
 msgstr "Help"
 
 #: webapp/templates/achievements.html:1 webapp/templates/achievements.html:6
-#: webapp/templates/map.html:35
+#: webapp/templates/map.html:37
 msgid "#Achievements"
 msgstr "Achievements"
 
-#: webapp/templates/base.html:21 webapp/templates/map.html:25
+#: webapp/templates/base.html:21 webapp/templates/map.html:27
 msgid "#Wustopia"
 msgstr "Wustopia"
 
@@ -308,7 +315,7 @@ msgstr "Create"
 msgid "#Hi"
 msgstr "Hi"
 
-#: webapp/templates/base.html:112 webapp/templates/map.html:39
+#: webapp/templates/base.html:112 webapp/templates/map.html:41
 msgid "#Logout"
 msgstr "Logout"
 
@@ -319,6 +326,10 @@ msgstr "Source"
 #: webapp/templates/base.html:128 webapp/templates/imprint.html:6
 msgid "#Impressum"
 msgstr "Imprint"
+
+#: webapp/templates/error.html:1
+msgid "#Error"
+msgstr "Error"
 
 #: webapp/templates/help_building.html:11
 msgid "#Costs"
@@ -351,7 +362,7 @@ msgid "#back to Help"
 msgstr "back to Help"
 
 #: webapp/templates/help_building.html:82 webapp/templates/imprint.html:1
-#: webapp/templates/map.html:37 webapp/templates/ranking.html:1
+#: webapp/templates/map.html:39 webapp/templates/ranking.html:1
 #: webapp/templates/ranking.html:6
 msgid "#Ranking"
 msgstr "Ranking"
@@ -364,11 +375,11 @@ msgstr "current /dev/tal Imprint"
 msgid "#Alpha Version:<br/> All Data will be <strong>deleted</strong>!"
 msgstr "Alpha Version:<br/> All Data will be <strong>deleted</strong>!"
 
-#: webapp/templates/map.html:33
+#: webapp/templates/map.html:35
 msgid "#Admin"
 msgstr "Admin"
 
-#: webapp/templates/map.html:38
+#: webapp/templates/map.html:40
 msgid "#collect all"
 msgstr "collect all"
 
@@ -388,3 +399,5 @@ msgstr "Amount"
 msgid "#back to Ranking"
 msgstr "back to Ranking"
 
+#~ msgid "#built"
+#~ msgstr "built"

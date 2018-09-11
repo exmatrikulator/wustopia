@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from flask import render_template, request, Response, redirect, abort
-from flask_babel import gettext
+from flask_babel import gettext, lazy_gettext
 from flask_login import login_user, logout_user, login_required, current_user
 from sqlalchemy.orm import joinedload
 from sqlalchemy import func
@@ -86,6 +86,8 @@ def build():
 
     for costs in buildcost:
         current_balance = getBalanceofResource(current_user.id, costs.resource.id)
+        if not current_balance:
+            return gettext("#You don't have ") + lazy_gettext("#%s" % costs.resource.name), 500
         if current_balance.amount >= costs.amount:
             current_balance.amount -= costs.amount
             db.session.add(current_balance)
