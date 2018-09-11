@@ -2,7 +2,7 @@
 set -e
 
 
-if [ -z "$@" ]; then
+if [ -z "$1" ]; then
 
     if [ ! -f /app/config/config.py ]; then
         cp /app/config.py.example /app/config/config.py

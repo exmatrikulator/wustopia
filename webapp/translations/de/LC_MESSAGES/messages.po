@@ -1,235 +1,179 @@
-msgid ""
-msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-06-12 18:52+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: de\n"
-"Language-Team: de <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.5.3\n"
-"X-Language: de_DE\n"
-"X-Source-Language: C\n"
+# German translations for PROJECT.
 
 #: importTextToTranslate.txt:1
-msgid "#Bushaltestelle"
-msgstr "Bushaltestelle"
-
-#: importTextToTranslate.txt:2 importTextToTranslate.txt:4
-#: importTextToTranslate.txt:6 importTextToTranslate.txt:8
-#: importTextToTranslate.txt:10 importTextToTranslate.txt:12
-#: importTextToTranslate.txt:14 importTextToTranslate.txt:16
-#: importTextToTranslate.txt:18 importTextToTranslate.txt:20
-#: importTextToTranslate.txt:22 importTextToTranslate.txt:24
-#: importTextToTranslate.txt:26 importTextToTranslate.txt:28
-#: importTextToTranslate.txt:30 importTextToTranslate.txt:32
-#: importTextToTranslate.txt:34 importTextToTranslate.txt:36
-#: importTextToTranslate.txt:38 importTextToTranslate.txt:40
-#: importTextToTranslate.txt:42 importTextToTranslate.txt:44
-msgid "#"
-msgstr ""
-
-#: importTextToTranslate.txt:3
-msgid "#Bahnhof"
-msgstr "Bahnhof"
-
-#: importTextToTranslate.txt:5
-msgid "#Bäcker"
+msgid "#Bakery"
 msgstr "Bäcker"
 
-#: importTextToTranslate.txt:7
-msgid "#Metzger"
+#: importTextToTranslate.txt:2
+msgid "#Bar"
+msgstr "Bar"
+
+#: importTextToTranslate.txt:3
+msgid "#Bus Stop"
+msgstr "Bushaltestelle"
+
+#: importTextToTranslate.txt:4
+msgid "#Butcher"
 msgstr "Metzger"
 
+#: importTextToTranslate.txt:5
+msgid "#Chemist"
+msgstr "Drogerie"
+
+#: importTextToTranslate.txt:6
+msgid "#Clothes Shop"
+msgstr "Bekleidungsgeschäft"
+
+#: importTextToTranslate.txt:7
+msgid "#Farm"
+msgstr "Bauernhof"
+
+#: importTextToTranslate.txt:8
+msgid "#Fast Food"
+msgstr "Fast Food"
+
 #: importTextToTranslate.txt:9
+msgid "#Hackerspace"
+msgstr "Hackerspace"
+
+#: importTextToTranslate.txt:10
+msgid "#Hairdresser"
+msgstr "Frisör"
+
+#: importTextToTranslate.txt:11
+msgid "#Hardware Store"
+msgstr "Baumarkt"
+
+#: importTextToTranslate.txt:12
+msgid "#Ice Cream"
+msgstr "Eisdiele"
+
+#: importTextToTranslate.txt:13
 msgid "#Kiosk"
 msgstr "Kiosk"
 
-#: importTextToTranslate.txt:11
-msgid "#Baumarkt"
-msgstr "Baumarkt"
-
-#: importTextToTranslate.txt:13
-msgid "#Restaurant"
-msgstr "Restaurant"
+#: importTextToTranslate.txt:14
+msgid "#Memorial"
+msgstr "Denkmal"
 
 #: importTextToTranslate.txt:15
-msgid "#Kneipe"
-msgstr "Kneipe"
+msgid "#Optician"
+msgstr "Optiker"
+
+#: importTextToTranslate.txt:16
+msgid "#Playground"
+msgstr "Spielplatz"
 
 #: importTextToTranslate.txt:17
 msgid "#Post"
 msgstr "Post"
 
-#: importTextToTranslate.txt:19
-msgid "#Fast Food"
-msgstr "Fast Food"
-
-#: importTextToTranslate.txt:21
-msgid "#Eisdiele"
-msgstr "Eisdiele"
-
-#: importTextToTranslate.txt:23
-msgid "#Theater"
-msgstr "Theater"
-
-#: importTextToTranslate.txt:25
+#: importTextToTranslate.txt:18
 msgid "#Religion"
 msgstr "Religion"
 
-#: importTextToTranslate.txt:27
-msgid "#Hackerspace"
-msgstr "Hackerspace"
+#: importTextToTranslate.txt:19
+msgid "#Restaurant"
+msgstr "Restaurant"
 
-#: importTextToTranslate.txt:29
-msgid "#Spielplatz"
-msgstr "Spielplatz"
-
-#: importTextToTranslate.txt:31
-msgid "#Denkmal"
-msgstr "Denkmal"
-
-#: importTextToTranslate.txt:33
-msgid "#Bauernhof"
-msgstr "Bauernhof"
-
-#: importTextToTranslate.txt:35
-msgid "#Schuhgeschäft"
+#: importTextToTranslate.txt:20
+msgid "#Shoe Shop"
 msgstr "Schuhgeschäft"
 
-#: importTextToTranslate.txt:37
-msgid "#Bekleidungsgeschäft"
-msgstr "Bekleidungsgeschäft"
+#: importTextToTranslate.txt:21
+msgid "#Railway Station"
+msgstr "Bahnhof"
 
-#: importTextToTranslate.txt:39
-msgid "#Drogerie"
-msgstr "Drogerie"
+#: importTextToTranslate.txt:22
+msgid "#Theater"
+msgstr "Theater"
 
-#: importTextToTranslate.txt:41
-msgid "#Frisör"
-msgstr "Frisör"
-
-#: importTextToTranslate.txt:43
-msgid "#Optiker"
-msgstr "Optiker"
-
-#: importTextToTranslate.txt:45
-msgid "#Gold"
+#: importTextToTranslate.txt:23
+msgid "#gold"
 msgstr "Gold"
 
-#: importTextToTranslate.txt:46
-msgid "#Nahrung"
+#: importTextToTranslate.txt:24
+msgid "#food"
 msgstr "Nahrung"
 
-#: importTextToTranslate.txt:47
-msgid "#Baumaterial"
+#: importTextToTranslate.txt:25
+msgid "#buildingmaterial"
 msgstr "Baumaterial"
 
-#: importTextToTranslate.txt:48
-msgid "#Kultur"
+#: importTextToTranslate.txt:26
+msgid "#culture"
 msgstr "Kultur"
 
-#: importTextToTranslate.txt:49
-msgid "#Brot"
+#: importTextToTranslate.txt:27
+msgid "#bread"
 msgstr "Brot"
 
-#: importTextToTranslate.txt:50
-msgid "#Bier"
+#: importTextToTranslate.txt:28
+msgid "#beer"
 msgstr "Bier"
 
-#: importTextToTranslate.txt:51
-msgid "#Mate"
+#: importTextToTranslate.txt:29
+msgid "#mate"
 msgstr "Mate"
 
-#: importTextToTranslate.txt:52
-msgid "#Süßigkeiten"
+#: importTextToTranslate.txt:30
+msgid "#sweets"
 msgstr "Süßigkeiten"
 
-#: importTextToTranslate.txt:53
-msgid "#Eis"
+#: importTextToTranslate.txt:31
+msgid "#icecream"
 msgstr "Eis"
 
-#: importTextToTranslate.txt:54
-msgid "#Ticket"
+#: importTextToTranslate.txt:32
+msgid "#ticket"
 msgstr "Ticket"
 
-#: importTextToTranslate.txt:55
-msgid "#Döner"
+#: importTextToTranslate.txt:33
+msgid "#kebab"
 msgstr "Döner"
 
-#: importTextToTranslate.txt:56
-msgid "#Pommes"
+#: importTextToTranslate.txt:34
+msgid "#frenchfries"
 msgstr "Pommes"
 
-#: importTextToTranslate.txt:57
-msgid "#Pizza"
+#: importTextToTranslate.txt:35
+msgid "#pizza"
 msgstr "Pizza"
 
-#: importTextToTranslate.txt:58
-msgid "#Brief"
+#: importTextToTranslate.txt:36
+msgid "#letter"
 msgstr "Brief"
 
-#: importTextToTranslate.txt:59
-msgid "#T-Shirt"
+#: importTextToTranslate.txt:37
+msgid "#tshirt"
 msgstr "T-Shirt"
 
-#: importTextToTranslate.txt:60
-msgid "#Salami"
+#: importTextToTranslate.txt:38
+msgid "#salami"
 msgstr "Salami"
 
-#: importTextToTranslate.txt:61
-msgid "#Schuhe"
+#: importTextToTranslate.txt:39
+msgid "#shoes"
 msgstr "Schuhe"
 
-#: importTextToTranslate.txt:62
-msgid "#Brille"
+#: importTextToTranslate.txt:40
+msgid "#glasses"
 msgstr "Brille"
 
-#: webapp/achievements.py:25
-msgid "#10 Bushaltestellen"
-msgstr ""
+#: manage.py:83
+#, python-format
+msgid "#build %s of %s"
+msgstr "Baue %s von %s"
 
-#: webapp/achievements.py:26
-msgid "#100 Bushaltestellen"
-msgstr ""
-
-#: webapp/achievements.py:27
-msgid "#1000 Bushaltestellen"
-msgstr ""
-
-#: webapp/achievements.py:30
-msgid "#10 Bushaltestellen Level 3"
-msgstr ""
-
-#: webapp/achievements.py:31
-msgid "#1000 Bushaltestellen Level 3"
-msgstr ""
-
-#: webapp/achievements.py:32
-msgid "#100 Bushaltestellen Level 3"
-msgstr ""
-
-#: webapp/achievements.py:37
-msgid "#10 Restaurants"
-msgstr ""
-
-#: webapp/achievements.py:38
-msgid "#100 Restaurants"
-msgstr ""
-
-#: webapp/achievements.py:39
-msgid "#1000 Restaurants"
-msgstr ""
-
-#: webapp/admin.py:40
+#: webapp/admin.py:47
 msgid "#Wustopia Admin"
 msgstr "Wustopia Admin"
 
-#: webapp/admin.py:41
+#: webapp/admin.py:48
+msgid "#RQ"
+msgstr "RQ"
+
+#: webapp/admin.py:49
 msgid "#Back to Map"
 msgstr "Zurück zur Karte"
 
@@ -245,72 +189,90 @@ msgstr "Passwort"
 msgid "#EMail"
 msgstr "EMail"
 
-#: webapp/places.py:66 webapp/places.py:87 webapp/views.py:69
-#: webapp/views.py:153
+#: webapp/places.py:28
+msgid "#not necessary"
+msgstr "nicht nötig"
+
+#: webapp/places.py:37
+msgid "#to many requests"
+msgstr "zu viele Anfragen"
+
+#: webapp/places.py:39
+msgid "#URLError"
+msgstr "URL Error"
+
+#: webapp/places.py:41
+msgid "#gaierror"
+msgstr "DNS Fehler"
+
+#: webapp/places.py:81 webapp/places.py:102 webapp/views.py:65
+#: webapp/views.py:151
 #, python-format
 msgid "#%s"
-msgstr ""
+msgstr "%s"
 
-#: webapp/views.py:98
+#: webapp/views.py:94
 #, python-format
 msgid "#not enough: %(a)s >= %(b)s"
 msgstr "nicht genug: %(a)s >= %(b)s"
 
-#: webapp/views.py:110 webapp/views.py:138
+#: webapp/views.py:108 webapp/views.py:136
 msgid "#success"
 msgstr "Erfolgreich"
 
-#: webapp/views.py:115 webapp/views.py:143
+#: webapp/views.py:113 webapp/views.py:141
 #, python-format
 msgid "#unkown Error: %(e)s"
 msgstr "unbekannter Fehler: %(e)s"
 
-#: webapp/views.py:186
-msgid "#already running"
-msgstr "läuft schon"
+#: webapp/views.py:208
+msgid "#not yet"
+msgstr "noch nicht"
 
-#: webapp/views.py:191
-msgid "#range to big"
-msgstr "zu große Auswahl"
-
-#: webapp/views.py:195
-msgid "#OK"
-msgstr "OK"
-
-#: webapp/views.py:327
+#: webapp/views.py:335
 msgid "#wrong User / Password"
 msgstr "falscher Benutzer / Passwort"
 
-#: webapp/views.py:330
+#: webapp/views.py:338
 msgid "#Did you fill all fields?"
 msgstr "Hast du alle Felder ausgefüllt?"
 
-#: webapp/static/javascript/application.js:115
+#: webapp/static/javascript/application.js:110
+msgid ""
+"#No items found.\n"
+"We'll look for you for new items.\n"
+"It could take some time, until you see items."
+msgstr ""
+"Keine Einträge gefunden.\n"
+"Wir erstellen grade neue Einträge.\n"
+"Dies kann eine Weile dauern."
+
+#: webapp/static/javascript/application.js:143
 msgid "#You"
 msgstr "Du"
 
-#: webapp/static/javascript/application.js:186
-#: webapp/static/javascript/application.js:218 webapp/templates/error.html:1
+#: webapp/static/javascript/application.js:215
+#: webapp/static/javascript/application.js:254 webapp/templates/error.html:1
 msgid "#Error"
 msgstr "Fehler"
 
-#: webapp/static/javascript/application.js:202
+#: webapp/static/javascript/application.js:228
 msgid "#built"
 msgstr "gebaut"
 
-#: webapp/static/javascript/application.js:232
+#: webapp/static/javascript/application.js:272
 msgid "#build time"
 msgstr "Bauzeit"
 
-#: webapp/static/javascript/application.js:235
+#: webapp/static/javascript/application.js:275
 msgid "#collectable in"
 msgstr "einsammelbar in"
 
-#: webapp/static/javascript/application.js:237
+#: webapp/static/javascript/application.js:277
 msgid "#build"
 msgstr "bauen"
 
-#: webapp/static/javascript/application.js:238 webapp/templates/help.html:1
+#: webapp/static/javascript/application.js:278 webapp/templates/help.html:1
 #: webapp/templates/help.html:6 webapp/templates/help_building.html:1
 #: webapp/templates/map.html:36 webapp/templates/ranking_building.html:40
 msgid "#Help"
@@ -362,7 +324,8 @@ msgstr "Impressum"
 msgid "#Costs"
 msgstr "Kosten"
 
-#: webapp/templates/help_building.html:16 webapp/templates/help_building.html:54
+#: webapp/templates/help_building.html:16
+#: webapp/templates/help_building.html:54
 msgid "#Level"
 msgstr "Level"
 
@@ -370,7 +333,8 @@ msgstr "Level"
 msgid "#Time in Seconds"
 msgstr "Zeit in Sekunden"
 
-#: webapp/templates/help_building.html:22 webapp/templates/help_building.html:60
+#: webapp/templates/help_building.html:22
+#: webapp/templates/help_building.html:60
 msgid "#Resources"
 msgstr "Ressourcen"
 
@@ -422,4 +386,5 @@ msgstr "Anzahl"
 
 #: webapp/templates/ranking_building.html:39
 msgid "#back to Ranking"
-msgstr "zurück zur Rangliste "
+msgstr "zurück zur Rangliste"
+

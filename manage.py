@@ -20,19 +20,23 @@ def imoprtInitData():
     import csv
 
     importTextToTranslate = []
-    print("import PlaceCategory")
+    if app.debug:
+        print("import PlaceCategory")
     with open('webapp/import/PlaceCategory.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
         next(content) # skip header
         for row in content:
-            importTextToTranslate.append(row[1])
-            importTextToTranslate.append(row[2])
+            if row[1]:
+                importTextToTranslate.append(row[1])
+            if row[2]:
+                importTextToTranslate.append(row[2])
             if len(row) == 5:
                 session_add( PlaceCategory( slug=row[0], name=row[1], description=row[2], filter=row[3], markerColor=row[4], icon=row[5] ) )
             else:
                 session_add( PlaceCategory( slug=row[0], name=row[1], description=row[2], filter=row[3], markerColor=row[4] ) )
 
-    print("import Resource")
+    if app.debug:
+        print("import Resource")
     with open('webapp/import/Resource.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
         next(content) # skip header
@@ -43,26 +47,33 @@ def imoprtInitData():
             else:
                 session_add( Resource( slug=row[0], name=row[1], image=row[2] ) )
 
-
+    if app.debug:
+        print("generate importTextToTranslate.txt")
     with open('importTextToTranslate.txt', 'w') as f:
         for text in importTextToTranslate:
             f.write("gettext(\"#%s\")\n" % text)
 
-    print("import BuildCost")
+
+    if app.debug:
+        print("import BuildCost")
     with open('webapp/import/BuildCost.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
         next(content) # skip header
         for row in content:
             session_add(BuildCost(placecategory_id=PlaceCategory().get_id(row[0]), level=row[1], time=row[2]))
 
-    print("import BuildCostResource")
+
+    if app.debug:
+        print("import BuildCostResource")
     with open('webapp/import/BuildCostResource.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
         next(content) # skip header
         for row in content:
             session_add(BuildCostResource(buildcost_id=BuildCost().get_id(row[0],row[1]), resource_id=Resource().get_id(row[2]), amount=row[3]))
 
-    print("import PlaceCategoryBenefit")
+
+    if app.debug:
+        print("import PlaceCategoryBenefit")
     with open('webapp/import/PlaceCategoryBenefit.csv', 'r') as csvfile:
         content = csv.reader(csvfile, delimiter=',')
         next(content) # skip header
@@ -70,16 +81,21 @@ def imoprtInitData():
             session_add(PlaceCategoryBenefit(placecategory_id=PlaceCategory().get_id(row[0]), resource_id=Resource().get_id(row[1]), level=row[2], amount=row[3], interval=row[4]))
 
 
-    print("import Achievements")
+    if app.debug:
+        print("import Achievements")
     categories = db.session.query(PlaceCategory).all()
     amounts = [1,2,5,10,20,50,100,200,500,1000]
     for category in categories:
         last_amount=0
         for amount in amounts:
+            if last_amount == 0:
+                dependson = ""
+            else:
+                dependson = str(last_amount) + category.slug
             session_add(Achievement(slug=str(amount)+category.slug,
                 name=str(amount)+" "+category.name,
                 description=gettext("#build %s of %s" % (amount, category.name)),
-                dependson=str(last_amount)+category.slug,
+                dependson=dependson,
                 hidden=True,
                 stars=amount))
             last_amount = amount
@@ -90,7 +106,8 @@ def imoprtInitData():
         for row in content:
             session_add(Achievement(slug=row[0], name=row[1], description=row[2], dependson=row[3], hidden=strtobool(row[4]), stars=row[5]))
 
-    print("done")
+    if app.debug:
+        print("done")
 
 @manager.command
 def generate_asset():
@@ -115,7 +132,8 @@ def pybabel():
     from pojson import convert
     os.system('pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot .')
     os.system('pybabel update -i messages.pot -d webapp/translations')
-    os.system('pybabel compile -d webapp/translations')
+    os.system('sed -i.bak "2,20 d" webapp/translations/*/LC_MESSAGES/messages.po') #remove annoying header
+    os.system('pybabel compile -f -d webapp/translations')
 
     if not os.path.exists("webapp/static/translations"):
         os.makedirs("webapp/static/translations")

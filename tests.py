@@ -3,7 +3,8 @@ from flask_testing import TestCase
 from manage import imoprtInitData
 
 from webapp import db, app
-from webapp.models import PlaceCategory
+from webapp.models import Achievement, PlaceCategory
+from manage import generate_asset, pybabel
 
 
 class WustopiaTest(TestCase):
@@ -14,6 +15,7 @@ class WustopiaTest(TestCase):
         app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
         app.config['SECRET_KEY'] = "testing"
         app.config['BCRYPT_LOG_ROUNDS'] = 2
+        generate_asset()
         return app
 
     def setUp(self):
@@ -31,44 +33,67 @@ class TestFromAnonymous(WustopiaTest):
         urls = ["/","/help","/help/dependencies.svg","/help/dependencies.png","/imprint","/ranking","/ranking/building/1","/ranking/building/1-Test"]
         urls.sort()
         for url in urls:
-            print("check " + url)
+            if app.debug:
+                print("check " + url)
             response = self.client.get(url)
-            TestCase.assert200(self,response)
-
+            TestCase.assert200(self, response)
 
     def test_URL302(self):
         response = self.client.get("/map")
-        TestCase.assertRedirects(self,response,"/?next=%2Fmap")
+        TestCase.assertRedirects(self, response, "/?next=%2Fmap")
 
         response = self.client.get("/api/places")
-        TestCase.assertRedirects(self,response,"/?next=%2Fapi%2Fplaces")
-
+        TestCase.assertRedirects(self, response, "/?next=%2Fapi%2Fplaces")
 
     def test_admin(self):
-        from  webapp.models import User
+        from webapp.models import User
 
-        #not logged in
+        # not logged in
         response = self.client.get("/admin/")
-        assert b"User" not in response.data
+        self.assertNotIn(b"User", response.data)
 
         response = self.client.post("/user/create",data=dict(username="admin",password="admin",email="admin@localhost"))
         TestCase.assertEqual(self, db.session.query(User).count(), 1)
 
-        #login as admin
+        # login as admin
         response = self.client.get("/admin/")
-        assert b"User" in response.data
+        self.assertIn(b"User", response.data)
 
         response = self.client.get("/user/logout")
-        #after loggout
+        # after loggout
         response = self.client.get("/admin/")
-        assert b"User" not in response.data
+        self.assertNotIn(b"User", response.data)
 
         response = self.client.post("/user/create",data=dict(username="user",password="user",email="user@localhost"))
         TestCase.assertEqual(self, db.session.query(User).count(), 2)
 
-        #login as user
+        # login as user
         response = self.client.get("/admin/")
-        assert b"User" not in response.data
+        self.assertNotIn(b"User", response.data)
+
+    def test_image_32px(self):
+        from webapp.views import image_32px
+        TestCase.assertEqual(self, image_32px("/foo/bar.png"), "/foo/bar_32.png")
+        TestCase.assertEqual(self, image_32px("//foo//bar.png"), "/foo/bar_32.png")
+
+    def test_help(self):
+        response = self.client.get("/help/building/3-Bus_Stop")
+        TestCase.assert200(self, response)
+        self.assertIn(b"87054", response.data) # time
+        self.assertIn(b"18825", response.data) # bread
+        self.assertIn(b"45438", response.data) # gold
+
+    def test_update_places(self):
+        from webapp.models import Place
+
+        # to big
+        response = self.client.get("/update_places/51.24871384304074,7.124140262603761,51.262586217199,7.1650171279907235")
+        TestCase.assert200(self, response)
+        TestCase.assertGreater(self, db.session.query(Place).count(), 100)
+
+    def test_achievements(self):
+        categories = db.session.query(PlaceCategory).count()
+        TestCase.assertGreater(self, db.session.query(Achievement).count(), categories * 10)
 
 class TestFromAdmin(WustopiaTest):
     def setUp(self):
@@ -76,20 +101,21 @@ class TestFromAdmin(WustopiaTest):
         imoprtInitData()
         self.client.post("/user/create",data=dict(username="admin",password="admin",email="admin@localhost"))
 
+
 class TestFromUser(WustopiaTest):
     def setUp(self):
         db.create_all()
         imoprtInitData()
         self.client.post("/user/create",data=dict(username="admin",password="admin",email="admin@localhost"))
-        self.client.post("/user/create",data=dict(username="user",password="user",email="user@localhost"))
+        self.client.post("/user/create",data=dict(username="user1",password="user",email="user@localhost"))
 
     def test_build(self):
-        from  webapp.models import Place
+        from webapp.models import Place
         import json
         db.session.add( Place( osmNodeId=1, lon=1, lat=1, placecategory_id=PlaceCategory().get_id("busstop"), name="Test" ) )
 
         response = self.client.get("/build?place=1")
-        TestCase.assert200(self,response)
+        TestCase.assert200(self, response)
 
         response = self.client.get("/api/resources")
         data = json.loads(response.data)
@@ -99,7 +125,69 @@ class TestFromUser(WustopiaTest):
         response = self.client.get("/api/places")
         data = json.loads(response.data)
         ready = data[0]['ready']
-        assert ready > 0
+        self.assertGreater(ready, 0)
+
+        # test achievements
+        response = self.client.get("/achievements")
+        self.assertIn(b"1 Bus Stop", response.data)
+        self.assertNotIn(b"2 Bus Stop", response.data)
+
+    def test_earn(self):
+        from datetime import datetime
+        import json
+        from webapp.models import Built, Place
+
+        db.session.add( Place( osmNodeId=1, lon=1, lat=1, placecategory_id=PlaceCategory().get_id("busstop"), name="Test" ) )
+        response = self.client.get("/build?place=1")
+        response = self.client.get("/api/resources")
+        data = json.loads(response.data)
+        amount = data[0]['amount']
+        TestCase.assertEqual(self, amount, 90)
+
+        # earn without rigth time
+        response = self.client.get("/earn?place=1")
+        response = self.client.get("/api/resources")
+        data = json.loads(response.data)
+        amount = data[0]['amount']
+        TestCase.assertEqual(self, amount, 90)
+
+        built = db.session.query(Built).first()
+        built.lastcollect = datetime(1970, 1, 1, 1, 0, 0)
+        db.session.add(built)
+        db.session.commit()
+
+        response = self.client.get("/earn?place=1")
+        response = self.client.get("/api/resources")
+        data = json.loads(response.data)
+        amount = data[0]['amount']
+        TestCase.assertEqual(self, amount, 91)
+
+
+    def test_ranking(self):
+        self.test_build()
+        response = self.client.get("/ranking/building/3-Bus_Stop")
+        TestCase.assert200(self, response)
+        self.assertIn(b"user1", response.data)
+
+class TestWithoutDB(TestCase):
+    def create_app(self):
+        app.config['WTF_CSRF_ENABLED'] = False
+        app.config['TESTING'] = True
+        return app
+
+    def check_file(self, file):
+        empty = 0
+        with open(file) as f:
+            content = f.readlines()
+            for line in content:
+                if "msgstr \"\"" in line:
+                    empty = empty + 1
+        TestCase.assertEqual(self, empty, 1)  # how many multiline text?
+
+    def test_translation(self):
+        pybabel()
+        self.check_file("webapp/translations/en/LC_MESSAGES/messages.po")
+        self.check_file("webapp/translations/de/LC_MESSAGES/messages.po")
 
 
 if __name__ == '__main__':

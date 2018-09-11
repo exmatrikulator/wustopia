@@ -104,8 +104,7 @@ def build():
     try:
         db.session.commit()
         #check for new achievements
-        if not app.config['TESTING']:
-            api_check_achievements()
+        api_check_achievements()
         return gettext('#success')
     except Exception as e:
         db.session.rollback()
@@ -178,21 +177,27 @@ def api_version():
 
 @app.route("/api/check_achievements")
 def api_check_achievements():
-    q = Queue("achievements",connection=conn)
-    job = q.enqueue_call(
-        func=check_achievements, args=(current_user.id,), result_ttl=60 # 1 minute
-    )
-    return job.get_id()
+    if app.config['TESTING']:
+        check_achievements(current_user.id)
+    else:
+        q = Queue("achievements",connection=conn)
+        job = q.enqueue_call(
+            func=check_achievements, args=(current_user.id,), result_ttl=60 # 1 minute
+        )
+        return job.get_id()
 
 
 @app.route("/update_places/<float:lat1>,<float:lon1>,<float:lat2>,<float:lon2>")
 def update_places(lat1,lon1,lat2,lon2):
-    q = Queue("update_places",connection=conn)
-    job = q.enqueue_call(
-        func=importPlaces, args=(lat1,lon1,lat2,lon2), result_ttl=60 # 1 minute
-    )
-    return job.get_id()
-    #return "<a href=\"/results/"+job.get_id()+"\">result</a>"
+    if app.config['TESTING']:
+        return importPlaces(lat1,lon1,lat2,lon2)
+    else:
+        q = Queue("update_places",connection=conn)
+        job = q.enqueue_call(
+            func=importPlaces, args=(lat1,lon1,lat2,lon2), result_ttl=60 # 1 minute
+        )
+        return job.get_id()
+        #return "<a href=\"/results/"+job.get_id()+"\">result</a>"
 
 @app.route("/update_places/<job_key>")
 def get_results(job_key):
@@ -210,7 +215,7 @@ def help():
 # returns the image name with a "_32" suffix
 def image_32px(image):
     filename, file_extension = os.path.splitext(image)
-    return str(filename + "_32" + file_extension)
+    return str(filename + "_32" + file_extension).replace("//","/")
 
 def help_dependencies(format):
     #TODO: cache
@@ -219,7 +224,11 @@ def help_dependencies(format):
 
     dot.attr('node', color='#ffcb92')
     for resource in db.session.query(Resource).all():
-        dot.node("res_" + str(resource.id), image=image_32px("webapp/"+str(resource.image)), label=resource.name, labelloc="t")
+        image = image_32px("webapp/"+str(resource.image))
+        if os.path.exists(image):
+            dot.node("res_" + str(resource.id), image=image, label=resource.name, labelloc="t")
+        else:
+            dot.node("res_" + str(resource.id), label=resource.name, labelloc="t")
 
     dot.attr('node', color='#00d1b2')
     for place in db.session.query(PlaceCategory).all():

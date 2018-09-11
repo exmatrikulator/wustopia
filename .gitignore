@@ -1,8 +1,10 @@
 *.mo
+*.bak
 *.pyc
 *_32.png
 venv/
 migrations
+messages.pot
 config/config.py
 webapp/static/translations/*json
 importTextToTranslate.txt

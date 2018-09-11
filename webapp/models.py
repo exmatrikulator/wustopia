@@ -17,11 +17,11 @@ class Achievement(db.Model):
     """Stores Achievements / Tasks"""
     __tablename__ = 'achievement'
     id = Column(Integer(), primary_key=True, nullable=False)
-    slug = Column(String(12), unique=True, nullable=False)
+    slug = Column(String(42), unique=True, nullable=False)
     name = Column(String(64))
     description = Column(String(255))
     filter = Column(String(2000))
-    dependson = Column(String(12))
+    dependson = Column(String(42))
     hidden = Column(Boolean(), default=False)
     stars = Column(Integer(), nullable=False)
 
@@ -50,7 +50,6 @@ class AchievementsCollected(db.Model):
     reached = Column(DateTime, default=datetime.utcnow, nullable=False)
     __table_args__ = (UniqueConstraint('user_id', 'achievement_id'),)
 
-##Stores the current balance of an user
 class Balance(db.Model):
     """Stores the current balance of an user"""
     __tablename__ = 'balance'
