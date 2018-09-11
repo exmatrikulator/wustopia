@@ -150,7 +150,7 @@ def markerIcon():
     for marker in categories:
         item = {}
         item['id'] = marker.id
-        item['name'] = lazy_gettext("#%s" % marker.name)
+        item['name'] = str(lazy_gettext("#%s" % marker.name))
         item['icon'] = marker.icon
         item['markerColor'] = marker.markerColor
         item['prefix'] = 'fa'
