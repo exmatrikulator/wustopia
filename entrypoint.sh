@@ -14,9 +14,6 @@ if [ -z "$1" ]; then
         pip3 install -r requirements.txt
     fi
 
-    #run translation
-    python3 manage.py pybabel
-
     #chicken and egg problem: checking needs migrations
     #wait for postgres
     # until python3 manage.py db current > /dev/null ; do
@@ -41,6 +38,9 @@ if [ -z "$1" ]; then
     #if app is mounted, Dockerfile is available
     if [ -f Dockerfile ]; then
         echo "Running app in debug mode!"
+        #run translation
+        python3 manage.py pybabel
+        
         python3 manage.py runserver -h 0.0.0.0 -p 80
     else
         echo "Running app in production mode!"

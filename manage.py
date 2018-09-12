@@ -41,7 +41,7 @@ def imoprtInitData():
         content = csv.reader(csvfile, delimiter=',')
         next(content) # skip header
         for row in content:
-            importTextToTranslate.append(row[0])
+            importTextToTranslate.append(row[1])
             if len(row) == 4:
                 session_add( Resource( slug=row[0], name=row[1], image=row[2], major=bool(int(row[3])) ) )
             else:
@@ -129,10 +129,35 @@ def generate_asset():
 def pybabel():
     """Generate new translations"""
     import os
-    from pojson import convert
-    os.system('pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot .')
+    os.system('pybabel extract --sort-output -F babel.cfg -k lazy_gettext -o messages.pot .')
     os.system('pybabel update -i messages.pot -d webapp/translations')
-    os.system('sed -i.bak "2,20 d" webapp/translations/*/LC_MESSAGES/messages.po') #remove annoying header
+    os.system('sed -i.bak "2,15 d" webapp/translations/*/LC_MESSAGES/messages.po') #remove annoying header
+    # babel hack to commit to git and open in Qt Linguist
+    localeDirs = [name for name in os.listdir("webapp/translations")]
+    for locale in localeDirs:
+        append_copy = open("webapp/translations/%s/LC_MESSAGES/messages.po" % locale, "r")
+        original_text = append_copy.read()
+        append_copy.close()
+
+        append_copy = open("webapp/translations/%s/LC_MESSAGES/messages.po" % locale, "w")
+        append_copy.write('msgid ""\n\
+msgstr ""\n\
+"MIME-Version: 1.0\\n"\n\
+"Content-Type: text/plain; charset=UTF-8\\n"\n\
+"Content-Transfer-Encoding: 8bit\\n"\n\
+"Plural-Forms: nplurals=2; plural=(n != 1);\\n"\n\
+"X-Language: %s\\n"\n\
+"X-Source-Language: en\\n"\n' % locale)
+        append_copy.write(original_text)
+        append_copy.close()
+
+    pybabel_compile()
+
+@manager.command
+def pybabel_compile():
+    """Compile translations"""
+    import os
+    from pojson import convert
     os.system('pybabel compile -f -d webapp/translations')
 
     if not os.path.exists("webapp/static/translations"):
@@ -140,10 +165,10 @@ def pybabel():
     localeDirs = [name for name in os.listdir("webapp/translations")]
     for locale in localeDirs:
         print("gen: " + locale)
-        result = convert("webapp/translations/%s/LC_MESSAGES/messages.po" % locale)
+        input = convert("webapp/translations/%s/LC_MESSAGES/messages.po" % locale)
         name = "webapp/static/translations/%s.json" % locale
         with open(name, 'w') as f:
-            f.write("{'wustopia': %s }" % result)
+            f.write("{'wustopia': %s }" % input)
 
 @manager.command
 def bcryptbenchmark():

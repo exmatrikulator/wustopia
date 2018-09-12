@@ -39,8 +39,6 @@ login_manager.init_app(app)
 login_manager.login_view =  "index"
 
 babel = Babel(app)
-from flask_babel import lazy_gettext
-app.jinja_env.globals.update(lazy_gettext=lazy_gettext)
 
 @babel.localeselector
 def locale_select():

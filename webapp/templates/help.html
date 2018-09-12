@@ -10,7 +10,7 @@
 </a>
 
 {% for data in PlaceCategory %}
-  <a href="help/building/{{ data.id }}-{{ lazy_gettext("#"+data.name) | replace(' ', '_') }}">{{ lazy_gettext("#"+data.name)}}</a><br>
+  <a href="help/building/{{ data.id }}-{{ gettext("#"+data.name) | replace(' ', '_') }}">{{ gettext("#"+data.name)}}</a><br>
 {% endfor %}
 
 {% endblock %}

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from flask import render_template, request, Response, redirect, abort
-from flask_babel import gettext, lazy_gettext
+from flask_babel import gettext
 from flask_login import login_user, logout_user, login_required, current_user
 from sqlalchemy.orm import joinedload
 from sqlalchemy import func
@@ -62,7 +62,7 @@ def api_resources():
     for resource in resources:
         item = {}
         item['id'] = resource.resource.id
-        item['name'] = str(lazy_gettext("#%s" % resource.resource.name))
+        item['name'] = gettext("#%s" % resource.resource.name)
         item['image'] = resource.resource.image
         item['major'] = resource.resource.major
         item['amount'] = resource.amount
@@ -87,7 +87,7 @@ def build():
     for costs in buildcost:
         current_balance = getBalanceofResource(current_user.id, costs.resource.id)
         if not current_balance:
-            return gettext("#You don't have ") + lazy_gettext("#%s" % costs.resource.name), 500
+            return gettext("#You don't have ") + gettext("#%s" % costs.resource.name), 500
         if current_balance.amount >= costs.amount:
             current_balance.amount -= costs.amount
             db.session.add(current_balance)
@@ -150,7 +150,7 @@ def markerIcon():
     for marker in categories:
         item = {}
         item['id'] = marker.id
-        item['name'] = str(lazy_gettext("#%s" % marker.name))
+        item['name'] = gettext("#%s" % marker.name)
         item['icon'] = marker.icon
         item['markerColor'] = marker.markerColor
         item['prefix'] = 'fa'

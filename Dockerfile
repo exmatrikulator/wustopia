@@ -22,6 +22,7 @@ RUN chmod 777 -R /run/
 WORKDIR ${APP_DIR}
 
 RUN pip3 install -r requirements.txt
+RUN python3 manage.py pybabel_compile
 
 # exectute start up script
 ENTRYPOINT ["/app/entrypoint.sh"]

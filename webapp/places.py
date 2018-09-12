@@ -3,7 +3,7 @@
 import overpy
 from webapp import app, db
 from webapp.models import Built, BuildCost, BuildCostResource, Place, PlaceCategory, PlaceCategoryBenefit
-from flask_babel import gettext, lazy_gettext
+from flask_babel import gettext
 from flask_login import current_user
 from sqlalchemy import desc
 from sqlalchemy.orm import joinedload
@@ -78,7 +78,7 @@ def getPlaces(lat = None ,lon = None):
         buildingcosts = db.session.query(BuildCostResource).options(joinedload(BuildCostResource.buildcost)).options(joinedload(BuildCostResource.resource)).filter(BuildCost.placecategory_id==node.category.id, BuildCost.level==buildinglevel+1, BuildCostResource.buildcost_id==BuildCost.id).all()
         for cost in buildingcosts:
             item = {}
-            item['name'] = str(lazy_gettext("#%s" % cost.resource.name))
+            item['name'] = gettext("#%s" % cost.resource.name)
             item['amount'] = cost.amount
             item['image'] = cost.resource.image
             buildingcost.append( item )
@@ -99,7 +99,7 @@ def getPlaces(lat = None ,lon = None):
         item['lon'] = node.lon
         item['name'] = node.name
         item['level'] = str(buildinglevel)
-        item['category'] = str(lazy_gettext("#%s" % node.category.name))
+        item['category'] = gettext("#%s" % node.category.name)
         item['categoryid'] = node.category.id
         item['costs'] = buildingcost
         item['buildtime'] = buildtime

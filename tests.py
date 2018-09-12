@@ -177,12 +177,16 @@ class TestWithoutDB(TestCase):
 
     def check_file(self, file):
         empty = 0
+        old = 0
         with open(file) as f:
             content = f.readlines()
             for line in content:
                 if "msgstr \"\"" in line:
                     empty = empty + 1
-        TestCase.assertEqual(self, empty, 1)  # how many multiline text?
+                if "#~ msgid" in line:
+                    old = old + 1
+        TestCase.assertEqual(self, empty, 2)    # how many multiline text?
+        TestCase.assertEqual(self, old, 0)      # no old unused translations
 
     def test_translation(self):
         pybabel()

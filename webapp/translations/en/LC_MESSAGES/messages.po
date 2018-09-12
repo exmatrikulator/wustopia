@@ -1,12 +1,71 @@
-# English translations for PROJECT.
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Language: en\n"
+"X-Source-Language: en\n"
+
+
+#: webapp/places.py:81 webapp/places.py:102 webapp/views.py:65
+#: webapp/views.py:90 webapp/views.py:153
+#, python-format
+msgid "#%s"
+msgstr "%s"
+
+#: webapp/templates/achievements.html:1 webapp/templates/achievements.html:6
+#: webapp/templates/map.html:37
+msgid "#Achievements"
+msgstr "Achievements"
+
+#: webapp/templates/map.html:35
+msgid "#Admin"
+msgstr "Admin"
+
+#: webapp/templates/index.html:4
+msgid "#Alpha Version:<br/> All Data will be <strong>deleted</strong>!"
+msgstr "Alpha Version:<br/> All Data will be <strong>deleted</strong>!"
+
+#: webapp/templates/ranking_building.html:18
+msgid "#Amount"
+msgstr "Amount"
+
+#: webapp/admin.py:49
+msgid "#Back to Map"
+msgstr "Back to Map"
 
 #: importTextToTranslate.txt:1
 msgid "#Bakery"
-msgstr "Backery"
+msgstr "Bakery"
 
 #: importTextToTranslate.txt:2
 msgid "#Bar"
 msgstr "Bar"
+
+#: importTextToTranslate.txt:28
+msgid "#Beer"
+msgstr "Beer"
+
+#: webapp/templates/help_building.html:49
+msgid "#Benefit"
+msgstr "Benefit"
+
+#: importTextToTranslate.txt:27
+msgid "#Bread"
+msgstr "Bread"
+
+#: webapp/static/javascript/application.js:232
+msgid "#Build"
+msgstr "Build"
+
+#: importTextToTranslate.txt:25
+msgid "#Building Material"
+msgstr "Building Material"
+
+#: webapp/static/javascript/application.js:235
+msgid "#Built"
+msgstr "Built"
 
 #: importTextToTranslate.txt:3
 msgid "#Bus Stop"
@@ -24,6 +83,35 @@ msgstr "Chemist"
 msgid "#Clothes Shop"
 msgstr "Clothes Shop"
 
+#: webapp/templates/help_building.html:11
+msgid "#Costs"
+msgstr "Costs"
+
+#: webapp/templates/base.html:65 webapp/templates/base.html:71
+#: webapp/templates/base.html:103
+msgid "#Create"
+msgstr "Create"
+
+#: importTextToTranslate.txt:26
+msgid "#Culture"
+msgstr "Culture"
+
+#: webapp/templates/base.html:61
+msgid "#Demo"
+msgstr "Demo"
+
+#: webapp/views.py:343
+msgid "#Did you fill all fields?"
+msgstr "Did you fill all fields?"
+
+#: webapp/forms.py:9
+msgid "#EMail"
+msgstr "EMail"
+
+#: webapp/templates/error.html:1
+msgid "#Error"
+msgstr "Error"
+
 #: importTextToTranslate.txt:7
 msgid "#Farm"
 msgstr "Farm"
@@ -31,6 +119,22 @@ msgstr "Farm"
 #: importTextToTranslate.txt:8
 msgid "#Fast Food"
 msgstr "Fast Food"
+
+#: importTextToTranslate.txt:24
+msgid "#Food"
+msgstr "Food"
+
+#: importTextToTranslate.txt:34
+msgid "#French Fries"
+msgstr "French Fries"
+
+#: importTextToTranslate.txt:40
+msgid "#Glasses"
+msgstr "Glasses"
+
+#: importTextToTranslate.txt:23
+msgid "#Gold"
+msgstr "Gold"
 
 #: importTextToTranslate.txt:9
 msgid "#Hackerspace"
@@ -44,202 +148,64 @@ msgstr "Hairdresser"
 msgid "#Hardware Store"
 msgstr "Hardware Store"
 
-#: importTextToTranslate.txt:12
+#: webapp/static/javascript/application.js:271 webapp/templates/help.html:1
+#: webapp/templates/help.html:6 webapp/templates/help_building.html:1
+#: webapp/templates/map.html:38 webapp/templates/ranking_building.html:40
+msgid "#Help"
+msgstr "Help"
+
+#: webapp/templates/base.html:110
+msgid "#Hi"
+msgstr "Hi"
+
+#: importTextToTranslate.txt:12 importTextToTranslate.txt:31
 msgid "#Ice Cream"
 msgstr "Ice Cream"
+
+#: webapp/templates/base.html:128 webapp/templates/imprint.html:6
+msgid "#Impressum"
+msgstr "Imprint"
+
+#: webapp/static/javascript/application.js:111
+msgid "#Info"
+msgstr "Info"
+
+#: webapp/templates/help_building.html:57
+msgid "#Interval in Minutes"
+msgstr "Interval in Minutes"
+
+#: importTextToTranslate.txt:33
+msgid "#Kebab"
+msgstr "Kebab"
 
 #: importTextToTranslate.txt:13
 msgid "#Kiosk"
 msgstr "Kiosk"
 
+#: importTextToTranslate.txt:36
+msgid "#Letter"
+msgstr "Letter"
+
+#: webapp/templates/help_building.html:16
+#: webapp/templates/help_building.html:54
+msgid "#Level"
+msgstr "Level"
+
+#: webapp/templates/base.html:32 webapp/templates/base.html:55
+msgid "#Login"
+msgstr "Login"
+
+#: webapp/templates/base.html:112 webapp/templates/map.html:41
+msgid "#Logout"
+msgstr "Logout"
+
+#: importTextToTranslate.txt:29
+msgid "#Mate"
+msgstr "Mate"
+
 #: importTextToTranslate.txt:14
 msgid "#Memorial"
 msgstr "Memorial"
-
-#: importTextToTranslate.txt:15
-msgid "#Optician"
-msgstr "Optician"
-
-#: importTextToTranslate.txt:16
-msgid "#Playground"
-msgstr "Playground"
-
-#: importTextToTranslate.txt:17
-msgid "#Post"
-msgstr "Post Office"
-
-#: importTextToTranslate.txt:18
-msgid "#Religion"
-msgstr "Religion"
-
-#: importTextToTranslate.txt:19
-msgid "#Restaurant"
-msgstr "Restaurant"
-
-#: importTextToTranslate.txt:20
-msgid "#Shoe Shop"
-msgstr "Shoe Shop"
-
-#: importTextToTranslate.txt:21
-msgid "#Railway Station"
-msgstr "Railway Station"
-
-#: importTextToTranslate.txt:22
-msgid "#Theater"
-msgstr "Theater"
-
-#: importTextToTranslate.txt:23
-msgid "#gold"
-msgstr "Gold"
-
-#: importTextToTranslate.txt:24
-msgid "#food"
-msgstr "Food"
-
-#: importTextToTranslate.txt:25
-msgid "#buildingmaterial"
-msgstr "Buildmaterial"
-
-#: importTextToTranslate.txt:26
-msgid "#culture"
-msgstr "Culture"
-
-#: importTextToTranslate.txt:27
-msgid "#bread"
-msgstr "Bread"
-
-#: importTextToTranslate.txt:28
-msgid "#beer"
-msgstr "Beer"
-
-#: importTextToTranslate.txt:29
-msgid "#mate"
-msgstr "Mate"
-
-#: importTextToTranslate.txt:30
-msgid "#sweets"
-msgstr "Sweets"
-
-#: importTextToTranslate.txt:31
-msgid "#icecream"
-msgstr "Ice Cream"
-
-#: importTextToTranslate.txt:32
-msgid "#ticket"
-msgstr "Ticket"
-
-#: importTextToTranslate.txt:33
-msgid "#kebab"
-msgstr "Kebab"
-
-#: importTextToTranslate.txt:34
-msgid "#frenchfries"
-msgstr "French Fries"
-
-#: importTextToTranslate.txt:35
-msgid "#pizza"
-msgstr "Pizza"
-
-#: importTextToTranslate.txt:36
-msgid "#letter"
-msgstr "Letter"
-
-#: importTextToTranslate.txt:37
-msgid "#tshirt"
-msgstr "T-Shirt"
-
-#: importTextToTranslate.txt:38
-msgid "#salami"
-msgstr "Salami"
-
-#: importTextToTranslate.txt:39
-msgid "#shoes"
-msgstr "Shoes"
-
-#: importTextToTranslate.txt:40
-msgid "#glasses"
-msgstr "Glasses"
-
-#: manage.py:97
-#, python-format
-msgid "#build %s of %s"
-msgstr "build %s of %s"
-
-#: webapp/admin.py:47
-msgid "#Wustopia Admin"
-msgstr "Wustopia Admin"
-
-#: webapp/admin.py:48
-msgid "#RQ"
-msgstr "RQ"
-
-#: webapp/admin.py:49
-msgid "#Back to Map"
-msgstr "Back to Map"
-
-#: webapp/forms.py:7 webapp/forms.py:12
-msgid "#Username"
-msgstr "Username"
-
-#: webapp/forms.py:8 webapp/forms.py:13
-msgid "#Password"
-msgstr "Password"
-
-#: webapp/forms.py:9
-msgid "#EMail"
-msgstr "EMail"
-
-#: webapp/places.py:28
-msgid "#not necessary"
-msgstr "not necessary"
-
-#: webapp/places.py:37
-msgid "#to many requests"
-msgstr "to many requests"
-
-#: webapp/places.py:39
-msgid "#URLError"
-msgstr "URL Error"
-
-#: webapp/places.py:41
-msgid "#gaierror"
-msgstr "DNS Error"
-
-#: webapp/places.py:81 webapp/places.py:102 webapp/views.py:65
-#: webapp/views.py:90 webapp/views.py:153
-#, python-format
-msgid "#%s"
-msgstr "%s"
-
-#: webapp/views.py:90
-msgid "#You don't have "
-msgstr "You don't have "
-
-#: webapp/views.py:96
-#, python-format
-msgid "#not enough: %(a)s >= %(b)s"
-msgstr "not enough: %(a)s >= %(b)s"
-
-#: webapp/views.py:110 webapp/views.py:138
-msgid "#success"
-msgstr "success"
-
-#: webapp/views.py:115 webapp/views.py:143
-#, python-format
-msgid "#unkown Error: %(e)s"
-msgstr "unkown Error: %(e)s"
-
-#: webapp/views.py:210
-msgid "#not yet"
-msgstr "not yet"
-
-#: webapp/views.py:341
-msgid "#wrong User / Password"
-msgstr "wrong User / Password"
-
-#: webapp/views.py:344
-msgid "#Did you fill all fields?"
-msgstr "Did you fill all fields?"
 
 #: webapp/static/javascript/application.js:111
 msgid ""
@@ -251,115 +217,37 @@ msgstr ""
 "We'll look for you for new items.\n"
 "It could take some time, until you see items."
 
-#: webapp/static/javascript/application.js:111
-msgid "#Info"
-msgstr "Info"
+#: importTextToTranslate.txt:15
+msgid "#Optician"
+msgstr "Optician"
 
-#: webapp/static/javascript/application.js:144
-msgid "#You"
-msgstr "You"
+#: webapp/forms.py:8 webapp/forms.py:13
+msgid "#Password"
+msgstr "Password"
 
-#: webapp/static/javascript/application.js:232
-msgid "#Build"
-msgstr "Build"
+#: importTextToTranslate.txt:35
+msgid "#Pizza"
+msgstr "Pizza"
 
-#: webapp/static/javascript/application.js:235
-msgid "#Built"
-msgstr "Built"
+#: importTextToTranslate.txt:16
+msgid "#Playground"
+msgstr "Playground"
 
-#: webapp/static/javascript/application.js:265
-msgid "#build time"
-msgstr "build time"
+#: webapp/templates/ranking_building.html:12
+msgid "#Position"
+msgstr "Position"
 
-#: webapp/static/javascript/application.js:268
-msgid "#collectable in"
-msgstr "collectable in"
+#: importTextToTranslate.txt:17
+msgid "#Post"
+msgstr "Post Office"
 
-#: webapp/static/javascript/application.js:270
-msgid "#build"
-msgstr "build"
+#: webapp/admin.py:48
+msgid "#RQ"
+msgstr "RQ"
 
-#: webapp/static/javascript/application.js:271 webapp/templates/help.html:1
-#: webapp/templates/help.html:6 webapp/templates/help_building.html:1
-#: webapp/templates/map.html:38 webapp/templates/ranking_building.html:40
-msgid "#Help"
-msgstr "Help"
-
-#: webapp/templates/achievements.html:1 webapp/templates/achievements.html:6
-#: webapp/templates/map.html:37
-msgid "#Achievements"
-msgstr "Achievements"
-
-#: webapp/templates/base.html:21 webapp/templates/map.html:27
-msgid "#Wustopia"
-msgstr "Wustopia"
-
-#: webapp/templates/base.html:24
-msgid "#Wustopia is ..."
-msgstr "Wustopia is ..."
-
-#: webapp/templates/base.html:32 webapp/templates/base.html:55
-msgid "#Login"
-msgstr "Login"
-
-#: webapp/templates/base.html:61
-msgid "#Demo"
-msgstr "Demo"
-
-#: webapp/templates/base.html:65 webapp/templates/base.html:71
-#: webapp/templates/base.html:103
-msgid "#Create"
-msgstr "Create"
-
-#: webapp/templates/base.html:110
-msgid "#Hi"
-msgstr "Hi"
-
-#: webapp/templates/base.html:112 webapp/templates/map.html:41
-msgid "#Logout"
-msgstr "Logout"
-
-#: webapp/templates/base.html:127
-msgid "#Source"
-msgstr "Source"
-
-#: webapp/templates/base.html:128 webapp/templates/imprint.html:6
-msgid "#Impressum"
-msgstr "Imprint"
-
-#: webapp/templates/error.html:1
-msgid "#Error"
-msgstr "Error"
-
-#: webapp/templates/help_building.html:11
-msgid "#Costs"
-msgstr "Costs"
-
-#: webapp/templates/help_building.html:16
-#: webapp/templates/help_building.html:54
-msgid "#Level"
-msgstr "Level"
-
-#: webapp/templates/help_building.html:19
-msgid "#Time in Seconds"
-msgstr "Time in Seconds"
-
-#: webapp/templates/help_building.html:22
-#: webapp/templates/help_building.html:60
-msgid "#Resources"
-msgstr "Resources"
-
-#: webapp/templates/help_building.html:49
-msgid "#Benefit"
-msgstr "Benefit"
-
-#: webapp/templates/help_building.html:57
-msgid "#Interval in Minutes"
-msgstr "Interval in Minutes"
-
-#: webapp/templates/help_building.html:81
-msgid "#back to Help"
-msgstr "back to Help"
+#: importTextToTranslate.txt:21
+msgid "#Railway Station"
+msgstr "Railway Station"
 
 #: webapp/templates/help_building.html:82 webapp/templates/imprint.html:1
 #: webapp/templates/map.html:39 webapp/templates/ranking.html:1
@@ -367,37 +255,150 @@ msgstr "back to Help"
 msgid "#Ranking"
 msgstr "Ranking"
 
-#: webapp/templates/imprint.html:16
-msgid "#aktuelles /dev/tal Impressum"
-msgstr "current /dev/tal Imprint"
+#: importTextToTranslate.txt:18
+msgid "#Religion"
+msgstr "Religion"
 
-#: webapp/templates/index.html:4
-msgid "#Alpha Version:<br/> All Data will be <strong>deleted</strong>!"
-msgstr "Alpha Version:<br/> All Data will be <strong>deleted</strong>!"
+#: webapp/templates/help_building.html:22
+#: webapp/templates/help_building.html:60
+msgid "#Resources"
+msgstr "Resources"
 
-#: webapp/templates/map.html:35
-msgid "#Admin"
-msgstr "Admin"
+#: importTextToTranslate.txt:19
+msgid "#Restaurant"
+msgstr "Restaurant"
 
-#: webapp/templates/map.html:40
-msgid "#collect all"
-msgstr "collect all"
+#: importTextToTranslate.txt:38
+msgid "#Salami"
+msgstr "Salami"
 
-#: webapp/templates/ranking_building.html:12
-msgid "#Position"
-msgstr "Position"
+#: importTextToTranslate.txt:20
+msgid "#Shoe Shop"
+msgstr "Shoe Shop"
+
+#: importTextToTranslate.txt:39
+msgid "#Shoes"
+msgstr "Shoes"
+
+#: webapp/templates/base.html:127
+msgid "#Source"
+msgstr "Source"
+
+#: importTextToTranslate.txt:30
+msgid "#Sweets"
+msgstr "Sweets"
+
+#: importTextToTranslate.txt:37
+msgid "#T-Shirt"
+msgstr "T-Shirt"
+
+#: importTextToTranslate.txt:22
+msgid "#Theater"
+msgstr "Theater"
+
+#: importTextToTranslate.txt:32
+msgid "#Ticket"
+msgstr "Ticket"
+
+#: webapp/templates/help_building.html:19
+msgid "#Time in Seconds"
+msgstr "Time in Seconds"
+
+#: webapp/places.py:39
+msgid "#URLError"
+msgstr "URL Error"
 
 #: webapp/templates/ranking_building.html:15
 msgid "#User"
 msgstr "User"
 
-#: webapp/templates/ranking_building.html:18
-msgid "#Amount"
-msgstr "Amount"
+#: webapp/forms.py:7 webapp/forms.py:12
+msgid "#Username"
+msgstr "Username"
+
+#: webapp/templates/base.html:21 webapp/templates/map.html:27
+msgid "#Wustopia"
+msgstr "Wustopia"
+
+#: webapp/admin.py:47
+msgid "#Wustopia Admin"
+msgstr "Wustopia Admin"
+
+#: webapp/templates/base.html:24
+msgid "#Wustopia is ..."
+msgstr "Wustopia is ..."
+
+#: webapp/static/javascript/application.js:144
+msgid "#You"
+msgstr "You"
+
+#: webapp/views.py:90
+msgid "#You don't have "
+msgstr "You don't have "
+
+#: webapp/templates/imprint.html:16
+msgid "#aktuelles /dev/tal Impressum"
+msgstr "current /dev/tal Imprint"
+
+#: webapp/templates/help_building.html:81
+msgid "#back to Help"
+msgstr "back to Help"
 
 #: webapp/templates/ranking_building.html:39
 msgid "#back to Ranking"
 msgstr "back to Ranking"
 
-#~ msgid "#built"
-#~ msgstr "built"
+#: webapp/static/javascript/application.js:270
+msgid "#build"
+msgstr "build"
+
+#: manage.py:97
+#, python-format
+msgid "#build %s of %s"
+msgstr "build %s of %s"
+
+#: webapp/static/javascript/application.js:265
+msgid "#build time"
+msgstr "build time"
+
+#: webapp/templates/map.html:40
+msgid "#collect all"
+msgstr "collect all"
+
+#: webapp/static/javascript/application.js:268
+msgid "#collectable in"
+msgstr "collectable in"
+
+#: webapp/places.py:41
+msgid "#gaierror"
+msgstr "DNS Error"
+
+#: webapp/views.py:96
+#, python-format
+msgid "#not enough: %(a)s >= %(b)s"
+msgstr "not enough: %(a)s >= %(b)s"
+
+#: webapp/places.py:28
+msgid "#not necessary"
+msgstr "not necessary"
+
+#: webapp/views.py:210
+msgid "#not yet"
+msgstr "not yet"
+
+#: webapp/views.py:110 webapp/views.py:138
+msgid "#success"
+msgstr "success"
+
+#: webapp/places.py:37
+msgid "#to many requests"
+msgstr "to many requests"
+
+#: webapp/views.py:115 webapp/views.py:143
+#, python-format
+msgid "#unkown Error: %(e)s"
+msgstr "unkown Error: %(e)s"
+
+#: webapp/views.py:340
+msgid "#wrong User / Password"
+msgstr "wrong User / Password"
