@@ -131,7 +131,7 @@ def pybabel():
     import os
     os.system('pybabel extract --sort-output -F babel.cfg -k lazy_gettext -o messages.pot .')
     os.system('pybabel update -i messages.pot -d webapp/translations')
-    os.system('sed -i.bak "2,15 d" webapp/translations/*/LC_MESSAGES/messages.po') #remove annoying header
+    os.system('sed -i.bak "2,16 d" webapp/translations/*/LC_MESSAGES/messages.po') #remove annoying header
     # babel hack to commit to git and open in Qt Linguist
     localeDirs = [name for name in os.listdir("webapp/translations")]
     for locale in localeDirs:

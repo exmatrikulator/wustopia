@@ -7,7 +7,6 @@ msgstr ""
 "X-Language: en\n"
 "X-Source-Language: en\n"
 
-
 #: webapp/places.py:81 webapp/places.py:102 webapp/views.py:65
 #: webapp/views.py:90 webapp/views.py:153
 #, python-format
@@ -100,7 +99,7 @@ msgstr "Culture"
 msgid "#Demo"
 msgstr "Demo"
 
-#: webapp/views.py:343
+#: webapp/views.py:347
 msgid "#Did you fill all fields?"
 msgstr "Did you fill all fields?"
 
@@ -207,6 +206,10 @@ msgstr "Mate"
 msgid "#Memorial"
 msgstr "Memorial"
 
+#: importTextToTranslate.txt:42
+msgid "#Newspaper"
+msgstr "Newspaper"
+
 #: webapp/static/javascript/application.js:111
 msgid ""
 "#No items found.\n"
@@ -271,6 +274,10 @@ msgstr "Restaurant"
 #: importTextToTranslate.txt:38
 msgid "#Salami"
 msgstr "Salami"
+
+#: importTextToTranslate.txt:41
+msgid "#Sand"
+msgstr "Sand"
 
 #: importTextToTranslate.txt:20
 msgid "#Shoe Shop"
@@ -382,7 +389,7 @@ msgstr "not enough: %(a)s >= %(b)s"
 msgid "#not necessary"
 msgstr "not necessary"
 
-#: webapp/views.py:210
+#: webapp/views.py:214
 msgid "#not yet"
 msgstr "not yet"
 
@@ -399,6 +406,7 @@ msgstr "to many requests"
 msgid "#unkown Error: %(e)s"
 msgstr "unkown Error: %(e)s"
 
-#: webapp/views.py:340
+#: webapp/views.py:344
 msgid "#wrong User / Password"
 msgstr "wrong User / Password"
+
