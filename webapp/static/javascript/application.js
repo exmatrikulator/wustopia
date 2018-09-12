@@ -167,7 +167,7 @@ function update_resources() {
       jQuery("<img/>", {
         src: item.image
       }).appendTo("#res_" + item.id);
-      $("#res_" + item.id).append("  " + item.amount);
+      $("#res_" + item.id).append("  " + item.amount.toLocaleString());
     })
   });
 }
