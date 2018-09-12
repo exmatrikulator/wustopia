@@ -188,7 +188,7 @@ def api_check_achievements():
     else:
         q = Queue("achievements",connection=conn)
         job = q.enqueue_call(
-            func=check_achievements, args=(current_user.id,), result_ttl=60 # 1 minute
+            func=check_achievements, args=(current_user.id,), result_ttl=60 # 10 minute
         )
         return job.get_id()
 
@@ -200,16 +200,16 @@ def update_places(lat1,lon1,lat2,lon2):
     else:
         q = Queue("update_places",connection=conn)
         job = q.enqueue_call(
-            func=importPlaces, args=(lat1,lon1,lat2,lon2), result_ttl=60 # 1 minute
+            func=importPlaces, args=(lat1,lon1,lat2,lon2), result_ttl=600 # 10 minute
         )
         return job.get_id()
-        #return "<a href=\"/results/"+job.get_id()+"\">result</a>"
+        #return "<a href=\"/update_places/"+job.get_id()+"\">result</a>"
 
 @app.route("/update_places/<job_key>")
 def get_results(job_key):
     job = Job.fetch(job_key, connection=conn)
     if job.is_finished:
-        return str(job.result), 200
+        return gettext(job.result), 200
     else:
         return gettext("#not yet"), 202
 
