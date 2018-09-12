@@ -171,7 +171,11 @@ def api_places():
 
 @app.route("/api/version")
 def api_version():
-    with open("version.txt") as f:
+    if os.path.isfile("version.txt"):
+        file = "version.txt"
+    else:
+        file =".git/HEAD"
+    with open(file) as f:
         content = f.read()
     response = Response( content )
     response.headers.add('Content-Type', "application/json")
@@ -180,7 +184,7 @@ def api_version():
 @app.route("/api/check_achievements")
 def api_check_achievements():
     if app.config['TESTING']:
-        check_achievements(current_user.id)
+        return check_achievements(current_user.id)
     else:
         q = Queue("achievements",connection=conn)
         job = q.enqueue_call(

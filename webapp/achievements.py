@@ -16,3 +16,4 @@ def check_achievements(userid):
         for amount in amounts:
             if count >= amount:
                 session_add(AchievementsCollected(achievement_id=Achievement().get_id(str(amount)+category.slug),user_id=userid))
+    return "OK"

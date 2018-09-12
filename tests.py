@@ -109,6 +109,15 @@ class TestFromUser(WustopiaTest):
         self.client.post("/user/create",data=dict(username="admin",password="admin",email="admin@localhost"))
         self.client.post("/user/create",data=dict(username="user1",password="user",email="user@localhost"))
 
+    def test_URL200(self):
+        urls = ["/api/resources","/api/markerIcon","/api/places","/api/version","/api/check_achievements"]
+        urls.sort()
+        for url in urls:
+            if app.debug:
+                print("check " + url)
+            response = self.client.get(url)
+            TestCase.assert200(self, response)
+
     def test_build(self):
         from webapp.models import Place
         import json
@@ -195,4 +204,5 @@ class TestWithoutDB(TestCase):
 
 
 if __name__ == '__main__':
+    #app.debug = True
     unittest.main()
