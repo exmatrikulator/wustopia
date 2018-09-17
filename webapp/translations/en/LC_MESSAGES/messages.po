@@ -8,7 +8,7 @@ msgstr ""
 "X-Source-Language: en\n"
 
 #: webapp/places.py:81 webapp/places.py:102 webapp/views.py:65
-#: webapp/views.py:90 webapp/views.py:153
+#: webapp/views.py:90 webapp/views.py:155
 #, python-format
 msgid "#%s"
 msgstr "%s"
@@ -99,7 +99,7 @@ msgstr "Culture"
 msgid "#Demo"
 msgstr "Demo"
 
-#: webapp/views.py:347
+#: webapp/views.py:349
 msgid "#Did you fill all fields?"
 msgstr "Did you fill all fields?"
 
@@ -339,9 +339,18 @@ msgstr "Wustopia is ..."
 msgid "#You"
 msgstr "You"
 
+#: webapp/views.py:102
+msgid "#You are already building"
+msgstr "You are already building"
+
 #: webapp/views.py:90
 msgid "#You don't have "
 msgstr "You don't have "
+
+#: webapp/views.py:96
+#, python-format
+msgid "#You don't have enough %(a)s. (%(b)s/%(c)s)"
+msgstr "You don't have enough %(a)s. (%(b)s/%(c)s)"
 
 #: webapp/templates/imprint.html:16
 msgid "#aktuelles /dev/tal Impressum"
@@ -380,20 +389,15 @@ msgstr "collectable in"
 msgid "#gaierror"
 msgstr "DNS Error"
 
-#: webapp/views.py:96
-#, python-format
-msgid "#not enough: %(a)s >= %(b)s"
-msgstr "not enough: %(a)s >= %(b)s"
-
 #: webapp/places.py:28
 msgid "#not necessary"
 msgstr "not necessary"
 
-#: webapp/views.py:214
+#: webapp/views.py:216
 msgid "#not yet"
 msgstr "not yet"
 
-#: webapp/views.py:110 webapp/views.py:138
+#: webapp/views.py:112 webapp/views.py:140
 msgid "#success"
 msgstr "success"
 
@@ -401,12 +405,11 @@ msgstr "success"
 msgid "#to many requests"
 msgstr "to many requests"
 
-#: webapp/views.py:115 webapp/views.py:143
+#: webapp/views.py:117 webapp/views.py:145
 #, python-format
 msgid "#unkown Error: %(e)s"
 msgstr "unkown Error: %(e)s"
 
-#: webapp/views.py:344
+#: webapp/views.py:346
 msgid "#wrong User / Password"
 msgstr "wrong User / Password"
-
