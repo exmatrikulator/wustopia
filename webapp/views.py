@@ -176,7 +176,7 @@ def api_version():
     if os.path.isfile("version.txt"):
         file = "version.txt"
     else:
-        file =".git/HEAD"
+        file =".git/refs/heads/master"
     with open(file) as f:
         content = f.read()
     response = Response( content )
