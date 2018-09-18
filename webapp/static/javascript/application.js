@@ -130,7 +130,9 @@ var init = function(position) {
   get_places();
 
   wustopia.map.setView([wustopia.session.lat, wustopia.session.lon], zoom);
-  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+
+  var mapboxAccessToken = "pk.eyJ1IjoiZXhtYXRyaWt1bGF0b3IiLCJhIjoiY2ptN24zaTduNDhzaDNwcW50NXRzazlpOCJ9.DGMnLmm-lAtPujhgyYmFCA"
+  L.tileLayer('https://api.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token='+mapboxAccessToken , {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
     maxZoom: 18,
     useCache: true,
