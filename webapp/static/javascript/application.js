@@ -132,7 +132,10 @@ var init = function(position) {
   wustopia.map.setView([wustopia.session.lat, wustopia.session.lon], zoom);
   L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-    maxZoom: 18
+    maxZoom: 18,
+    useCache: true,
+    crossOrigin: true,
+    cacheMaxAge: 604800000 // 7 days
   }).addTo(wustopia.map);
 
   L.marker([wustopia.session.lat, wustopia.session.lon], {
