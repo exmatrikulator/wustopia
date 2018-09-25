@@ -93,7 +93,7 @@ def build():
             db.session.add(current_balance)
         else:
             #return str(getBalanceofResource(current_user.id, costs.resource.id).amount) + " >= " + str(costs.amount)
-            return gettext("#You don't have enough %(a)s. (%(b)s/%(c)s)", a=costs.resource.name, b=getBalanceofResource(current_user.id, costs.resource.id).amount, c=costs.amount), 500
+            return gettext("#You don't have enough %(a)s. (%(b)s/%(c)s)", a=gettext("#%s" % costs.resource.name), b=getBalanceofResource(current_user.id, costs.resource.id).amount, c=costs.amount), 500
 
     buildtime = db.session.query(BuildCost).filter(BuildCost.placecategory_id == place.placecategory.id, BuildCost.level==buildinglevel).first().time
     ready = datetime.now() + timedelta(seconds = buildtime)
