@@ -60,12 +60,15 @@ var test_time = function() {
 }
 
 var last_update_places = 0;
-var update_places = function() {
+var update_places = function(force=false) {
   //allow only every 5 secounds a call
-  if (last_update_places + 5 > Math.floor(Date.now() / 1000))
-    return;
-  if (wustopia.map.getZoom() < 18)
-    return;
+  if(!force)
+  {
+    if (last_update_places + 5 > Math.floor(Date.now() / 1000))
+      return;
+    if (wustopia.map.getZoom() < 18)
+      return;
+  }
   last_update_places = Math.floor(Date.now() / 1000);
   var bounds = wustopia.map.getBounds();
   var lng1 = bounds.getSouthWest().lng;
@@ -89,7 +92,7 @@ var check_update_places = function() {
       202: function() {
         setTimeout(function() {
           check_update_places();
-        }, 1000);
+        }, 3000);
       }
     }
   });
@@ -109,9 +112,10 @@ function get_places() {
         })
       } else {
         toastr.info(gettext("#No items found.\nWe'll look for you for new items.\nIt could take some time, until you see items."),gettext("#Info"),{"closeButton": true, "timeOut": 0});
+        update_places(true);
         setTimeout(function() {
           check_update_places();
-        }, 1000);
+        }, 10000);
       }
     });
   }

@@ -14,11 +14,11 @@ msgid "#%s"
 msgstr "%s"
 
 #: webapp/templates/achievements.html:1 webapp/templates/achievements.html:6
-#: webapp/templates/map.html:37
+#: webapp/templates/map.html:39
 msgid "#Achievements"
 msgstr "Achievements"
 
-#: webapp/templates/map.html:35
+#: webapp/templates/map.html:37
 msgid "#Admin"
 msgstr "Admin"
 
@@ -42,7 +42,7 @@ msgstr "Bakery"
 msgid "#Bar"
 msgstr "Bar"
 
-#: importTextToTranslate.txt:28
+#: importTextToTranslate.txt:31
 msgid "#Beer"
 msgstr "Beer"
 
@@ -50,19 +50,19 @@ msgstr "Beer"
 msgid "#Benefit"
 msgstr "Benefit"
 
-#: importTextToTranslate.txt:27
+#: importTextToTranslate.txt:30
 msgid "#Bread"
 msgstr "Bread"
 
-#: webapp/static/javascript/application.js:232
+#: webapp/static/javascript/application.js:238
 msgid "#Build"
 msgstr "Build"
 
-#: importTextToTranslate.txt:25
+#: importTextToTranslate.txt:28
 msgid "#Building Material"
 msgstr "Building Material"
 
-#: webapp/static/javascript/application.js:235
+#: webapp/static/javascript/application.js:241
 msgid "#Built"
 msgstr "Built"
 
@@ -91,7 +91,7 @@ msgstr "Costs"
 msgid "#Create"
 msgstr "Create"
 
-#: importTextToTranslate.txt:26
+#: importTextToTranslate.txt:29
 msgid "#Culture"
 msgstr "Culture"
 
@@ -119,19 +119,23 @@ msgstr "Farm"
 msgid "#Fast Food"
 msgstr "Fast Food"
 
-#: importTextToTranslate.txt:24
+#: importTextToTranslate.txt:25
+msgid "#Fontain"
+msgstr "Fontain"
+
+#: importTextToTranslate.txt:27
 msgid "#Food"
 msgstr "Food"
 
-#: importTextToTranslate.txt:34
+#: importTextToTranslate.txt:37
 msgid "#French Fries"
 msgstr "French Fries"
 
-#: importTextToTranslate.txt:40
+#: importTextToTranslate.txt:43
 msgid "#Glasses"
 msgstr "Glasses"
 
-#: importTextToTranslate.txt:23
+#: importTextToTranslate.txt:26
 msgid "#Gold"
 msgstr "Gold"
 
@@ -147,9 +151,9 @@ msgstr "Hairdresser"
 msgid "#Hardware Store"
 msgstr "Hardware Store"
 
-#: webapp/static/javascript/application.js:271 webapp/templates/help.html:1
+#: webapp/static/javascript/application.js:277 webapp/templates/help.html:1
 #: webapp/templates/help.html:6 webapp/templates/help_building.html:1
-#: webapp/templates/map.html:38 webapp/templates/ranking_building.html:40
+#: webapp/templates/map.html:40 webapp/templates/ranking_building.html:40
 msgid "#Help"
 msgstr "Help"
 
@@ -157,7 +161,11 @@ msgstr "Help"
 msgid "#Hi"
 msgstr "Hi"
 
-#: importTextToTranslate.txt:12 importTextToTranslate.txt:31
+#: importTextToTranslate.txt:23
+msgid "#Hotel"
+msgstr "Hotel"
+
+#: importTextToTranslate.txt:12 importTextToTranslate.txt:34
 msgid "#Ice Cream"
 msgstr "Ice Cream"
 
@@ -165,7 +173,7 @@ msgstr "Ice Cream"
 msgid "#Impressum"
 msgstr "Imprint"
 
-#: webapp/static/javascript/application.js:111
+#: webapp/static/javascript/application.js:114
 msgid "#Info"
 msgstr "Info"
 
@@ -173,7 +181,7 @@ msgstr "Info"
 msgid "#Interval in Minutes"
 msgstr "Interval in Minutes"
 
-#: importTextToTranslate.txt:33
+#: importTextToTranslate.txt:36
 msgid "#Kebab"
 msgstr "Kebab"
 
@@ -181,7 +189,7 @@ msgstr "Kebab"
 msgid "#Kiosk"
 msgstr "Kiosk"
 
-#: importTextToTranslate.txt:36
+#: importTextToTranslate.txt:39
 msgid "#Letter"
 msgstr "Letter"
 
@@ -194,11 +202,11 @@ msgstr "Level"
 msgid "#Login"
 msgstr "Login"
 
-#: webapp/templates/base.html:112 webapp/templates/map.html:41
+#: webapp/templates/base.html:112 webapp/templates/map.html:43
 msgid "#Logout"
 msgstr "Logout"
 
-#: importTextToTranslate.txt:29
+#: importTextToTranslate.txt:32
 msgid "#Mate"
 msgstr "Mate"
 
@@ -206,11 +214,11 @@ msgstr "Mate"
 msgid "#Memorial"
 msgstr "Memorial"
 
-#: importTextToTranslate.txt:42
+#: importTextToTranslate.txt:45
 msgid "#Newspaper"
 msgstr "Newspaper"
 
-#: webapp/static/javascript/application.js:111
+#: webapp/static/javascript/application.js:114
 msgid ""
 "#No items found.\n"
 "We'll look for you for new items.\n"
@@ -224,11 +232,15 @@ msgstr ""
 msgid "#Optician"
 msgstr "Optician"
 
+#: importTextToTranslate.txt:24
+msgid "#Parking"
+msgstr "Parking"
+
 #: webapp/forms.py:8 webapp/forms.py:13
 msgid "#Password"
 msgstr "Password"
 
-#: importTextToTranslate.txt:35
+#: importTextToTranslate.txt:38
 msgid "#Pizza"
 msgstr "Pizza"
 
@@ -253,7 +265,7 @@ msgid "#Railway Station"
 msgstr "Railway Station"
 
 #: webapp/templates/help_building.html:82 webapp/templates/imprint.html:1
-#: webapp/templates/map.html:39 webapp/templates/ranking.html:1
+#: webapp/templates/map.html:41 webapp/templates/ranking.html:1
 #: webapp/templates/ranking.html:6
 msgid "#Ranking"
 msgstr "Ranking"
@@ -271,11 +283,11 @@ msgstr "Resources"
 msgid "#Restaurant"
 msgstr "Restaurant"
 
-#: importTextToTranslate.txt:38
+#: importTextToTranslate.txt:41
 msgid "#Salami"
 msgstr "Salami"
 
-#: importTextToTranslate.txt:41
+#: importTextToTranslate.txt:44
 msgid "#Sand"
 msgstr "Sand"
 
@@ -283,7 +295,7 @@ msgstr "Sand"
 msgid "#Shoe Shop"
 msgstr "Shoe Shop"
 
-#: importTextToTranslate.txt:39
+#: importTextToTranslate.txt:42
 msgid "#Shoes"
 msgstr "Shoes"
 
@@ -291,11 +303,11 @@ msgstr "Shoes"
 msgid "#Source"
 msgstr "Source"
 
-#: importTextToTranslate.txt:30
+#: importTextToTranslate.txt:33
 msgid "#Sweets"
 msgstr "Sweets"
 
-#: importTextToTranslate.txt:37
+#: importTextToTranslate.txt:40
 msgid "#T-Shirt"
 msgstr "T-Shirt"
 
@@ -303,7 +315,7 @@ msgstr "T-Shirt"
 msgid "#Theater"
 msgstr "Theater"
 
-#: importTextToTranslate.txt:32
+#: importTextToTranslate.txt:35
 msgid "#Ticket"
 msgstr "Ticket"
 
@@ -323,7 +335,7 @@ msgstr "User"
 msgid "#Username"
 msgstr "Username"
 
-#: webapp/templates/base.html:21 webapp/templates/map.html:27
+#: webapp/templates/base.html:21 webapp/templates/map.html:29
 msgid "#Wustopia"
 msgstr "Wustopia"
 
@@ -335,7 +347,7 @@ msgstr "Wustopia Admin"
 msgid "#Wustopia is ..."
 msgstr "Wustopia is ..."
 
-#: webapp/static/javascript/application.js:144
+#: webapp/static/javascript/application.js:150
 msgid "#You"
 msgstr "You"
 
@@ -364,7 +376,7 @@ msgstr "back to Help"
 msgid "#back to Ranking"
 msgstr "back to Ranking"
 
-#: webapp/static/javascript/application.js:270
+#: webapp/static/javascript/application.js:276
 msgid "#build"
 msgstr "build"
 
@@ -373,15 +385,15 @@ msgstr "build"
 msgid "#build %s of %s"
 msgstr "build %s of %s"
 
-#: webapp/static/javascript/application.js:265
+#: webapp/static/javascript/application.js:271
 msgid "#build time"
 msgstr "build time"
 
-#: webapp/templates/map.html:40
+#: webapp/templates/map.html:42
 msgid "#collect all"
 msgstr "collect all"
 
-#: webapp/static/javascript/application.js:268
+#: webapp/static/javascript/application.js:274
 msgid "#collectable in"
 msgstr "collectable in"
 

@@ -1,0 +1,8 @@
+{% extends 'admin/model/list.html' %}
+
+{% block head_css %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style/fontawesome-solid.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style/fontawesome.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style/leaflet.awesome-markers.css') }}">
+{% endblock %}

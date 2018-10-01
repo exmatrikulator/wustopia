@@ -30,7 +30,7 @@ def imoprtInitData():
                 importTextToTranslate.append(row[1])
             if row[2]:
                 importTextToTranslate.append(row[2])
-            if len(row) == 5:
+            if len(row) == 6:
                 session_add( PlaceCategory( slug=row[0], name=row[1], description=row[2], filter=row[3], markerColor=row[4], icon=row[5] ) )
             else:
                 session_add( PlaceCategory( slug=row[0], name=row[1], description=row[2], filter=row[3], markerColor=row[4] ) )

@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import flask
 import flask_admin as admin
 from flask_admin.base import MenuLink
 from flask_admin.contrib import sqla
@@ -44,6 +45,14 @@ class AchievementsCollectedAdmin(WustopiaModelView):
     column_filters = ['achievement', 'user']
     column_display_pk = True
 
+class PlaceCategoryAdmin(WustopiaModelView):
+    def icon_formatter(view, context, model, name):
+        return flask.Markup('<div class="awesome-marker-icon- awesome-marker awesome-marker-icon-{}" style="position:relative;"><i class="fa fa-{}  icon-white"></i></div>'.format(model.markerColor, model.icon))
+    form_columns = ["name","description","filter","icon","markerColor"]
+    column_display_pk = True
+    column_formatters = { 'id': icon_formatter }
+    list_template = "admin/placecategory.html"
+
 admin = admin.Admin(app, name=lazy_gettext("#Wustopia Admin") ,template_mode='bootstrap3')
 admin.add_link(MenuLink(name=lazy_gettext('#RQ'), url='/admin/rq'))
 admin.add_link(MenuLink(name=lazy_gettext('#Back to Map'), url='/map'))
@@ -51,6 +60,7 @@ admin.add_view(UserAdmin(User, db.session))
 admin.add_view(BalanceAdmin(Balance, db.session))
 admin.add_view(PlaceAdmin(Place, db.session))
 admin.add_view(BuiltAdmin(Built, db.session))
+admin.add_view(PlaceCategoryAdmin(PlaceCategory, db.session))
 admin.add_view(BuildCostResourceAdmin(BuildCostResource, db.session))
 admin.add_view(PlaceCategoryBenefitAdmin(PlaceCategoryBenefit, db.session))
 admin.add_view(WustopiaModelView(Achievement, db.session))

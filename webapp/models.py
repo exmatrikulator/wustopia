@@ -128,8 +128,8 @@ class PlaceCategory(db.Model):
     description = Column(Text())
     filter = Column(String(255))
     places = relationship('Place', backref='category')
-    icon = Column(String(255), default="home")
-    markerColor = Column(String(255), default="blue")
+    icon = Column(String(255))
+    markerColor = Column(String(255))
     benefit = db.relationship("PlaceCategoryBenefit", back_populates="placecategory")
 
     def __str__(self):

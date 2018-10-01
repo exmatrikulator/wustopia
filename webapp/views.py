@@ -153,7 +153,10 @@ def markerIcon():
         item = {}
         item['id'] = marker.id
         item['name'] = gettext("#%s" % marker.name)
-        item['icon'] = marker.icon
+        if marker.icon:
+            item['icon'] = marker.icon
+        else:
+            item['icon'] = "home"
         item['markerColor'] = marker.markerColor
         item['prefix'] = 'fa'
         output.append(item)
