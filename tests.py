@@ -1,9 +1,13 @@
 import unittest
-from flask_testing import TestCase
-from manage import imoprtInitData
+import json
 
+from flask_testing import TestCase
+from datetime import datetime
+
+from manage import imoprtInitData
 from webapp import db, app
-from webapp.models import Achievement, PlaceCategory
+from webapp.places import *
+from webapp.models import Achievement, Built, PlaceCategory, Place, User
 from manage import generate_asset, pybabel
 
 
@@ -46,8 +50,6 @@ class TestFromAnonymous(WustopiaTest):
         TestCase.assertRedirects(self, response, "/?next=%2Fapi%2Fplaces")
 
     def test_admin(self):
-        from webapp.models import User
-
         # not logged in
         response = self.client.get("/admin/")
         self.assertNotIn(b"User", response.data)
@@ -84,8 +86,6 @@ class TestFromAnonymous(WustopiaTest):
         self.assertIn(b"45438", response.data) # gold
 
     def test_update_places(self):
-        from webapp.models import Place
-
         # to big
         response = self.client.get("/update_places/51.24871384304074,7.124140262603761,51.262586217199,7.1650171279907235")
         TestCase.assert200(self, response)
@@ -95,13 +95,15 @@ class TestFromAnonymous(WustopiaTest):
         categories = db.session.query(PlaceCategory).count()
         TestCase.assertGreater(self, db.session.query(Achievement).count(), categories * 10)
 
+# Amdin ID = 1
 class TestFromAdmin(WustopiaTest):
     def setUp(self):
         db.create_all()
         imoprtInitData()
         self.client.post("/user/create",data=dict(username="admin",password="admin",email="admin@localhost"))
 
-
+# Amdin ID = 1
+# User ID = 2
 class TestFromUser(WustopiaTest):
     def setUp(self):
         db.create_all()
@@ -119,8 +121,6 @@ class TestFromUser(WustopiaTest):
             TestCase.assert200(self, response)
 
     def test_build(self):
-        from webapp.models import Place
-        import json
         db.session.add( Place( osmNodeId=1, lon=1, lat=1, placecategory_id=PlaceCategory().get_id("busstop"), name="Test" ) )
 
         response = self.client.get("/build?place=1")
@@ -142,10 +142,6 @@ class TestFromUser(WustopiaTest):
         self.assertNotIn(b"2 Bus Stop", response.data)
 
     def test_earn(self):
-        from datetime import datetime
-        import json
-        from webapp.models import Built, Place
-
         db.session.add( Place( osmNodeId=1, lon=1, lat=1, placecategory_id=PlaceCategory().get_id("busstop"), name="Test" ) )
         response = self.client.get("/build?place=1")
         response = self.client.get("/api/resources")
@@ -154,7 +150,7 @@ class TestFromUser(WustopiaTest):
         TestCase.assertEqual(self, amount, 90)
 
         # earn without rigth time
-        response = self.client.get("/earn?place=1")
+        response = self.client.get("/earn/1")
         response = self.client.get("/api/resources")
         data = json.loads(response.data)
         amount = data[0]['amount']
@@ -165,7 +161,7 @@ class TestFromUser(WustopiaTest):
         db.session.add(built)
         db.session.commit()
 
-        response = self.client.get("/earn?place=1")
+        response = self.client.get("/earn/1")
         response = self.client.get("/api/resources")
         data = json.loads(response.data)
         amount = data[0]['amount']
@@ -177,6 +173,13 @@ class TestFromUser(WustopiaTest):
         response = self.client.get("/ranking/building/3-Bus_Stop")
         TestCase.assert200(self, response)
         self.assertIn(b"user1", response.data)
+
+    def test_getUserPlaces(self):
+        self.test_build()
+        TestCase.assertEqual(self, len(getUserPlaces(2)), 1)
+        db.session.add( Place( osmNodeId=2, lon=2, lat=2, placecategory_id=PlaceCategory().get_id("busstop"), name="Test2" ) )
+        TestCase.assertEqual(self, len(getUserPlaces(2)), 1)
+
 
 class TestWithoutDB(TestCase):
     def create_app(self):

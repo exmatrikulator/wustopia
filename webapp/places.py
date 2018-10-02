@@ -108,3 +108,12 @@ def getPlaces(lat = None ,lon = None):
 
         output.append(item)
     return output
+
+def getUserPlaces(userId):
+    places = db.session.query(Built,Place,PlaceCategory,PlaceCategoryBenefit) \
+        .join(Built.place) \
+        .join(PlaceCategory.benefit) \
+        .filter(Built.user_id==userId) \
+        .filter(Built.level==PlaceCategoryBenefit.level) \
+        .filter(PlaceCategory.id==Place.placecategory_id).all()
+    return places

@@ -16,7 +16,7 @@ import os
 
 from webapp import app
 from webapp.models import *
-from webapp.places import getPlaces, importPlaces
+from webapp.places import *
 from webapp.forms import *
 from webapp.finance import *
 from webapp.achievements import *
@@ -72,6 +72,7 @@ def api_resources():
     response.headers.add('Content-Type', "application/json")
     return response
 
+@login_required
 @app.route("/build")
 def build():
     #TODO:Do some checks!
@@ -116,10 +117,21 @@ def build():
             print(e)
         return gettext('#unkown Error: %(e)s', e=e), 500
 
-@app.route("/earn")
-def earn():
+@login_required
+@app.route("/collect_all")
+def collect_all():
+    nodes = getUserPlaces(current_user.id)
+    for node in nodes:
+        if timedelta(minutes=node.PlaceCategoryBenefit.interval) <= datetime.now() - node.Built.lastcollect:
+            earn(node.Place.id)
+            #TODO reduce Klabimbis
+    return gettext('#success')
+
+@login_required
+@app.route("/earn/<int:place_id>")
+def earn(place_id):
     something_changed=False
-    building = db.session.query(Built).options(joinedload(Built.place)).filter_by(place_id = request.args.get('place'), user_id = current_user.id).first()
+    building = db.session.query(Built).options(joinedload(Built.place)).filter_by(place_id = place_id, user_id = current_user.id).first()
     buildingbenefit = db.session.query(PlaceCategoryBenefit).filter_by(placecategory_id = building.place.placecategory.id, level=building.level).all()
     for benefit in buildingbenefit:
         if timedelta(minutes=benefit.interval) <= datetime.now() - building.lastcollect:

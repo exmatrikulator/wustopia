@@ -11,7 +11,8 @@ var wustopia = {
     lon: 0,
     acc: null
   },
-  toastr: []
+  toastr: [],
+  collect_all: false
 };
 
 var gt = new Gettext({
@@ -195,9 +196,20 @@ $(document).ready(function() {
 });
 
 var collect_all = function() {
-  wustopia.marker.forEach(function(marker) {
-    if (marker.place.collectable) earn(marker);
-  });
+  if(!wustopia.collect_all)
+    return;
+  $.get("/collect_all", {}, function(data) {
+    $("#audio_earn").trigger('play');
+    update_resources();
+    get_places();
+    wustopia.marker.forEach(function(marker) {
+      marker.disablePermanentHighlight();
+    });
+    wustopia.collect_all=false;
+  }).fail(function(data) {
+    $("#audio_error").trigger('play');
+    toastr.error(data.responseText);
+  })
 }
 
 var earn = function(el) {
@@ -214,9 +226,7 @@ var earn = function(el) {
   }
 
   var id = item.place.id;
-  $.get("/earn", {
-    'place': id
-  }, function(data) {
+  $.get("/earn/"+id, {}, function(data) {
     $("#audio_earn").trigger('play');
     item.place.collectable = false;
     update_resources();
@@ -303,6 +313,7 @@ var addItem = function(item) {
     setTimeout(function() {
       wustopia.marker[item.id].place.collectable = true;
       wustopia.marker[item.id].enablePermanentHighlight();
+      wustopia.collect_all=true;
     }, item.collectablein * 1000);
 
   //show countdown if not ready
