@@ -49,16 +49,6 @@ bar,7,3273
 bar,8,4343
 bar,9,5763
 bar,10,7647
-bar,11,10147
-bar,12,13464
-bar,13,17865
-bar,14,23705
-bar,15,31454
-bar,16,41736
-bar,17,55379
-bar,18,73482
-bar,19,97503
-bar,20,129377
 bakery,1,600
 bakery,2,779
 bakery,3,1012
@@ -191,3 +181,10 @@ chemist,7,2947
 chemist,8,5564
 chemist,9,10504
 chemist,10,19830
+parking,1,60
+hotel,1,60
+post,1,60
+optician,1,60
+fontain,1,60
+theater,1,60
+shoeshop,1,60

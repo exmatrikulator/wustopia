@@ -81,9 +81,9 @@ class TestFromAnonymous(WustopiaTest):
     def test_help(self):
         response = self.client.get("/help/building/3-Bus_Stop")
         TestCase.assert200(self, response)
-        self.assertIn(b"87054", response.data) # time
-        self.assertIn(b"18825", response.data) # bread
-        self.assertIn(b"45438", response.data) # gold
+        self.assertIn(b"117", response.data) # time
+        self.assertIn(b"15", response.data) # beer
+        self.assertIn(b"61", response.data) # gold
 
     def test_update_places(self):
         # to big
