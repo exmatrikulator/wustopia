@@ -3,6 +3,7 @@
 *.pyc
 *_32.png
 .~*
+docs/
 venv/
 migrations
 messages.pot
