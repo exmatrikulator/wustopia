@@ -4,11 +4,10 @@ import json
 from flask_testing import TestCase
 from datetime import datetime
 
-from manage import imoprtInitData
+from manage import imoprtInitData, image_32px, generate_asset, pybabel
 from webapp import db, app
 from webapp.places import *
 from webapp.models import Achievement, Built, PlaceCategory, Place, User
-from manage import generate_asset, pybabel
 
 
 class WustopiaTest(TestCase):
@@ -19,12 +18,12 @@ class WustopiaTest(TestCase):
         app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
         app.config['SECRET_KEY'] = "testing"
         app.config['BCRYPT_LOG_ROUNDS'] = 2
-        generate_asset()
         return app
 
     def setUp(self):
         db.create_all()
         imoprtInitData()
+        generate_asset()
 
     def tearDown(self):
         db.session.remove()
@@ -34,7 +33,7 @@ class WustopiaTest(TestCase):
 class TestFromAnonymous(WustopiaTest):
 
     def test_URL200(self):
-        urls = ["/","/help","/help/dependencies.svg","/help/dependencies.png","/imprint","/ranking","/ranking/building/1","/ranking/building/1-Test"]
+        urls = ["/","/help","/imprint","/ranking","/ranking/building/1","/ranking/building/1-Test"]
         urls.sort()
         for url in urls:
             if app.debug:
@@ -74,7 +73,6 @@ class TestFromAnonymous(WustopiaTest):
         self.assertNotIn(b"User", response.data)
 
     def test_image_32px(self):
-        from webapp.views import image_32px
         TestCase.assertEqual(self, image_32px("/foo/bar.png"), "/foo/bar_32.png")
         TestCase.assertEqual(self, image_32px("//foo//bar.png"), "/foo/bar_32.png")
 

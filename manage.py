@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os
+
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from distutils.util import strtobool
@@ -109,6 +111,46 @@ def imoprtInitData():
     if app.debug:
         print("done")
 
+# returns the image name with a "_32" suffix
+def image_32px(image):
+    filename, file_extension = os.path.splitext(image)
+    return str(filename + "_32" + file_extension).replace("//","/")
+
+
+def help_dependencies(format):
+    from graphviz import Digraph
+    dot = Digraph(engine = 'circo')
+    dot.attr('node', shape='box', style='filled', fontname = "DejaVu")
+
+    dot.attr('node', color='#ffcb92')
+    for resource in db.session.query(Resource).all():
+        image = image_32px("webapp/"+str(resource.image))
+        if os.path.exists(image):
+            dot.node("res_" + str(resource.id), image=image, label=resource.name, labelloc="t")
+        else:
+            dot.node("res_" + str(resource.id), label=resource.name, labelloc="t")
+
+    dot.attr('node', color='#00d1b2')
+    for place in db.session.query(PlaceCategory).all():
+        dot.node("place_" + str(place.id), place.name)
+
+    dot.attr('edge',color='#23D160')
+    for benefit in db.session.query(PlaceCategoryBenefit.placecategory_id, PlaceCategoryBenefit.resource_id ).distinct():
+        dot.edge("place_" + str(benefit.placecategory_id), "res_" + str(benefit.resource_id))
+
+    dot.attr('edge',color='#FF3860')
+    for cost in db.session.query(BuildCost, BuildCostResource).join(BuildCostResource).distinct(BuildCost.placecategory_id, BuildCostResource.resource_id):
+        dot.edge("res_" + str(cost.BuildCostResource.resource_id), "place_" + str(cost.BuildCost.placecategory_id))
+
+
+    if format == "svg":
+        dot.format = "svg"
+        dot.render(filename = "webapp/static/images/dependencies", cleanup=True)
+    elif format == "png":
+        dot.format = "png"
+        dot.render(filename = "webapp/static/images/dependencies", cleanup=True)
+
+
 @manager.command
 def generate_asset():
     from PIL import Image
@@ -123,7 +165,8 @@ def generate_asset():
             img = Image.open(file)
             img = img.resize((32,32))
             img.save(filename + "_32" + file_extension)
-
+    help_dependencies("png")
+    help_dependencies("svg")
 
 @manager.command
 def pybabel():
