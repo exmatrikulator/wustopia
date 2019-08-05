@@ -10,3 +10,5 @@ messages.pot
 config/config.py
 webapp/static/translations/*json
 importTextToTranslate.txt
+webapp/static/images/dependencies.png
+webapp/static/images/dependencies.svg
