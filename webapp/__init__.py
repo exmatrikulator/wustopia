@@ -4,7 +4,7 @@
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_babel import Babel
+from flask_babel import Babel, format_datetime
 import rq_dashboard
 
 
@@ -39,6 +39,7 @@ login_manager.init_app(app)
 login_manager.login_view =  "index"
 
 babel = Babel(app)
+app.jinja_env.filters['datetime'] = format_datetime
 
 @babel.localeselector
 def locale_select():

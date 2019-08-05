@@ -13,7 +13,7 @@
   {% else %}
   <div class="column notification is-light">
   {% endif %}
-    {{data.achievement}}: {{data.reached}}
+    {{data.achievement}}: {{data.reached|datetime}}
   </div>
 </div>
 {% endfor %}
