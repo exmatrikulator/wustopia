@@ -15,7 +15,7 @@ VOLUME [ "/app/migrations", "/app/config" ]
 
 # app dir
 COPY webapp ${APP_DIR}/webapp
-COPY .git/refs/heads/master ${APP_DIR}/version.txt
+COPY .git/HEAD ${APP_DIR}/version.txt
 COPY app.ini app.py babel.cfg config.py.example entrypoint.sh manage.py requirements.txt tests.py worker.py ${APP_DIR}/
 COPY nginx.conf /etc/nginx/nginx.conf
 RUN chmod 777 -R /run/

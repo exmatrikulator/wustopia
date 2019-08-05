@@ -237,9 +237,9 @@ def help():
 
 @app.route("/help/building/<id>-<slug>")
 def help_building(id,slug):
-    costs = db.session.query(BuildCost,BuildCostResource, Resource) \
-        .join(BuildCostResource) \
-        .join(Resource) \
+    costs = db.session.query(BuildCost, BuildCost, Resource, BuildCostResource) \
+        .join(BuildCostResource.buildcost) \
+        .join(Resource, BuildCostResource.resource) \
         .filter(BuildCost.placecategory_id == id) \
         .order_by(db.asc('level')) \
         .all()
