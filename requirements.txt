@@ -24,7 +24,7 @@ Mako==1.1.6
 MarkupSafe==2.0.1
 overpy==0.4
 packaging==21.3
-Pillow==5.2.0
+Pillow==10.3.0
 pluggy==1.0.0
 pojson==0.3
 polib==1.2.0
