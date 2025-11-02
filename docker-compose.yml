@@ -3,16 +3,20 @@ services:
   redis:
     image: redis
   db:
-    image: postgres
+    image: postgres:9
     volumes:
       - data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: wustopia
+      POSTGRES_USER: wustopia
+      POSTGRES_PASSWORD: wustopia
   web:
     build: .
     image: exmatrikulator/wustopia
     volumes:
       - config:/app/config
       - migrations:/app/migrations
-      #- .:/app
+      - .:/app
     depends_on:
       - db
     ports:

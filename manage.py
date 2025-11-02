@@ -208,7 +208,7 @@ def pybabel_compile():
     localeDirs = [name for name in os.listdir("webapp/translations")]
     for locale in localeDirs:
         print("gen: " + locale)
-        input = convert("webapp/translations/%s/LC_MESSAGES/messages.po" % locale)
+        input = convert(po_file="webapp/translations/%s/LC_MESSAGES/messages.po" % locale, domain="messages")
         name = "webapp/static/translations/%s.json" % locale
         with open(name, 'w') as f:
             f.write("{'wustopia': %s }" % input)

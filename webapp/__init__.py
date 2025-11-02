@@ -20,7 +20,7 @@ def session_add(model):
 
 app = Flask(__name__)
 app.config.from_object(rq_dashboard.default_settings)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@db/postgres?client_encoding=utf8'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://wustopia:wustopia@db/postgres?client_encoding=utf8'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['REDIS_URI'] = "redis://redis:6379"
 app.config['REDIS_HOST'] = "redis"

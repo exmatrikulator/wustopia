@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.8
 
 # expose web server port
 # only http, for ssl use reverse proxy
