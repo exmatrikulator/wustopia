@@ -43,6 +43,6 @@ six==1.17.0
 SQLAlchemy==1.2.11
 tomli==1.2.3
 typing_extensions==4.1.1
-Werkzeug==0.14.1
+Werkzeug==3.0.6
 WTForms==2.2.1
 zipp==3.6.0
