@@ -19,7 +19,7 @@ graphviz==0.8.4
 importlib-metadata==4.8.3
 iniconfig==1.1.1
 itsdangerous==2.0.1
-Jinja2==3.0.3
+Jinja2==3.1.6
 Mako==1.1.6
 MarkupSafe==2.0.1
 overpy==0.4
